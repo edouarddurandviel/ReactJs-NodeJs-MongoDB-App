@@ -1,7 +1,7 @@
 ## ReactJs-NodeJs-MongoDB-App
 
-Frontend "React.js"
-Backend node.js express.js connecté à une base de données NoSQL, MongoDB
+Frontend: "React.js"
+Backend: "node.js", "express.js", connecté à une base de données NoSQL, "MongoDB"
 
 ### Docker
 
