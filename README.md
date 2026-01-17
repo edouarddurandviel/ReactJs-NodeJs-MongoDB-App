@@ -24,7 +24,7 @@ For mongosh initialization command
 mongodump --db test --gzip --archive=".\data\test.archive.gz"
 
 # restore dump
-mongorestore --archive=/docker-entrypoint-initdb.d/test.archive.gz --gzip --username "root" --password "edouard" --authenticationDatabase admin --archive=".\_codebase\mongo\data\test.archive.gz"
+mongorestore --archive=/docker-entrypoint-initdb.d/test.archive.gz --gzip --username "root" --password "edouard" --authenticationDatabase admin --archive=".\data\test.archive.gz"
 ```
 
 
