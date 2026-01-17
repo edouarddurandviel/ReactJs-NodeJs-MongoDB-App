@@ -13,7 +13,16 @@ const Input = (props: SimpleInputProps) => {
   return (
     <FieldSet>
       <Label>{label}</Label>
-      <InputField value={(value as Value) ?? ""} id={id} type={type} onChange={(e) => setValue(e.target.value)} placeholder={placeholder} autoFocus={autoFocus} />
+      <InputField 
+        value={(value as Value) ?? ""} 
+        id={id} 
+        type={type} 
+        onChange={(e) => {
+          setValue(e.target.value)
+        }} 
+        placeholder={placeholder} 
+        autoFocus={autoFocus} 
+      />
       {showError && errorMessage}
     </FieldSet>
   );
