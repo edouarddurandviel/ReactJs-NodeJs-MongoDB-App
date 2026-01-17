@@ -4,7 +4,7 @@ set -e
 echo "Importing MongoDB archive..."
 
 mongorestore \
-  --archive=/docker-entrypoint-initdb.d/archive.gz \
+  --archive=/docker-entrypoint-initdb.d/test.archive.gz \
   --gzip \
   --username "$MONGO_INITDB_ROOT_USERNAME" \
   --password "$MONGO_INITDB_ROOT_PASSWORD" \

@@ -21,17 +21,10 @@ For mongosh initialization command
 
 ```bash
 # create dump
-mongodump \
---db test --gzip \
---archive=".\_codebase\mongo\data\test.archive.gz"
+mongodump --db test --gzip --archive=".\data\test.archive.gz"
 
 # restore dump
-mongorestore \
---archive=/docker-entrypoint-initdb.d/archive.gz --gzip \
---username "root" \
---password "edouard" \
---authenticationDatabase admin \
---archive=".\_codebase\mongo\data\test.archive.gz"
+mongorestore --archive=/docker-entrypoint-initdb.d/test.archive.gz --gzip --username "root" --password "edouard" --authenticationDatabase admin --archive=".\_codebase\mongo\data\test.archive.gz"
 ```
 
 

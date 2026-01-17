@@ -6,7 +6,6 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import { connectToDatabase } from "@libs/mongodb";
 import "dotenv/config";
-import { isEnv } from "../_utils/isEnv";
 
 const app = express();
 app.disable("x-powered-by");
@@ -39,7 +38,7 @@ app.use(
   })
 );
 
-const origin = isEnv("github") ? "5173" : "4173";
+const origin = process.env.REACT_API_PORT;
 app.use(
   cors({
     origin: `http://localhost:${origin}` // allow frontend origin

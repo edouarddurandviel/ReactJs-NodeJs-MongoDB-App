@@ -4,7 +4,6 @@ import app from "./_config/app";
 import socketIo from "@libs/socketio";
 import { onError, normalizePort } from "@libs/server";
 import v1Routes from "./_routes/v1";
-import { isEnv } from "./_utils/isEnv";
 
 // Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || "3000");
@@ -14,7 +13,7 @@ app.set("port", port);
 const server = http.createServer(app);
 
 // Initialize With an HTTP server.
-const origin = isEnv("github") ? "5173" : "4173";
+const origin = process.env.REACT_API_PORT;
 const io = socketIo.init(server, {
   path: "/socket",
   cors: {

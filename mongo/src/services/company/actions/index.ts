@@ -5,6 +5,7 @@ import { BSON, ObjectId } from "mongodb";
 
 // READ
 export const getAll = async () => {
+  console.log("ici")
   const companyCollection = await inCollection("company");
   const document = (await companyCollection.find({}).toArray()) as unknown as Company[];
   return document;
