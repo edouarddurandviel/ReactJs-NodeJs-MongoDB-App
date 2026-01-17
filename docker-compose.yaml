@@ -1,0 +1,51 @@
+
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./reactviteStore
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./reactviteStore:/usr/src/app
+      - /usr/src/app/node_modules
+    restart: always
+    depends_on:
+      - backend
+
+  backend:
+    container_name: backend
+    ports:
+    - "3000:3000"
+    build:
+      context: ./mongo
+    environment:
+      NODE_ENV: github
+      MONGO_URI: mongodb://root:edouard@mongodb:27017/test?authSource=admin
+    restart: always
+    depends_on:
+      - mongodb
+    expose:
+      - 3000
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: edouard
+      MONGO_INITDB_DATABASE: test
+    volumes:
+      - mongodb-data:/data/db
+      - ./data:/docker-entrypoint-initdb.d:ro
+    restart: always
+    expose:
+      - 27017
+
+
+volumes:
+  mongodb-data:
+
+
+
+
