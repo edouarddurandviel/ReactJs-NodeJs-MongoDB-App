@@ -1,10 +1,7 @@
+cert
+dist
+node_modules
 
-key.json
-nginx.conf
-AWS-CD-CI.md
 .boto
-
-/node_modules
-/cert
 
 
