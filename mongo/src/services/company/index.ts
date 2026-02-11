@@ -1,5 +1,6 @@
 import { Server } from "socket.io";
 import fs from "fs";
+import * as mongo from "mongodb";
 import { CreateCompany } from "../../_interfaces/company";
 import * as companyActions from "./actions";
 import * as companySockets from "./sockets/clients";
@@ -36,6 +37,14 @@ class CompanyController {
   }
 
   public async createOneCompany(company: CreateCompany) {
+
+    // define price using company name length
+    const newPrice = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" })
+    const len = company.ref.length
+
+    company.publicPrice = newPrice.format(len);
+    company.price = mongo.Decimal128.fromString(len.toFixed(2));
+
     await companyActions.createOne(company);
     companySockets.reloadCompanies();
   }

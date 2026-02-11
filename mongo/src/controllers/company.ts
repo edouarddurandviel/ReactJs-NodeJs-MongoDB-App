@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import CompanyController from "@services/company";
-import * as companySchemas from "../_joiSchemas/company";
-import * as generalSchemas from "../_joiSchemas/general";
+import * as companySchemas from "@schemas/company";
+import * as generalSchemas from "@schemas/general";
 import { handleErrors } from "@libs/server";
 import { sessionToken } from "@middleware/sessionToken";
 import { remotePostAccess } from "@middleware/remoteAccess";
@@ -17,7 +17,6 @@ export default (io: Server) => {
   router.post("/create", async (req: Request, res: Response) => {
     try {
       const data = await companySchemas.fullCompany.validateAsync(req.body);
-
       const result = await companyServices.createOneCompany(data);
 
       res.status(200).json({ err: false, data: result });
@@ -52,7 +51,7 @@ export default (io: Server) => {
     }
   });
 
-  router.patch("/update/:companyId", sessionToken, async (req: Request, res: Response) => {
+  router.patch("/update/:companyId", async (req: Request, res: Response) => {
     try {
       const data = await companySchemas.company.validateAsync(req.body);
       const companyId = await generalSchemas.textSchema.validateAsync(req.params.companyId);

@@ -5,7 +5,6 @@ import { BSON, ObjectId } from "mongodb";
 
 // READ
 export const getAll = async () => {
-  console.log("ici")
   const companyCollection = await inCollection("company");
   const document = (await companyCollection.find({}).toArray()) as unknown as Company[];
   return document;
@@ -13,9 +12,16 @@ export const getAll = async () => {
 
 // WRITE
 export const createOne = async (data: CreateCompany) => {
-  const companyCollection = await inCollection("company");
-  const document = await companyCollection.insertOne(data);
-  return document;
+  try{
+     const companyCollection = await inCollection("company");
+    const document = await companyCollection.insertOne(data);
+    return document;
+
+  }catch(e: any){
+    e.errInfo.details.schemaRulesNotSatisfied.map((e: any) => {
+      console.log(e.details)
+    })
+  }
 };
 
 export const insertMany = async (data: CreateManyCompanies) => {
@@ -28,7 +34,10 @@ export const updateMany = async (isoCode: string, data: CreateCompany) => {
   const companyCollection = await inCollection("company");
   const document = await companyCollection.updateMany(
     { isoCode: isoCode },
-    { set: { "company.ref": data.ref } }
+    { set: { 
+        "company.ref": data.ref 
+      } 
+    }
   );
   return document;
 };
@@ -62,12 +71,19 @@ export const findOne = async (companyId: string) => {
 };
 
 export const updateOne = async (companyId: string, data: CreateCompany) => {
+
   const companyCollection = await inCollection("company");
   const document = await companyCollection.updateOne(
     { _id: new ObjectId(companyId) },
     {
-      $set: { "company.name": data.name },
-      $currentDate: { lastModified: true }
+      $set: { 
+        "name": data.name,
+        "isoCode": data.isoCode,
+        "ref": data.ref,
+      },
+      $currentDate: { 
+        lastModified: true 
+      }
     }
   );
   return document;
@@ -92,5 +108,21 @@ export const setAsReviewed = async (isoCode: string, data: CreateCompany) => {
 export const deleteOne = async (companyId: string) => {
   const companyCollection = await inCollection("company");
   const document = await companyCollection.deleteOne({ _id: new ObjectId(companyId) });
+  return document;
+};
+
+// status: completed / processing / pending
+export const multiStageProcessing_Status = async (status: string) => {
+  const companyCollection = await inCollection("company");
+  const document = await companyCollection.aggregate([ 
+    { $group: { _id: "$_id", total: { $sum: "$price" } } },
+    { $match: { status: status } },
+    { // retreive columns
+      $project: {
+        _id: 1,
+        name: 1
+      }
+    }
+  ]);
   return document;
 };

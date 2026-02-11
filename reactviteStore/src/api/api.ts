@@ -18,7 +18,7 @@ export default {
     },
     update: {
       method: "PATCH",
-      path: "company/replace/:companyId",
+      path: "company/update/:companyId",
     },
     getDocuments: {
       method: "GET",

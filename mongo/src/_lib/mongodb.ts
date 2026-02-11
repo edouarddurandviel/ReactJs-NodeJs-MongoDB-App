@@ -14,7 +14,19 @@ let db: Db;
 export const connectToDatabase = async () => {
   if (db) return;
   client = new MongoClient(uri);
-  await client.connect();
+  if(process.env.NODE_ENV === "development"){
+    const admin = client.db().admin();
+    const result = await admin.command({ ping: 1 });
+
+    console.log("dev mode. Mongo isConnection: " +result.ok)
+
+    if(result.ok !== 1){
+      await client.connect();
+    }
+  }else{
+      await client.connect();
+  }
+
   db = client.db(dbName);
   return db;
 };

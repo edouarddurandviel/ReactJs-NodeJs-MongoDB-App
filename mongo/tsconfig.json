@@ -7,6 +7,7 @@
       "@libs/*": ["./src/_lib/*"],
       "@middleware/*": ["./src/_middleware/*"],
       "@services/*": ["./src/services/*"],
+      "@schemas/*": ["./src/_joiSchemas/*"],
       "*": ["./*"],
     },
     "sourceMap": false,

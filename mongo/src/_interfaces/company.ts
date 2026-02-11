@@ -14,6 +14,8 @@ export type CreateCompany = {
   ref: string;
   name: string;
   isoCode: string;
+  publicPrice: string;
+  price: mongo.Decimal128;
 };
 
 export type CreateManyCompanies = Array<{
