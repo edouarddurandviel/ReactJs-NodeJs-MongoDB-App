@@ -26,9 +26,29 @@ export default {
     },
   },
   users: {
+    all: {
+      method: "GET",
+      path: "user/all",
+    },
+    one: {
+      method: "GET",
+      path: "user/one/:userId",
+    },
     create: {
       method: "POST",
       path: "user/create",
+    },
+    delete: {
+      method: "DELETE",
+      path: "user/delete/:userId",
+    },
+    update: {
+      method: "PATCH",
+      path: "user/update/:userId",
+    },
+    getDocuments: {
+      method: "GET",
+      path: "user/get/documents",
     },
   },
 };
