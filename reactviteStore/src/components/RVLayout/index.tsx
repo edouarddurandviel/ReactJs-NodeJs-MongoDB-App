@@ -1,7 +1,21 @@
-import { NavLink, Outlet } from "react-router";
+import { NavLink, Outlet, useNavigate} from "react-router";
 import { Footer, Header, Main, Menu, PLaceHolder } from "./styles";
+import type { User } from "../../stores/user/interfaces";
+import type { RootState } from "../../stores";
+import * as selectors from "../../stores/rootSelectors";
+import { connect } from "react-redux";
+import { useEffect } from "react";
 
-const Index = () => {
+const Index = ({ user }: LayoutProps) => {
+    const navigate = useNavigate();
+
+  useEffect(() => {
+   if(user){
+    navigate("/");
+   }
+
+  }, [user])
+
   return (
     <PLaceHolder>
       <Header>
@@ -13,6 +27,7 @@ const Index = () => {
             Legacy
           </NavLink>
         </Menu>
+        {user  && user.user.email}
       </Header>
       <Main>
         <Outlet />
@@ -22,4 +37,16 @@ const Index = () => {
   );
 };
 
-export default Index;
+const mapStateToProps = (state: RootState) => {
+  return {
+    user: selectors.user.userSelector(state),
+    userLoading: selectors.user.userLoadingSelector(state),
+  };
+};
+
+interface LayoutProps {
+  user: User | null;
+  userLoading: boolean;
+}
+
+export default connect(mapStateToProps)(Index);

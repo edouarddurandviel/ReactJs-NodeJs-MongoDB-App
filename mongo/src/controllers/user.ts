@@ -34,13 +34,15 @@ export default (io: Server) => {
       const data = await userSchemas.userAuth.validateAsync(req.body);
       const result = await userServices.login(data);
 
-      res.cookie("jwt", result, {
+      res.cookie("jwt", result.token, {
         expires: new Date(Date.now() + 1 * 3600000),
         secure: true,
         httpOnly: true,
         domain: "example.com",
         path: "/"
       });
+
+      res.status(200).json({ err: false, data: result.userDetails });
     } catch (error: any) {
       handleErrors(error);
     }

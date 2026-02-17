@@ -44,6 +44,22 @@ export default {
       data: formData,
     });
   },
+
+   userLogin: (data: Payload) => {
+    const userApi = apiRoutes.users.login;
+
+    const formData = new FormData();
+    formData.append("email", data.data.email);
+    formData.append("password", data.data.password);
+
+    return request({
+      path: userApi.path,
+      params: data.params,
+      method: userApi.method,
+      data: formData,
+    });
+  },
+
   updateOneUser: (data: Payload) => {
     const userApi = apiRoutes.users.update;
 

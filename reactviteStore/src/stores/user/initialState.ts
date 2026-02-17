@@ -5,7 +5,7 @@ import type { User } from "./interfaces";
 export const initialState = {
   // Payload
   users: [] as User[],
-  user: {} as User,
+  user: null as unknown as User,
   addUser: {} as User,
   deleteUser: {} as User,
   filteredUsers: [] as User[],

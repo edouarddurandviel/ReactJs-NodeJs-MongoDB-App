@@ -50,32 +50,41 @@ exports.handler = async (event) => {
 ### Lambda: FormatCurrency
 ```javascript
 exports.handler = async (event) => {
-    // event.inputValue expected, e.g. { "inputValue": 2000 }
-    const value = event.inputValue || 0;
-    const multiplied = value * 10;
+    const numberToFormat = event.multipliedValue ?? 0;
+    const formatted = new Intl.NumberFormat('de-DE', {
+        style: 'currency',
+        currency: 'EUR'
+    }).format(numberToFormat);
 
-    return {
-        multipliedValue: multiplied
-    };
+    return { euroValue: formatted };
 };
+
 ```
 
-### transforming data: query language
+## transforming data: query language
 JSONata: using JSONPath
 
 Intrinsic functions (States.MathAdd), WorkflowStatesState, MachinesState, QueryLanguage, input/output configuration
 
-#### Service integration
+## Service integration
 any aws services
 
-#### Service integration type
+## Service integration type
 AWS SDK
 Optimized with state 
 
-#### Service integration patterns
-- Express workflow: Request a response: default hhtp response
-- Std workflow: Run a job (.sync) stepfunctions and jobs
-- Std workflow: callbacks with associated tasks tokens (.waitForTaskToken)
+## Service integration patterns
+- Express workflow: Request a response: default http response
+- Standard workflow: Run a job (.sync) step functions and jobs
+- Standard workflow: callbacks with associated tasks tokens (.waitForTaskToken)
 
 #### Execution
 State machine executions are instances where you run your workflow to perform tasks.
+
+```bash
+aws stepfunctions test-state \
+    --definition '{"Type": "Pass", "InputPath": "$.payload", "Parameters": {"data": 1}, "ResultPath": "$.result", "OutputPath": "$.result.data", "Next": "Another State"}' \
+    --role-arn arn:aws:iam::account-id:role/myRole \
+    --input '{"payload": {"foo": "bar"}}' \
+    --inspection-level DEBUG
+```

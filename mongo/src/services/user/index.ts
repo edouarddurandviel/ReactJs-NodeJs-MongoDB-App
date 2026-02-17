@@ -46,9 +46,6 @@ class UserController {
       const token = jwt.sign(payload, secret, { expiresIn: "1h" });
       await userActions.storeUserToken(token, user._id);
 
-      // create private ws connection
-      this._io.join(user._id.toString());
-
       const roles = await userActions.getUserData(user._id.toString());
 
       const userDetails = {
