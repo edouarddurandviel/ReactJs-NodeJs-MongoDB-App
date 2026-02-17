@@ -34,7 +34,7 @@ class builder {
     let serialized: string = '?'
     for (let key in query) {
       if (query.hasOwnProperty(key)) {
-          if (serialized !== "") {
+          if (serialized !== '?') {
               serialized += "&";
           }
           serialized += key + "=" + query[key];
