@@ -33,6 +33,7 @@ const Index = ({ dispatch, userLoading }: UserProps) => {
 
   return (
     <Container>
+      <p>user: test1@test1.com, password: password</p>
         <Formiz connect={form}>
           <Form
             onSubmit={(e) => {
