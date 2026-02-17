@@ -82,11 +82,19 @@ const Index = ({ dispatch, userLoading }: UserProps) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
+<<<<<<< HEAD
+=======
+    user: selectors.user.userSelector(state),
+>>>>>>> f90b597a09916907aaeda7eef7aeaa1f79233c1e
     userLoading: selectors.user.userLoadingSelector(state),
   };
 };
 
 interface UserProps {
+<<<<<<< HEAD
+=======
+  user: User | null;
+>>>>>>> f90b597a09916907aaeda7eef7aeaa1f79233c1e
   userLoading: boolean;
   dispatch: AppDispatch;
 }
