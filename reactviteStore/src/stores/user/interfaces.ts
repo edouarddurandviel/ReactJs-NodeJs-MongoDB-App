@@ -8,7 +8,7 @@ export type User = {
   _id?: string;
 };
 
-export type Email = {
+export type UserConnected = {
   email: string;
 };
 
