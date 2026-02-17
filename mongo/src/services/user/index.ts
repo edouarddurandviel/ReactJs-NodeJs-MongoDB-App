@@ -49,8 +49,7 @@ class UserController {
       const roles = await userActions.getUserData(user._id.toString());
 
       const userDetails = {
-        user: user,
-        role: roles
+        email: roles[0].email
       };
 
       return { userDetails, token };

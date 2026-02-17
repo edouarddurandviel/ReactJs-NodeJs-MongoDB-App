@@ -8,6 +8,10 @@ export type User = {
   _id?: string;
 };
 
+export type Email = {
+  email: string;
+};
+
 export type Documents = {
   _id: string;
   name: string;

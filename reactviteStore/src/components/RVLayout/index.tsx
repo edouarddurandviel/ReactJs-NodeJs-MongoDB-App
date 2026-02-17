@@ -1,6 +1,6 @@
 import { NavLink, Outlet, useNavigate} from "react-router";
 import { Footer, Header, Main, Menu, PLaceHolder } from "./styles";
-import type { User } from "../../stores/user/interfaces";
+import type { Email } from "../../stores/user/interfaces";
 import type { RootState } from "../../stores";
 import * as selectors from "../../stores/rootSelectors";
 import { connect } from "react-redux";
@@ -27,7 +27,7 @@ const Index = ({ user }: LayoutProps) => {
             Legacy
           </NavLink>
         </Menu>
-        {user  && user.user.email}
+        {user && user.email}
       </Header>
       <Main>
         <Outlet />
@@ -45,7 +45,7 @@ const mapStateToProps = (state: RootState) => {
 };
 
 interface LayoutProps {
-  user: User | null;
+  user: Email | null;
   userLoading: boolean;
 }
 
