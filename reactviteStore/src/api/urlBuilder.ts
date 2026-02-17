@@ -30,7 +30,7 @@ class builder {
     return newPath;
   }
 
-  #serialize(query: any){
+  #serialize(query: QueryObject){
     let serialized: string = '?'
     for (let key in query) {
       if (query.hasOwnProperty(key)) {
