@@ -29,16 +29,18 @@ export default (io: Server) => {
     }
   });
 
-  router.post("/login", async (req: Request, res: Response) => {
+  router.get("/login", async (req: Request, res: Response) => {
     try {
-      const data = await userSchemas.userAuth.validateAsync(req.body);
-      const result = await userServices.login(data);
+    
+      const email = await userSchemas.textSchema.validateAsync(req.query.email);
+      const password = await userSchemas.textSchema.validateAsync(req.query.password);
+      const result = await userServices.login(email, password);
 
       res.cookie("jwt", result.token, {
         expires: new Date(Date.now() + 1 * 3600000),
-        secure: true,
         httpOnly: true,
-        domain: "example.com",
+        secure: false,
+        sameSite: 'lax',
         path: "/"
       });
 

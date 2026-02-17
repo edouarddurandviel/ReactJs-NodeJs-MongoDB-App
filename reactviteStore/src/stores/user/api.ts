@@ -47,17 +47,16 @@ export default {
 
    userLogin: (data: Payload) => {
     const userApi = apiRoutes.users.login;
-
-    const formData = new FormData();
-    formData.append("email", data.data.email);
-    formData.append("password", data.data.password);
-
-    return request({
-      path: userApi.path,
-      params: data.params,
-      method: userApi.method,
-      data: formData,
-    });
+    if(data.query){
+      return request({
+        path: userApi.path,
+        query: {
+          email: data.query.email,
+          password: data.query.password
+        },
+        method: userApi.method,
+      });
+    }
   },
 
   updateOneUser: (data: Payload) => {

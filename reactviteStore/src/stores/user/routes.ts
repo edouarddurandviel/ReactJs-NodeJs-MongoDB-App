@@ -22,6 +22,7 @@ export const userMiddleware: Middleware = (api) => (next) => async (action: unkn
             type: actionTypes.USER_LOGIN_LOADING,
           });
           const resp = await requests.userLogin(typedAction.payload);
+    
           dispatch({
             type: actionTypes.USER_LOGIN_SUCCESS,
             payload: resp.data.data,

@@ -41,7 +41,8 @@ app.use(
 const origin = process.env.REACT_API_PORT;
 app.use(
   cors({
-    origin: `http://localhost:${origin}` // allow frontend origin
+    origin: `http://localhost:${origin}`, // allow frontend origin
+    credentials: true 
   })
 );
 app.use(bodyParser.json());

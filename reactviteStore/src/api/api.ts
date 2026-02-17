@@ -39,7 +39,7 @@ export default {
       path: "user/create",
     },
     login: {
-      method: "POST",
+      method: "GET",
       path: "user/login",
     },
     delete: {

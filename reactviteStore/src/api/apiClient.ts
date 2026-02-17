@@ -7,15 +7,19 @@ export default (props: { path: string; method: string; params?: PathParamsObject
 
   const apiClient = axios.create({
     baseURL: "http://localhost:3000/api/v1",
+    withCredentials: true,
     headers: {
       "Content-Type": "application/json",
     },
   });
 
   return apiClient.request({
-    url: helper.UrlBuilder(props.path, props.params),
+    url: helper.UrlBuilder(
+      props.path, 
+      props.params, 
+      props.query
+    ),
     method: props.method,
-    ...(props.data && { data: props.data }),
-    ...(props.query && { query: props.query }),
+    ...(props.data && { data: props.data })
   });
 };

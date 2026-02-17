@@ -37,12 +37,12 @@ class UserController {
     return user;
   }
 
-  public async login(authUser: AuthUser) {
-    const user = await userActions.getOneUserWithEmail(authUser.email);
-    if (await argon2.verify(user.password, authUser.password)) {
+  public async login(email: string, password: string) {
+    const user = await userActions.getOneUserWithEmail(email);
+    if (await argon2.verify(user.password, password)) {
       // create jwt token
       const payload = { userId: user._id };
-      const secret = authUser.password;
+      const secret = password;
       const token = jwt.sign(payload, secret, { expiresIn: "1h" });
       await userActions.storeUserToken(token, user._id);
 

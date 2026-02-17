@@ -30,14 +30,34 @@ class builder {
     return newPath;
   }
 
-  UrlBuilder(path: string, params?: PathParamsObject) {
+  #serialize(query: any){
+    let serialized: string = ''
+     for (let key in query) {
+              if (query.hasOwnProperty(key)) {
+                  if (serialized !== "") {
+                      serialized += "&";
+                  }
+                  serialized += key + "=" + query[key];
+              }
+          }
+          return serialized
+  }
+
+  UrlBuilder(path: string, params?: PathParamsObject, query?: any) {
     if (params) {
       const Params = this.#getParam(path);
       const verifiedParamObject = params && this.#verifyParams(Params, params);
-      const CUrl = verifiedParamObject ? this.#createUrl(path, verifiedParamObject) : path;
+
+      let serialized = query && this.#serialize(query)
+     
+      const CUrl = verifiedParamObject ? 
+      this.#createUrl(path, verifiedParamObject) : 
+      `${serialized && path+'?'+serialized || path}`;
+
       return CUrl;
     } else {
-      return path;
+      let serialized = query && this.#serialize(query)
+      return `${serialized && path+'?'+serialized || path}`;
     }
   }
 }

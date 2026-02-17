@@ -32,7 +32,7 @@ export interface ResponseState {
 export type Payload = {
   data: User;
   params: PathParamsObject;
-  query?: object;
+  query?: any;
 };
 
 export type Action = {
