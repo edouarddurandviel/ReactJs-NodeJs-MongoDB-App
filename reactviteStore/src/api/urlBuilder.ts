@@ -56,14 +56,14 @@ class builder {
 
       const url = verifiedParamObject ? 
         this.#createUrl(path, verifiedParamObject) : 
-        `${serialized && path+serialized || path}`;
+        `${(serialized && path+serialized) || path}`;
 
       return url;
     } else {
       if(query){
         serialized = this.#serialize(query)
       }
-      return `${serialized && path+serialized || path}`;
+      return `${(serialized && path+serialized) || path}`;
     }
   }
 }
