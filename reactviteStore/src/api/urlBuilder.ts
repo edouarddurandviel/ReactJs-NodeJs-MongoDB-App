@@ -54,11 +54,11 @@ class builder {
         serialized = this.#serialize(query)
       }
 
-      const CUrl = verifiedParamObject ? 
+      const url = verifiedParamObject ? 
         this.#createUrl(path, verifiedParamObject) : 
         `${serialized && path+serialized || path}`;
 
-      return CUrl;
+      return url;
     } else {
       if(query){
         serialized = this.#serialize(query)
