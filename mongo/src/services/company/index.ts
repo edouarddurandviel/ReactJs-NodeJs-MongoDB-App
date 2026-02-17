@@ -6,9 +6,9 @@ import * as companyActions from "./actions";
 import * as companySockets from "./sockets/clients";
 import CompanyAdminSocket from "./sockets/admin";
 import { getObject } from "../aws/s3/getObject";
-//import { redisClient } from "@libs/redis";
 import path from "path";
 import { open } from "fs/promises";
+//import { redisClient } from "@libs/redis";
 //import { RedisArgument } from "redis";
 
 class CompanyController {

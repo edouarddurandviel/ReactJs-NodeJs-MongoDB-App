@@ -1,7 +1,14 @@
 import { NavLink, Outlet } from "react-router";
 import { Footer, Header, Main, Menu, PLaceHolder } from "./styles";
+import type { User } from "../../stores/user/interfaces";
+import { useEffect } from "react";
 
-const Index = () => {
+const Index = ({ data }: LayoutProps) => {
+
+  useEffect(() => {
+  console.log("ici" + data)
+  }, [data])
+
   return (
     <PLaceHolder>
       <Header>
@@ -13,6 +20,7 @@ const Index = () => {
             Legacy
           </NavLink>
         </Menu>
+        {data && data.user && data.user.email}
       </Header>
       <Main>
         <Outlet />
@@ -21,5 +29,12 @@ const Index = () => {
     </PLaceHolder>
   );
 };
+
+interface LayoutProps {
+ data: { 
+  user: User | null;
+  userLoading: boolean;
+} | null;
+}
 
 export default Index;

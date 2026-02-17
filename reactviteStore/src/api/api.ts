@@ -38,6 +38,10 @@ export default {
       method: "POST",
       path: "user/create",
     },
+    login: {
+      method: "POST",
+      path: "user/login",
+    },
     delete: {
       method: "DELETE",
       path: "user/delete/:userId",

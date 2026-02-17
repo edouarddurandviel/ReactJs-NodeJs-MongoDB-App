@@ -16,6 +16,24 @@ export const userMiddleware: Middleware = (api) => (next) => async (action: unkn
 
   if (!typedAction.socket) {
     switch (typedAction.type) {
+       case actionTypes.USER_LOGIN_REQUEST:
+        try {
+          dispatch({
+            type: actionTypes.USER_LOGIN_LOADING,
+          });
+          const resp = await requests.userLogin(typedAction.payload);
+          dispatch({
+            type: actionTypes.USER_LOGIN_SUCCESS,
+            payload: resp.data.data,
+          });
+        } catch (error: unknown) {
+          dispatch({
+            type: actionTypes.USER_LOGIN_FAILURE,
+            payload: error,
+          });
+        }
+        break;
+
       case actionTypes.GET_ALL_USERS_REQUEST:
         try {
           dispatch({
