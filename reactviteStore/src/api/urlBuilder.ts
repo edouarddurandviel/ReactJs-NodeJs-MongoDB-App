@@ -1,4 +1,4 @@
-import type { PathParamsObject } from "./interface";
+import type { PathParamsObject, QueryObject } from "./interface";
 
 // Class Method definitions
 class builder {
@@ -43,7 +43,7 @@ class builder {
     return serialized
   }
 
-  UrlBuilder(path: string, params?: PathParamsObject, query?: any) {
+  UrlBuilder(path: string, params?: PathParamsObject, query?: QueryObject) {
     const Params = this.#getParam(path);
     let serialized: string | null = null
 
