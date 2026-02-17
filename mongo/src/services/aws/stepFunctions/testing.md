@@ -6,10 +6,10 @@ Here’s a **very short, real-world example** showing **unit testing + service i
 
 ### What it does
 
-* Accepts an order
-* Calls a Lambda to validate it
-* Sends a message to SNS if valid
-* Otherwise marks as rejected
+- Accepts an order
+- Calls a Lambda to validate it
+- Sends a message to SNS if valid
+- Otherwise marks as rejected
 
 ---
 
@@ -63,9 +63,9 @@ Here’s a **very short, real-world example** showing **unit testing + service i
 Write a test for `ValidateOrder` Lambda (e.g., using Jest for Node.js):
 
 ```js
-const { handler } = require('../validateOrder');
+const { handler } = require("../validateOrder");
 
-test('valid order returns OK', async () => {
+test("valid order returns OK", async () => {
   const event = { orderId: "123", amount: 50 };
   const result = await handler(event);
   expect(result.status).toBe("OK");
@@ -92,8 +92,8 @@ Result should show it would go to `"NotifyOrder"` branch.
 
 In a test/dev environment:
 
-* Replace the real SNS Topic ARN with a **Test SNS Topic**
-* Verify messages were published
+- Replace the real SNS Topic ARN with a **Test SNS Topic**
+- Verify messages were published
 
 ## SNS (Simple Notification Service) Example using AWS SDK v3 (Node.js):
 
@@ -102,15 +102,16 @@ import { SNSClient, PublishCommand } from "@aws-sdk/client-sns";
 
 const client = new SNSClient({ region: "us-east-1" });
 
-await client.send(new PublishCommand({
-  TopicArn: process.env.TEST_TOPIC_ARN,
-  Message: JSON.stringify(order),
-}));
+await client.send(
+  new PublishCommand({
+    TopicArn: process.env.TEST_TOPIC_ARN,
+    Message: JSON.stringify(order)
+  })
+);
 ```
 
-
-
 ## SFN (Step FuNction) Testing with AWS SDK v3 (Node.js):
+
 ```js
 const { SFNClient, TestStateCommand } = require("@aws-sdk/client-sfn");
 
@@ -129,9 +130,10 @@ test("Choice state branches correctly", async () => {
     }
   });
   const result = await client.send(command);
-  expect(JSON.parse(result.output)).toMatchObject({ /* expected output */ });
+  expect(JSON.parse(result.output)).toMatchObject({
+    /* expected output */
+  });
 });
-
 ```
 
 Then assert the message arrived (e.g., using a test subscription or local simulator).
@@ -158,4 +160,3 @@ and point Step Functions, Lambda and SNS calls to it so tests run **offline**.
 | **LocalStack**               | Simulates AWS services locally for integration |
 
 ---
-

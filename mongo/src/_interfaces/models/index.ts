@@ -10,7 +10,7 @@ export interface Company extends WithId<Document> {
 export interface User extends WithId<Document> {
   email: string;
   password: string;
-  _id: ObjectId
+  _id: ObjectId;
 }
 
 export interface UserToken extends WithId<Document> {

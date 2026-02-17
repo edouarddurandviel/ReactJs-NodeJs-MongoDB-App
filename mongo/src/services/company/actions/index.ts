@@ -12,15 +12,14 @@ export const getAll = async () => {
 
 // WRITE
 export const createOne = async (data: CreateCompany) => {
-  try{
-     const companyCollection = await inCollection("company");
+  try {
+    const companyCollection = await inCollection("company");
     const document = await companyCollection.insertOne(data);
     return document;
-
-  }catch(e: any){
+  } catch (e: any) {
     e.errInfo.details.schemaRulesNotSatisfied.map((e: any) => {
-      console.log(e.details)
-    })
+      console.log(e.details);
+    });
   }
 };
 
@@ -34,9 +33,10 @@ export const updateMany = async (isoCode: string, data: CreateCompany) => {
   const companyCollection = await inCollection("company");
   const document = await companyCollection.updateMany(
     { isoCode: isoCode },
-    { set: { 
-        "company.ref": data.ref 
-      } 
+    {
+      set: {
+        "company.ref": data.ref
+      }
     }
   );
   return document;
@@ -66,23 +66,22 @@ export const replaceOne = async (companyId: string, data: CreateCompany) => {
 export const findOne = async (companyId: string) => {
   const companyCollection = await inCollection("company");
   const nid = new BSON.ObjectId(companyId);
-  const document = await companyCollection.findOne({ _id: nid }) as unknown as Company;
+  const document = (await companyCollection.findOne({ _id: nid })) as unknown as Company;
   return document;
 };
 
 export const updateOne = async (companyId: string, data: CreateCompany) => {
-
   const companyCollection = await inCollection("company");
   const document = await companyCollection.updateOne(
     { _id: new ObjectId(companyId) },
     {
-      $set: { 
-        "name": data.name,
-        "isoCode": data.isoCode,
-        "ref": data.ref,
+      $set: {
+        name: data.name,
+        isoCode: data.isoCode,
+        ref: data.ref
       },
-      $currentDate: { 
-        lastModified: true 
+      $currentDate: {
+        lastModified: true
       }
     }
   );
@@ -114,10 +113,11 @@ export const deleteOne = async (companyId: string) => {
 // status: completed / processing / pending
 export const multiStageProcessing_Status = async (status: string) => {
   const companyCollection = await inCollection("company");
-  const document = await companyCollection.aggregate([ 
+  const document = await companyCollection.aggregate([
     { $group: { _id: "$_id", total: { $sum: "$price" } } },
     { $match: { status: status } },
-    { // retreive columns
+    {
+      // retreive columns
       $project: {
         _id: 1,
         name: 1

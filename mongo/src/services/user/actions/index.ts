@@ -17,7 +17,10 @@ export const getOneUserWithEmail = async (email: string) => {
 
 export const getAllUsers = async () => {
   const userCollection = await inCollection("user");
-  const users = (await userCollection.find({}).sort({ email: 1 }).toArray()) as unknown as Company[];
+  const users = (await userCollection
+    .find({})
+    .sort({ email: 1 })
+    .toArray()) as unknown as Company[];
   return users;
 };
 
@@ -99,7 +102,9 @@ export const createOneUser = async (data: CreateUser) => {
 export const searchForOneUser = async (email: string) => {
   const userCollection = await inCollection("user");
   const search = `/${email}/`;
-  const searchedUser = (await userCollection.find({ email: search }).toArray()) as unknown as User[];
+  const searchedUser = (await userCollection
+    .find({ email: search })
+    .toArray()) as unknown as User[];
   return searchedUser;
 };
 

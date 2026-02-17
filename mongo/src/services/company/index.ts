@@ -37,10 +37,9 @@ class CompanyController {
   }
 
   public async createOneCompany(company: CreateCompany) {
-
     // define price using company name length
-    const newPrice = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" })
-    const len = company.ref.length
+    const newPrice = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" });
+    const len = company.ref.length;
 
     company.publicPrice = newPrice.format(len);
     company.price = mongo.Decimal128.fromString(len.toFixed(2));
