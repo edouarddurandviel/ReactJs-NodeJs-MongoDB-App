@@ -88,7 +88,7 @@ export default (state: State = initialState, action: Action): State => {
         break;
 
       case actionType.USER_LOGIN_LOADING:
-       draft.userLoading = true;
+        draft.userLoading = true;
         break;
       case actionType.USER_LOGIN_SUCCESS:
         draft.userLoading = false;
@@ -98,7 +98,6 @@ export default (state: State = initialState, action: Action): State => {
       case actionType.USER_LOGIN_FAILURE:
         draft.userErrors = true;
         break;
-
 
       case actionType.RESET:
         if (action.payload) {

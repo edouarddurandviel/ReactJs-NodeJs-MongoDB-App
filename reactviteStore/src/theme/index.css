@@ -24,18 +24,16 @@ body {
   place-items: center;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-input{
+input {
   height: 31px !important;
   line-height: 31px !important;
   padding: 0 8px !important;
   box-sizing: border-box;
 }
-
-
 
 button {
   border-radius: 8px;
@@ -48,6 +46,5 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
-
 
 @layer reset, base, tokens, recipes, utilities;

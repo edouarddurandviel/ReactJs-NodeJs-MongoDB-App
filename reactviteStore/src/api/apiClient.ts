@@ -2,13 +2,7 @@ import axios from "axios";
 import urlBuilder from "./urlBuilder";
 import type { PathParamsObject, QueryObject } from "./interface";
 
-export default (props: { 
-  path: string; 
-  method: string; 
-  params?: PathParamsObject; 
-  data?: any; 
-  query?: QueryObject 
-}) => {
+export default (props: { path: string; method: string; params?: PathParamsObject; data?: any; query?: QueryObject }) => {
   const helper = new urlBuilder();
 
   const apiClient = axios.create({
@@ -18,14 +12,10 @@ export default (props: {
       "Content-Type": "application/json",
     },
   });
-  
+
   return apiClient.request({
-    url: helper.UrlBuilder(
-      props.path, 
-      props.params, 
-      props.query
-    ),
+    url: helper.UrlBuilder(props.path, props.params, props.query),
     method: props.method,
-    ...(props.data && { data: props.data })
+    ...(props.data && { data: props.data }),
   });
 };

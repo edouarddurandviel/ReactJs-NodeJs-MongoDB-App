@@ -2,26 +2,26 @@ import { fontSize, primary, radius, secondary } from "../../theme/variables";
 import styled from "styled-components";
 
 export const Button = styled.button`
-    width: auto;
-   height: 31px;
-   padding: 0 20px;
-   border-radius: ${radius};
-   text-align: center;
-   font-size: ${fontSize};
-   line-height: 31px;
-   color: #ffffff;
-   border: none;
-   font-weight: 500;
-   background-color: ${primary};
- 
-   &:hover {
-     background-color: ${secondary};
-   }
-   &:active,
-   &:focus {
-     border: none;
-     outline: none;
-   }
+  width: auto;
+  height: 31px;
+  padding: 0 20px;
+  border-radius: ${radius};
+  text-align: center;
+  font-size: ${fontSize};
+  line-height: 31px;
+  color: #ffffff;
+  border: none;
+  font-weight: 500;
+  background-color: ${primary};
+
+  &:hover {
+    background-color: ${secondary};
+  }
+  &:active,
+  &:focus {
+    border: none;
+    outline: none;
+  }
 `;
 
 export const Icon = styled.i`

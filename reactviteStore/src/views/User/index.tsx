@@ -5,11 +5,10 @@ import * as selectors from "../../stores/rootSelectors";
 import * as actions from "../../stores/rootActions";
 import type { AppDispatch, RootState } from "../../stores";
 import { RVInput, RVLoadingButton } from "../../components";
-import { BthForm, Container, Form} from "../../components/RVLayout/styles";
+import { BthForm, Container, Form } from "../../components/RVLayout/styles";
 import type { User } from "../../stores/user/interfaces";
 
 const Index = ({ dispatch, userLoading }: UserProps) => {
-
   const form = useForm({
     initialValues: {
       email: "",
@@ -18,69 +17,62 @@ const Index = ({ dispatch, userLoading }: UserProps) => {
     onSubmit: (values) => {
       handleSubmitLogin(values);
       form.reset();
-    }
+    },
   });
 
- 
   const handleSubmitLogin = (values: User) => {
-    console.log(values)
+    console.log(values);
     dispatch(
       actions.user.userLogin({
         query: {
           email: values.email,
-          password: values.password
-        }
+          password: values.password,
+        },
       }),
     );
   };
 
-
   return (
     <Container>
       <p>user: test1@test1.com, password: password</p>
-        <Formiz connect={form}>
-          <Form
-            onSubmit={(e) => {
-              e.preventDefault();
-              form.submit();
-            }}
-          >
-            <RVInput
-              name="email"
-              type="text"
-              id="1"
-              label="Email"
-              required="Email is required"
-              validations={[
-                {
-                  handler: isRequired(),
-                  message: "Email is required",
-                },
-              ]}
-            />
-            <RVInput
-              name="password"
-              type="text"
-              id="2"
-              label="Password"
-              required="Password is required"
-              validations={[
-                {
-                  handler: isRequired(),
-                  message: "Password is required",
-                },
-              ]}
-            />
-            <BthForm>
-              <RVLoadingButton 
-                type="submit" 
-                content="Submit" 
-                disabled={userLoading} 
-                loading={userLoading} 
-              />
-            </BthForm>
-          </Form>
-        </Formiz>
+      <Formiz connect={form}>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.submit();
+          }}
+        >
+          <RVInput
+            name="email"
+            type="text"
+            id="1"
+            label="Email"
+            required="Email is required"
+            validations={[
+              {
+                handler: isRequired(),
+                message: "Email is required",
+              },
+            ]}
+          />
+          <RVInput
+            name="password"
+            type="text"
+            id="2"
+            label="Password"
+            required="Password is required"
+            validations={[
+              {
+                handler: isRequired(),
+                message: "Password is required",
+              },
+            ]}
+          />
+          <BthForm>
+            <RVLoadingButton type="submit" content="Submit" disabled={userLoading} loading={userLoading} />
+          </BthForm>
+        </Form>
+      </Formiz>
     </Container>
   );
 };

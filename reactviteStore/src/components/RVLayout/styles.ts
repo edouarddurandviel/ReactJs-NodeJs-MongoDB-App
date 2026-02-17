@@ -27,7 +27,7 @@ export const Menu = styled.div`
   height: 31px;
   width: 100%;
 
-  .links{
+  .links {
     display: block;
     float: left;
     width: auto;
@@ -43,10 +43,10 @@ export const Menu = styled.div`
     border: 1px solid ${primary};
     box-sizing: border-box;
 
-    &:hover{
-     background-color: ${secondary};
-     border: 1px solid ${primary};
-     box-sizing: border-box;
+    &:hover {
+      background-color: ${secondary};
+      border: 1px solid ${primary};
+      box-sizing: border-box;
     }
   }
 `;

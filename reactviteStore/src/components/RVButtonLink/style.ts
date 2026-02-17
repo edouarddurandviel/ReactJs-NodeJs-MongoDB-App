@@ -23,11 +23,11 @@ export const ButtonLink = styled.div`
     outline: none;
   }
 
-  a{
+  a {
     line-height: 31px;
     color: #ffffff;
-    &:hover{
-    color: #ffffff;
+    &:hover {
+      color: #ffffff;
     }
   }
 `;

@@ -4,5 +4,5 @@ import userReducers from "./user/reducers";
 
 export const rootReducer = combineReducers({
   company: companyReducers,
-  user: userReducers
+  user: userReducers,
 });

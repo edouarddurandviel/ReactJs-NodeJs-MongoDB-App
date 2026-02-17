@@ -5,7 +5,7 @@ import requests from "./api";
 export const userLogin = (data: object) => {
   return {
     type: actionType.USER_LOGIN_REQUEST,
-    payload: data
+    payload: data,
   };
 };
 

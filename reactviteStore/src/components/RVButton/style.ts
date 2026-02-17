@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 import { fontSize, primary, radius, secondary } from "../../theme/variables";
 
 export const Button = styled.button`

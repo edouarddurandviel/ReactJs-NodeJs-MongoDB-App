@@ -45,14 +45,14 @@ export default {
     });
   },
 
-   userLogin: (data: Payload) => {
+  userLogin: (data: Payload) => {
     const userApi = apiRoutes.users.login;
-    if(data.query){
+    if (data.query) {
       return request({
         path: userApi.path,
         query: {
           email: data.query.email,
-          password: data.query.password
+          password: data.query.password,
         },
         method: userApi.method,
       });

@@ -112,9 +112,7 @@ const Index = ({ dispatch, companies, companiesLoading, saveLoading }: HomeProps
             }}
           />
 
-          <FormActionsLabel>
-            {newEntry ? "Add new entry" : "Edit document"}
-          </FormActionsLabel>
+          <FormActionsLabel>{newEntry ? "Add new entry" : "Edit document"}</FormActionsLabel>
         </FormActions>
 
         <Formiz connect={form}>
@@ -176,30 +174,12 @@ const Index = ({ dispatch, companies, companiesLoading, saveLoading }: HomeProps
               ]}
             />
             <BthForm>
-              <RVLoadingButton 
-                type="submit" 
-                content="Submit" 
-                disabled={saveLoading} 
-                loading={saveLoading} 
-              />
+              <RVLoadingButton type="submit" content="Submit" disabled={saveLoading} loading={saveLoading} />
             </BthForm>
           </Form>
         </Formiz>
       </LeftColumn>
-      <RightColumn>
-        {(companiesLoading && <div>Is loading...</div>) ||
-          (companyList &&
-            companyList.map((c) => (
-              <MainList 
-                key={c._id} 
-                data={c} 
-                handleEditModal={handleEditModal} 
-                handleDeleteItem={handleDeleteItem} 
-              />
-            ))
-          )
-        }
-      </RightColumn>
+      <RightColumn>{(companiesLoading && <div>Is loading...</div>) || (companyList && companyList.map((c) => <MainList key={c._id} data={c} handleEditModal={handleEditModal} handleDeleteItem={handleDeleteItem} />))}</RightColumn>
     </Container>
   );
 };

@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useNavigate} from "react-router";
+import { NavLink, Outlet, useNavigate } from "react-router";
 import { Footer, Header, Main, Menu, PLaceHolder } from "./styles";
 import type { UserConnected } from "../../stores/user/interfaces";
 import type { RootState } from "../../stores";
@@ -7,14 +7,13 @@ import { connect } from "react-redux";
 import { useEffect } from "react";
 
 const Index = ({ user }: LayoutProps) => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
-   if(user){
-    navigate("/");
-   }
-
-  }, [user])
+    if (user) {
+      navigate("/");
+    }
+  }, [user]);
 
   return (
     <PLaceHolder>

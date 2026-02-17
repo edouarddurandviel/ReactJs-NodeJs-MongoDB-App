@@ -30,40 +30,38 @@ class builder {
     return newPath;
   }
 
-  #serialize(query: QueryObject){
-    let serialized: string = '?'
+  #serialize(query: QueryObject) {
+    let serialized: string = "?";
     for (let key in query) {
       if (query.hasOwnProperty(key)) {
-          if (serialized !== '?') {
-              serialized += "&";
-          }
-          serialized += key + "=" + query[key];
+        if (serialized !== "?") {
+          serialized += "&";
+        }
+        serialized += key + "=" + query[key];
       }
     }
-    return serialized
+    return serialized;
   }
 
   UrlBuilder(path: string, params?: PathParamsObject, query?: QueryObject) {
     const Params = this.#getParam(path);
-    let serialized: string | null = null
+    let serialized: string | null = null;
 
     if (params) {
       const verifiedParamObject = this.#verifyParams(Params, params);
-    
-      if(query){
-        serialized = this.#serialize(query)
+
+      if (query) {
+        serialized = this.#serialize(query);
       }
 
-      const url = verifiedParamObject ? 
-        this.#createUrl(path, verifiedParamObject) : 
-        `${(serialized && path+serialized) || path}`;
+      const url = verifiedParamObject ? this.#createUrl(path, verifiedParamObject) : `${(serialized && path + serialized) || path}`;
 
       return url;
     } else {
-      if(query){
-        serialized = this.#serialize(query)
+      if (query) {
+        serialized = this.#serialize(query);
       }
-      return `${(serialized && path+serialized) || path}`;
+      return `${(serialized && path + serialized) || path}`;
     }
   }
 }
