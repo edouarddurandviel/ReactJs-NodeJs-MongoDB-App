@@ -31,33 +31,39 @@ class builder {
   }
 
   #serialize(query: any){
-    let serialized: string = ''
-     for (let key in query) {
-              if (query.hasOwnProperty(key)) {
-                  if (serialized !== "") {
-                      serialized += "&";
-                  }
-                  serialized += key + "=" + query[key];
-              }
+    let serialized: string = '?'
+    for (let key in query) {
+      if (query.hasOwnProperty(key)) {
+          if (serialized !== "") {
+              serialized += "&";
           }
-          return serialized
+          serialized += key + "=" + query[key];
+      }
+    }
+    return serialized
   }
 
   UrlBuilder(path: string, params?: PathParamsObject, query?: any) {
-    if (params) {
-      const Params = this.#getParam(path);
-      const verifiedParamObject = params && this.#verifyParams(Params, params);
+    const Params = this.#getParam(path);
+    let serialized: string | null = null
 
-      let serialized = query && this.#serialize(query)
-     
+    if (params) {
+      const verifiedParamObject = this.#verifyParams(Params, params);
+    
+      if(query){
+        serialized = this.#serialize(query)
+      }
+
       const CUrl = verifiedParamObject ? 
-      this.#createUrl(path, verifiedParamObject) : 
-      `${serialized && path+'?'+serialized || path}`;
+        this.#createUrl(path, verifiedParamObject) : 
+        `${serialized && path+serialized || path}`;
 
       return CUrl;
     } else {
-      let serialized = query && this.#serialize(query)
-      return `${serialized && path+'?'+serialized || path}`;
+      if(query){
+        serialized = this.#serialize(query)
+      }
+      return `${serialized && path+serialized || path}`;
     }
   }
 }
