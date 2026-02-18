@@ -1,9 +1,10 @@
-import { NextFunction, RequestHandler } from "express";
+import { RequestHandler } from "express";
 import * as jwt from "jsonwebtoken";
 import { NotFound } from "http-json-errors";
 import * as userActions from "@services/user/actions";
 
-export const sessionToken: RequestHandler = async (req, res, next): Promise<void> => {
+
+export const sessionToken: RequestHandler = async (req: any, res: any, next: any): Promise<void> => {
   try {
     const user = await userActions.getUserToken(req.cookies.jwt);
     if (user) {

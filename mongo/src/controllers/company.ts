@@ -14,7 +14,7 @@ export default (io: Server) => {
   const companyServices = new CompanyController(io);
 
   // Write
-  router.post("/create", async (req: Request, res: Response) => {
+  router.post("/create", async (req: ExtendedRequest, res: Response) => {
     try {
       const data = await companySchemas.fullCompany.validateAsync(req.body);
       const result = await companyServices.createOneCompany(data);
@@ -25,7 +25,7 @@ export default (io: Server) => {
     }
   });
 
-  router.patch("/replace/:companyId", async (req: Request, res: Response) => {
+  router.patch("/replace/:companyId", async (req: ExtendedRequest, res: Response) => {
     try {
       const data = await companySchemas.fullCompany.validateAsync(req.body);
       const companyId = await generalSchemas.textSchema.validateAsync(req.params.companyId);
@@ -38,7 +38,7 @@ export default (io: Server) => {
     }
   });
 
-  router.patch("/update/many", async (req: Request, res: Response) => {
+  router.patch("/update/many", async (req: ExtendedRequest, res: Response) => {
     try {
       const data = await companySchemas.fullCompany.validateAsync(req.body);
       const companyId = await generalSchemas.textSchema.validateAsync(req.params.companyId);
@@ -51,7 +51,7 @@ export default (io: Server) => {
     }
   });
 
-  router.patch("/update/:companyId", async (req: Request, res: Response) => {
+  router.patch("/update/:companyId", async (req: ExtendedRequest, res: Response) => {
     try {
       const data = await companySchemas.company.validateAsync(req.body);
       const companyId = await generalSchemas.textSchema.validateAsync(req.params.companyId);
@@ -90,16 +90,6 @@ export default (io: Server) => {
     try {
       const companyId = await generalSchemas.textSchema.validateAsync(req.params.companyId);
       const result = await companyServices.getOneCompany(companyId);
-
-      res.status(200).json({ err: false, data: result });
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
-
-  router.post("/remote/post", remotePostAccess, async (req: ExtendedRequest, res: Response) => {
-    try {
-      const result = await companyServices.getCompanyLogs();
 
       res.status(200).json({ err: false, data: result });
     } catch (error: any) {
