@@ -38,7 +38,7 @@ export default (io: Server) => {
     }
   });
 
-  router.patch("/update/many", sessionToken, async (req: Request, res: Response) => {
+  router.patch("/update/many", async (req: Request, res: Response) => {
     try {
       const data = await companySchemas.fullCompany.validateAsync(req.body);
       const companyId = await generalSchemas.textSchema.validateAsync(req.params.companyId);
