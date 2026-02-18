@@ -12,9 +12,9 @@ const Index = ({ dispatch, user, userLoading }: LayoutProps) => {
   const navigate = useNavigate();
 
   const handleLogout = useCallback(() => {
-    if (user && (user as UserConnected)) {
+    if (user) {
       dispatch(
-        actions.user.userLogout({
+        actions.auth.userLogout({
           params: {
             userId: user.userPermissions.id,
           },
@@ -27,7 +27,7 @@ const Index = ({ dispatch, user, userLoading }: LayoutProps) => {
   }, [user]);
 
   useEffect(() => {
-    if (user && user.userPermissions) {
+    if (user) {
       navigate("/");
     } else {
       navigate("/login");
@@ -41,13 +41,13 @@ const Index = ({ dispatch, user, userLoading }: LayoutProps) => {
           <NavLink className="links" to="/">
             Home
           </NavLink>
-          {user && user.userPermissions && (
+          {user && (
             <NavLink className="links" to="/user/add">
               Create user
             </NavLink>
           )}
         </Menu>
-        {user && user.userPermissions && (
+        {user && (
           <>
             <RVLoadingButton
               content="Logout"
@@ -69,8 +69,8 @@ const Index = ({ dispatch, user, userLoading }: LayoutProps) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    user: selectors.user.userSelector(state),
-    userLoading: selectors.user.userLoadingSelector(state),
+    user: selectors.auth.userSelector(state),
+    userLoading: selectors.auth.userLoadingSelector(state),
   };
 };
 

@@ -22,7 +22,7 @@ const Index = ({ dispatch, userLoading }: UserProps) => {
 
   const handleSubmitLogin = (values: User) => {
     dispatch(
-      actions.user.userLogin({
+      actions.auth.userLogin({
         query: {
           email: values.email,
           password: values.password,
@@ -83,7 +83,7 @@ const Index = ({ dispatch, userLoading }: UserProps) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    userLoading: selectors.user.userLoadingSelector(state),
+    userLoading: selectors.auth.userLoadingSelector(state),
   };
 };
 

@@ -4,3 +4,4 @@ export * as user from "./user/actions";
 export * as userThunk from "./user/thunks";
 export * as socket from "./socket/company/actions";
 export * as socketPC from "./socket/visio/actions";
+export * as auth from "./auth/actions";

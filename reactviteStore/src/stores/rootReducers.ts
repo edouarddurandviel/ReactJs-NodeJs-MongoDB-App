@@ -3,10 +3,12 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import companyReducers from "./company/reducers";
 import userReducers from "./user/reducers";
+import authReducers from "./auth/reducers";
 
 export const rootReducer = combineReducers({
   company: companyReducers,
   user: userReducers,
+  auth: authReducers,
 });
 
 const persistConfig = {
