@@ -9,7 +9,10 @@ export type User = {
 };
 
 export type UserConnected = {
-  email: string;
+  userPermissions: {
+    id: string;
+    email: string;
+  }
 };
 
 export type Documents = {
@@ -36,7 +39,7 @@ export interface ResponseState {
 export type Payload = {
   data: User;
   params: PathParamsObject;
-  query?: any;
+  query: any;
 };
 
 export type Action = {

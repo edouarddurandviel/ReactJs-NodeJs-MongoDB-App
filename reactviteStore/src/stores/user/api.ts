@@ -33,13 +33,11 @@ export default {
     const userApi = apiRoutes.users.create;
 
     const formData = new FormData();
-    formData.append("name", data.data.name);
     formData.append("email", data.data.email);
     formData.append("password", data.data.password);
 
     return request({
       path: userApi.path,
-      params: data.params,
       method: userApi.method,
       data: formData,
     });
@@ -47,16 +45,24 @@ export default {
 
   userLogin: (data: Payload) => {
     const userApi = apiRoutes.users.login;
-    if (data.query) {
-      return request({
-        path: userApi.path,
-        query: {
-          email: data.query.email,
-          password: data.query.password,
-        },
-        method: userApi.method,
-      });
-    }
+    console.log(data)
+    return request({
+      path: userApi.path,
+      query: {
+        email: data.query.email,
+        password: data.query.password,
+      },
+      method: userApi.method,
+    });
+  },
+
+   userLogout: (data: Payload) => {
+    const userApi = apiRoutes.users.logout;
+    return request({
+      path: userApi.path,
+      params: data.params,
+      method: userApi.method,
+    });
   },
 
   updateOneUser: (data: Payload) => {

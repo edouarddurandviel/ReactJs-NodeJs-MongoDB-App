@@ -43,7 +43,7 @@ export default (io: Server) => {
         path: "/"
       });
 
-      res.status(200).json({ err: false, data: result.userDetails });
+      res.status(200).json({ err: false, data: result });
     } catch (error: any) {
       handleErrors(error);
     }
@@ -51,6 +51,7 @@ export default (io: Server) => {
 
   router.post("/logout/:userId", async (req: Request, res: Response) => {
     try {
+      console.log(req.params)
       const data = await userSchemas.uidSchema.validateAsync(req.params.userId);
       const result = await userServices.logout(data);
 

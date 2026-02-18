@@ -1,5 +1,6 @@
 import AppLegacy from "../views/Home";
-import User from "../views/User";
+import Auth from "../views/Auth";
+import CreateUser from "../views/User/create";
 import { lazy } from "react";
 
 const ApiRouteSettings = [
@@ -10,9 +11,9 @@ const ApiRouteSettings = [
     component: AppLegacy,
   },
   {
-    path: "/legacy",
-    name: "legacy",
-    component: AppLegacy,
+    path: "/user/add",
+    name: "createUser",
+    component: CreateUser,
   },
   {
     path: "/detail/:companyId",
@@ -22,7 +23,7 @@ const ApiRouteSettings = [
   {
     path: "/login",
     name: "login",
-    component: User,
+    component: Auth,
   },
 ];
 

@@ -1,19 +1,39 @@
 import { NavLink, Outlet, useNavigate } from "react-router";
 import { Footer, Header, Main, Menu, PLaceHolder } from "./styles";
 import type { UserConnected } from "../../stores/user/interfaces";
-import type { RootState } from "../../stores";
+import type { AppDispatch, RootState } from "../../stores";
 import * as selectors from "../../stores/rootSelectors";
+import * as actions from "../../stores/rootActions";
 import { connect } from "react-redux";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
+import RVLoadingButton from "../RVLoadingButton";
 
-const Index = ({ user }: LayoutProps) => {
+const Index = ({ dispatch, user, userLoading }: LayoutProps) => {
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (user) {
-      navigate("/");
+  const handleLogout = useCallback(() => {
+    if(user){
+      dispatch(actions.user.userLogout({
+        params: {
+          userId: user.userPermissions.id
+        }
+      }))
+      return () => {
+        dispatch(actions.user.reset(['user']))
+      }
     }
-  }, [user]);
+  }, [user])
+
+  useEffect(() => {
+    if (
+      user && 
+      user.userPermissions
+    ) {
+      navigate("/");
+    }else{
+      navigate("/login");
+    }
+  }, [user, userLoading]);
 
   return (
     <PLaceHolder>
@@ -22,11 +42,18 @@ const Index = ({ user }: LayoutProps) => {
           <NavLink className="links" to="/">
             Home
           </NavLink>
-          <NavLink className="links" to="/legacy">
-            Legacy
+          <NavLink className="links" to="/user/add">
+            Create user
           </NavLink>
         </Menu>
-        {user && user.email}
+        {user && user.userPermissions && (<>
+          <RVLoadingButton 
+            content="Logout" 
+            onClick={() => {
+              handleLogout()
+            }} />
+          <div>{user.userPermissions.email}</div>
+        </>)}
       </Header>
       <Main>
         <Outlet />
@@ -46,6 +73,7 @@ const mapStateToProps = (state: RootState) => {
 interface LayoutProps {
   user: UserConnected | null;
   userLoading: boolean;
+  dispatch: AppDispatch;
 }
 
 export default connect(mapStateToProps)(Index);

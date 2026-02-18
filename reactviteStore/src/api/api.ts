@@ -42,6 +42,10 @@ export default {
       method: "GET",
       path: "user/login",
     },
+    logout: {
+      method: "POST",
+      path: "user/logout/:userId",
+    },
     delete: {
       method: "DELETE",
       path: "user/delete/:userId",

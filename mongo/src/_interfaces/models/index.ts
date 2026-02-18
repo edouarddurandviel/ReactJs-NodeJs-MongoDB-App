@@ -15,5 +15,5 @@ export interface User extends WithId<Document> {
 
 export interface UserToken extends WithId<Document> {
   token: string;
-  user_id: string;
+  userId: string;
 }

@@ -35,6 +35,25 @@ export const userMiddleware: Middleware = (api) => (next) => async (action: unkn
         }
         break;
 
+       case actionTypes.USER_LOGOUT_REQUEST:
+        try {
+          dispatch({
+            type: actionTypes.USER_LOGOUT_LOADING,
+          });
+          const resp = await requests.userLogout(typedAction.payload);
+
+          dispatch({
+            type: actionTypes.USER_LOGOUT_SUCCESS,
+            payload: resp.data.data,
+          });
+        } catch (error: unknown) {
+          dispatch({
+            type: actionTypes.USER_LOGOUT_FAILURE,
+            payload: error,
+          });
+        }
+        break;
+
       case actionTypes.GET_ALL_USERS_REQUEST:
         try {
           dispatch({

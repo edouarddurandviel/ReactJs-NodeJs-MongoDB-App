@@ -99,6 +99,18 @@ export default (state: State = initialState, action: Action): State => {
         draft.userErrors = true;
         break;
 
+      case actionType.USER_LOGOUT_LOADING:
+        draft.userLoading = true;
+        break;
+      case actionType.USER_LOGOUT_SUCCESS:
+        draft.userLoading = false;
+        draft.userSuccess = true;
+        draft.user = action.payload as unknown as User;
+        break;
+      case actionType.USER_LOGOUT_FAILURE:
+        draft.userErrors = true;
+        break;
+
       case actionType.RESET:
         if (action.payload) {
           if (Array.isArray(action.payload)) {

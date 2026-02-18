@@ -9,6 +9,13 @@ export const userLogin = (data: object) => {
   };
 };
 
+export const userLogout = (data: object) => {
+  return {
+    type: actionType.USER_LOGOUT_REQUEST,
+    payload: data,
+  };
+};
+
 export const getAllUsers = () => {
   return {
     type: actionType.GET_ALL_USERS_REQUEST,

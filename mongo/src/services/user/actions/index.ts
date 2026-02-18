@@ -128,7 +128,7 @@ export const getUserToken = async (token: string) => {
 export const getUserTokenWithId = async (userId: string) => {
   const userCollection = await inCollection("token");
   const user = (await userCollection.findOne({
-    user_id: new ObjectId(userId)
+    userId: new ObjectId(userId)
   })) as unknown as UserToken;
   return user;
 };
@@ -136,7 +136,8 @@ export const getUserTokenWithId = async (userId: string) => {
 export const deleteUserToken = async (userId: string) => {
   const userCollection = await inCollection("token");
   const user = await userCollection.deleteOne({
-    user_id: new ObjectId(userId)
+    userId: new ObjectId(userId)
   });
+  console.log(user)
   return user;
 };

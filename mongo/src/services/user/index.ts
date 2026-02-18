@@ -46,13 +46,14 @@ class UserController {
       const token = jwt.sign(payload, secret, { expiresIn: "1h" });
       await userActions.storeUserToken(token, user._id);
 
-      const roles = await userActions.getUserData(user._id.toString());
+      //const roles = await userActions.getUserData(user._id.toString());
 
-      const userDetails = {
-        email: roles[0].email
+      const userPermissions = {
+        id: user._id,
+        email: user.email
       };
 
-      return { userDetails, token };
+      return { userPermissions, token };
     } else {
       throw new Unauthorized("Invalid email or password");
     }
@@ -60,7 +61,7 @@ class UserController {
 
   public async logout(userId: string) {
     const data = (await userActions.getUserTokenWithId(userId)) as unknown as UserToken;
-    const result = await userActions.deleteUserToken(data.user_id);
+    const result = await userActions.deleteUserToken(data.userId);
     return result;
   }
 }
