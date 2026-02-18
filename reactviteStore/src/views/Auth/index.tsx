@@ -5,7 +5,7 @@ import * as selectors from "../../stores/rootSelectors";
 import * as actions from "../../stores/rootActions";
 import type { AppDispatch, RootState } from "../../stores";
 import { RVInput, RVLoadingButton } from "../../components";
-import { BthForm, Container, Form } from "../../components/RVLayout/styles";
+import { BthForm, Container, Form, LoginForm, Message } from "../../components/RVLayout/styles";
 import type { User } from "../../stores/user/interfaces";
 
 const Index = ({ dispatch, userLoading }: UserProps) => {
@@ -33,7 +33,9 @@ const Index = ({ dispatch, userLoading }: UserProps) => {
 
   return (
     <Container>
-      <p>user: test1@test1.com, password: password</p>
+      <LoginForm>
+      <Message><strong>user:</strong> test1@test1.com, <strong>password:</strong> password</Message>
+      <Message>Cookies available for one hour. At expiry delete user token from token mongo table</Message>
       <Formiz connect={form}>
         <Form
           onSubmit={(e) => {
@@ -72,6 +74,7 @@ const Index = ({ dispatch, userLoading }: UserProps) => {
           </BthForm>
         </Form>
       </Formiz>
+      </LoginForm>
     </Container>
   );
 };
