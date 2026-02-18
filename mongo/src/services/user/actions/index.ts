@@ -138,6 +138,5 @@ export const deleteUserToken = async (userId: string) => {
   const user = await userCollection.deleteOne({
     userId: new ObjectId(userId)
   });
-  console.log(user)
   return user;
 };

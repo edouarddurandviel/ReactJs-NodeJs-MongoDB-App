@@ -51,7 +51,6 @@ export default (io: Server) => {
 
   router.post("/logout/:userId", async (req: Request, res: Response) => {
     try {
-      console.log(req.params)
       const data = await userSchemas.uidSchema.validateAsync(req.params.userId);
       const result = await userServices.logout(data);
 
