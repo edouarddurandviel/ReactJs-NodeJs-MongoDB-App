@@ -1,4 +1,4 @@
-import { ObjectId, WithId } from "mongodb";
+import { Document, ObjectId, WithId } from "mongodb";
 
 export interface Company extends WithId<Document> {
   ref: number;
