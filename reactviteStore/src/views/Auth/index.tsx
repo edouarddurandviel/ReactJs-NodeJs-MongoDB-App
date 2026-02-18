@@ -34,46 +34,48 @@ const Index = ({ dispatch, userLoading }: UserProps) => {
   return (
     <Container>
       <LoginForm>
-      <Message><strong>user:</strong> test1@test1.com, <strong>password:</strong> password</Message>
-      <Message>Cookies available for one hour. At expiry delete user token from token mongo table</Message>
-      <Formiz connect={form}>
-        <Form
-          onSubmit={(e) => {
-            e.preventDefault();
-            form.submit();
-          }}
-        >
-          <RVInput
-            name="email"
-            type="text"
-            id="1"
-            label="Email"
-            required="Email is required"
-            validations={[
-              {
-                handler: isRequired(),
-                message: "Email is required",
-              },
-            ]}
-          />
-          <RVInput
-            name="password"
-            type="text"
-            id="2"
-            label="Password"
-            required="Password is required"
-            validations={[
-              {
-                handler: isRequired(),
-                message: "Password is required",
-              },
-            ]}
-          />
-          <BthForm>
-            <RVLoadingButton type="submit" content="Submit" disabled={userLoading} loading={userLoading} />
-          </BthForm>
-        </Form>
-      </Formiz>
+        <Message>
+          <strong>user:</strong> test1@test1.com, <strong>password:</strong> password
+        </Message>
+        <Message>Cookies available for one hour. At expiry delete user token from token mongo table</Message>
+        <Formiz connect={form}>
+          <Form
+            onSubmit={(e) => {
+              e.preventDefault();
+              form.submit();
+            }}
+          >
+            <RVInput
+              name="email"
+              type="text"
+              id="1"
+              label="Email"
+              required="Email is required"
+              validations={[
+                {
+                  handler: isRequired(),
+                  message: "Email is required",
+                },
+              ]}
+            />
+            <RVInput
+              name="password"
+              type="text"
+              id="2"
+              label="Password"
+              required="Password is required"
+              validations={[
+                {
+                  handler: isRequired(),
+                  message: "Password is required",
+                },
+              ]}
+            />
+            <BthForm>
+              <RVLoadingButton type="submit" content="Submit" disabled={userLoading} loading={userLoading} />
+            </BthForm>
+          </Form>
+        </Formiz>
       </LoginForm>
     </Container>
   );

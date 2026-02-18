@@ -12,7 +12,7 @@ export type UserConnected = {
   userPermissions: {
     id: string;
     email: string;
-  }
+  };
 };
 
 export type Documents = {

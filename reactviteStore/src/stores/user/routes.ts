@@ -35,7 +35,7 @@ export const userMiddleware: Middleware = (api) => (next) => async (action: unkn
         }
         break;
 
-       case actionTypes.USER_LOGOUT_REQUEST:
+      case actionTypes.USER_LOGOUT_REQUEST:
         try {
           dispatch({
             type: actionTypes.USER_LOGOUT_LOADING,

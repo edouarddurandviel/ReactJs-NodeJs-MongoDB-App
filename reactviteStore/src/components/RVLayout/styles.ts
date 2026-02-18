@@ -121,10 +121,10 @@ export const Footer = styled.div<TextProps>`
 export const LoginForm = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
 
 export const Message = styled.div`
   display: block;
   clear: both;
   padding: 10px;
-`
+`;

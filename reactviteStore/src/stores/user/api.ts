@@ -54,7 +54,7 @@ export default {
     });
   },
 
-   userLogout: (data: Payload) => {
+  userLogout: (data: Payload) => {
     const userApi = apiRoutes.users.logout;
     return request({
       path: userApi.path,

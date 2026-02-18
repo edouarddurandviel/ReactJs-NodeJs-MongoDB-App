@@ -23,7 +23,7 @@ const Index = ({ dispatch, userLoading }: UserProps) => {
   const handleSubmitCreateUser = (values: User) => {
     dispatch(
       actions.user.addOneUser({
-        data: values
+        data: values,
       }),
     );
   };

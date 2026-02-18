@@ -12,25 +12,24 @@ const Index = ({ dispatch, user, userLoading }: LayoutProps) => {
   const navigate = useNavigate();
 
   const handleLogout = useCallback(() => {
-    if(user && user as UserConnected){
-      dispatch(actions.user.userLogout({
-        params: {
-          userId: user.userPermissions.id
-        }
-      }))
+    if (user && (user as UserConnected)) {
+      dispatch(
+        actions.user.userLogout({
+          params: {
+            userId: user.userPermissions.id,
+          },
+        }),
+      );
       return () => {
-        dispatch(actions.user.reset(['user']))
-      }
+        dispatch(actions.user.reset(["user"]));
+      };
     }
-  }, [user])
+  }, [user]);
 
   useEffect(() => {
-    if (
-      user && 
-      user.userPermissions
-    ) {
+    if (user && user.userPermissions) {
       navigate("/");
-    }else{
+    } else {
       navigate("/login");
     }
   }, [user, userLoading]);
@@ -42,19 +41,23 @@ const Index = ({ dispatch, user, userLoading }: LayoutProps) => {
           <NavLink className="links" to="/">
             Home
           </NavLink>
-           {user && user.userPermissions && (
-          <NavLink className="links" to="/user/add">
-            Create user
-          </NavLink>)}
+          {user && user.userPermissions && (
+            <NavLink className="links" to="/user/add">
+              Create user
+            </NavLink>
+          )}
         </Menu>
-        {user && user.userPermissions && (<>
-          <RVLoadingButton 
-            content="Logout" 
-            onClick={() => {
-              handleLogout()
-            }} />
-          <div>{user.userPermissions.email}</div>
-        </>)}
+        {user && user.userPermissions && (
+          <>
+            <RVLoadingButton
+              content="Logout"
+              onClick={() => {
+                handleLogout();
+              }}
+            />
+            <div>{user.userPermissions.email}</div>
+          </>
+        )}
       </Header>
       <Main>
         <Outlet />
