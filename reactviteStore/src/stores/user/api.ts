@@ -12,7 +12,6 @@ export default {
     });
   },
   getOneUser: (data: Payload) => {
-    console.log(data);
     const userApi = apiRoutes.users.one;
     return request({
       path: userApi.path,
@@ -45,7 +44,6 @@ export default {
 
   userLogin: (data: Payload) => {
     const userApi = apiRoutes.users.login;
-    console.log(data)
     return request({
       path: userApi.path,
       query: {

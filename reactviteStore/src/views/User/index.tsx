@@ -21,7 +21,6 @@ const Index = ({ dispatch, userLoading }: UserProps) => {
   });
 
   const handleSubmitLogin = (values: User) => {
-    console.log(values);
     dispatch(
       actions.user.userLogin({
         query: {

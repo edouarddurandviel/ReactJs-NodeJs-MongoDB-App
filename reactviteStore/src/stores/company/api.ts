@@ -12,7 +12,6 @@ export default {
     });
   },
   getOneCompany: (data: Payload) => {
-    console.log(data);
     const companyApi = apiRoutes.companies.one;
     return request({
       path: companyApi.path,

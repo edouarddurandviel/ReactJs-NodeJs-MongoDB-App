@@ -1,4 +1,4 @@
-import type { PathParamsObject } from "../../api/interface";
+import type { PathParamsObject, QueryObject } from "../../api/interface";
 
 export type Company = {
   name: string;
@@ -31,7 +31,7 @@ export interface ResponseState {
 export type Payload = {
   data: Company;
   params: PathParamsObject;
-  query?: object;
+  query?: QueryObject;
 };
 
 export type Action = {

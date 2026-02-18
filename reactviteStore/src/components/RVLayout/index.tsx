@@ -12,7 +12,7 @@ const Index = ({ dispatch, user, userLoading }: LayoutProps) => {
   const navigate = useNavigate();
 
   const handleLogout = useCallback(() => {
-    if(user){
+    if(user && user as UserConnected){
       dispatch(actions.user.userLogout({
         params: {
           userId: user.userPermissions.id
@@ -42,9 +42,10 @@ const Index = ({ dispatch, user, userLoading }: LayoutProps) => {
           <NavLink className="links" to="/">
             Home
           </NavLink>
+           {user && user.userPermissions && (
           <NavLink className="links" to="/user/add">
             Create user
-          </NavLink>
+          </NavLink>)}
         </Menu>
         {user && user.userPermissions && (<>
           <RVLoadingButton 
@@ -71,9 +72,9 @@ const mapStateToProps = (state: RootState) => {
 };
 
 interface LayoutProps {
+  dispatch: AppDispatch;
   user: UserConnected | null;
   userLoading: boolean;
-  dispatch: AppDispatch;
 }
 
 export default connect(mapStateToProps)(Index);

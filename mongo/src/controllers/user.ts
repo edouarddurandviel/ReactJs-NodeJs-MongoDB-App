@@ -52,10 +52,10 @@ export default (io: Server) => {
   router.post("/logout/:userId", async (req: Request, res: Response) => {
     try {
       const data = await userSchemas.uidSchema.validateAsync(req.params.userId);
-      const result = await userServices.logout(data);
+      await userServices.logout(data);
 
       res.clearCookie("jwt");
-      res.status(200).json({ err: false, data: result });
+      res.status(200).json({ err: false });
     } catch (error: any) {
       handleErrors(error);
     }
