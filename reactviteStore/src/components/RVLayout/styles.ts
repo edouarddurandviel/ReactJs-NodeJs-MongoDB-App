@@ -120,13 +120,11 @@ export const Footer = styled.div<TextProps>`
 
 export const LoginForm = styled.div`
 display: flex;
-width: 100%;
 flex-direction: column;
 `
 
 export const Message = styled.div`
 display: block;
-width: 100%;
 clear: both;
 padding: 10px;
 `
