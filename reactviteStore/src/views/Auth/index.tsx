@@ -7,7 +7,6 @@ import type { AppDispatch, RootState } from "../../stores";
 import { RVInput, RVLoadingButton } from "../../components";
 import { BthForm, Container, Form, LoginForm, Message } from "../../components/RVLayout/styles";
 import type { User } from "../../stores/user/interfaces";
-import type { UserConnected } from "../../stores/auth/interfaces";
 
 const Index = ({ dispatch, authLoading }: UserProps) => {
 
