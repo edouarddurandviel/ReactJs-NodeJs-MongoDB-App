@@ -1,6 +1,6 @@
 import { NavLink, Outlet } from "react-router";
 import { Footer, Header, Main, Menu, PLaceHolder } from "./styles";
-import type { AppDispatch, RootState } from "../../stores";
+import type { AppDispatch } from "../../stores";
 import * as actions from "../../stores/rootActions";
 import { connect } from "react-redux";
 import { useCallback } from "react";
@@ -58,16 +58,9 @@ const Index = ({ dispatch, user }: LayoutProps) => {
   );
 };
 
-const mapStateToProps = (state: RootState) => {
-  // return {
-  //   user: selectors.auth.authSelector(state),
-  //   userLoading: selectors.auth.authLoadingSelector(state),
-  // };
-};
-
 interface LayoutProps {
   dispatch: AppDispatch;
   user: UserConnected | null;
 }
 
-export default connect(mapStateToProps)(Index);
+export default connect()(Index);

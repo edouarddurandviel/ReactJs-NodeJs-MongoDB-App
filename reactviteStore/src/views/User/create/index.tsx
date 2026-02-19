@@ -8,7 +8,8 @@ import { RVInput, RVLoadingButton } from "../../../components";
 import { BthForm, Container, Form } from "../../../components/RVLayout/styles";
 import type { User } from "../../../stores/user/interfaces";
 
-const Index = ({ dispatch, userLoading }: UserProps) => {
+const Index = ({ dispatch, u, userLoading }: UserProps) => {
+
   const form = useForm({
     initialValues: {
       email: "",
@@ -69,17 +70,22 @@ const Index = ({ dispatch, userLoading }: UserProps) => {
           </BthForm>
         </Form>
       </Formiz>
+      {u && (
+        <code>{u.email}</code>
+      )}
     </Container>
   );
 };
 
 const mapStateToProps = (state: RootState) => {
   return {
+    u: selectors.user.userSelector(state),
     userLoading: selectors.user.userLoadingSelector(state),
   };
 };
 
 interface UserProps {
+  u: User | null;
   userLoading: boolean;
   dispatch: AppDispatch;
 }

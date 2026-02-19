@@ -38,7 +38,8 @@ const Index = ({ dispatch, authLoading }: UserProps) => {
         <Message>
           <strong>user:</strong> test1@test1.com, <strong>password:</strong> password
         </Message>
-        <Message>Cookies available for one hour. At expiry delete user token from token mongo table</Message>
+        <Message>Cookies are valid for one hour. Upon expiration, 
+          the user token is removed from the MongoDB token table</Message>
         <Formiz connect={form}>
           <Form
             onSubmit={(e) => {
