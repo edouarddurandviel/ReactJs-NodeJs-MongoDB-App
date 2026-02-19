@@ -8,7 +8,6 @@ const composedEnhancer = composeWithDevTools(rootMiddleware);
 
 export const store = legacy_createStore(persistedReducer, undefined, composedEnhancer);
 export const persistor = persistStore(store);
-
 // Export RootState and AppDispatch
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

@@ -1,4 +1,4 @@
-export const USERS_RESET = "USERS_RESET";
+export const USER_RESET = "USER_RESET";
 export const RESET = "RESET";
 
 
@@ -21,4 +21,5 @@ export type ActionTypes =
   | "USER_LOGOUT_LOADING"
   | "USER_LOGOUT_SUCCESS"
   | "USER_LOGOUT_FAILURE"
+  | "USER_RESET"
   | "RESET";

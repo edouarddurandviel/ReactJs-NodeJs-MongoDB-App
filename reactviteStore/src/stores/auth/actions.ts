@@ -14,4 +14,11 @@ export const userLogout = (data: object) => {
   };
 };
 
+export const reset = (data: string[]) => {
+  return {
+    type: actionType.USER_RESET,
+    payload: data,
+  };
+};
+
 

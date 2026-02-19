@@ -8,13 +8,6 @@ export type User = {
   _id?: string;
 };
 
-export type UserConnected = {
-  userPermissions: {
-    id: string;
-    email: string;
-  };
-};
-
 export type Documents = {
   _id: string;
   name: string;

@@ -4,18 +4,19 @@ import Layout from "../../components/RVLayout";
 import PrivateRoutes from "./PrivateRoutes";
 import { connect } from "react-redux";
 import * as selectors from "../../stores/rootSelectors";
-import type { User } from "../../stores/user/interfaces";
 import type { RootState } from "../../stores";
+import type { UserConnected } from "../../stores/auth/interfaces";
 
-const Index = ({ user, userLoading }: RootProps) => {
+const Index = ({ user }: RootProps) => {
+
   return (
     <Routes>
       <Route
-        key="default"
-        path="/"
+        // key="default"
+        // path="/"
         element={
           <PrivateRoutes user={user}>
-            <Layout data={{ user, userLoading }} />
+            <Layout user={user} />
           </PrivateRoutes>
         }
       >
@@ -36,13 +37,13 @@ const Index = ({ user, userLoading }: RootProps) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    user: selectors.user.userSelector(state),
-    userLoading: selectors.user.userLoadingSelector(state),
+    user: selectors.auth.authSelector(state),
+    userLoading: selectors.auth.authLoadingSelector(state),
   };
 };
 
 interface RootProps {
-  user: User | null;
+  user: UserConnected | null;
   userLoading: boolean;
 }
 

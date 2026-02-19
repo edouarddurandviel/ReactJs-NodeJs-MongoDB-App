@@ -1,6 +1,5 @@
 import request from "../../api/apiClient";
 import apiRoutes from "../../api/api";
-import type { PathParamsObject } from "../../api/interface";
 import type { Payload } from "./interfaces";
 
 export default {
@@ -15,7 +14,6 @@ export default {
       method: userApi.method,
     });
   },
-
   userLogout: (data: Payload) => {
     const userApi = apiRoutes.users.logout;
     return request({

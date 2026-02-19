@@ -1,15 +1,16 @@
 import type { RootState } from "..";
 
 
-const userSelector = (state: RootState) => state.auth.user;
+const authSelector = (state: RootState) => state.auth.user;
 
-const userLoadingSelector = (state: RootState) => state.auth.userLoading;
-
-const userErrorsSelector = (state: RootState) => state.auth.userErrors;
+const authLoadingSelector = (state: RootState) => state.auth.userLoading;
+const authSuccessSelector = (state: RootState) => state.auth.userSuccess;
+const authErrorsSelector = (state: RootState) => state.auth.userErrors;
 
 
 export default {
-  userLoadingSelector,
-  userSelector,
-  userErrorsSelector
+  authLoadingSelector,
+  authSelector,
+  authErrorsSelector,
+  authSuccessSelector
 };

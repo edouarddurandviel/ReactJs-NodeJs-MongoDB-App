@@ -3,13 +3,9 @@ import type { UserConnected } from "./interfaces";
 
 // Initial state
 export const initialState = {
-  // Payload
   user: null as unknown as UserConnected,
-  // Success
   userSuccess: false,
-  // Loading
   userLoading: false,
-  // Error
   userErrors: false,
   reset: [],
 };

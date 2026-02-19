@@ -2,19 +2,6 @@ import type { AppDispatch } from "..";
 import * as actionType from "./types";
 import requests from "./api";
 
-export const userLogin = (data: object) => {
-  return {
-    type: actionType.USER_LOGIN_REQUEST,
-    payload: data,
-  };
-};
-
-export const userLogout = (data: object) => {
-  return {
-    type: actionType.USER_LOGOUT_REQUEST,
-    payload: data,
-  };
-};
 
 export const getAllUsers = () => {
   return {

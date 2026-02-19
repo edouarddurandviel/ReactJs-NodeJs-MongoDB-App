@@ -5,10 +5,10 @@ import companyReducers from "./company/reducers";
 import userReducers from "./user/reducers";
 import authReducers from "./auth/reducers";
 
-export const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   company: companyReducers,
   user: userReducers,
-  auth: authReducers,
+  auth: authReducers
 });
 
 const persistConfig = {
@@ -17,4 +17,3 @@ const persistConfig = {
 };
 
 export const persistedReducer = persistReducer(persistConfig, rootReducer);
-

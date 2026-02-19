@@ -1,15 +1,13 @@
-import { NavLink, Outlet, useNavigate } from "react-router";
+import { NavLink, Outlet } from "react-router";
 import { Footer, Header, Main, Menu, PLaceHolder } from "./styles";
-import type { UserConnected } from "../../stores/user/interfaces";
 import type { AppDispatch, RootState } from "../../stores";
-import * as selectors from "../../stores/rootSelectors";
 import * as actions from "../../stores/rootActions";
 import { connect } from "react-redux";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import RVLoadingButton from "../RVLoadingButton";
+import type { UserConnected } from "../../stores/auth/interfaces";
 
-const Index = ({ dispatch, user, userLoading }: LayoutProps) => {
-  const navigate = useNavigate();
+const Index = ({ dispatch, user }: LayoutProps) => {
 
   const handleLogout = useCallback(() => {
     if (user) {
@@ -21,18 +19,11 @@ const Index = ({ dispatch, user, userLoading }: LayoutProps) => {
         }),
       );
       return () => {
-        dispatch(actions.user.reset(["user"]));
+        dispatch(actions.auth.reset(["user"]));
       };
     }
   }, [user]);
 
-  useEffect(() => {
-    if (user) {
-      navigate("/");
-    } else {
-      navigate("/login");
-    }
-  }, [user, userLoading]);
 
   return (
     <PLaceHolder>
@@ -68,16 +59,15 @@ const Index = ({ dispatch, user, userLoading }: LayoutProps) => {
 };
 
 const mapStateToProps = (state: RootState) => {
-  return {
-    user: selectors.auth.userSelector(state),
-    userLoading: selectors.auth.userLoadingSelector(state),
-  };
+  // return {
+  //   user: selectors.auth.authSelector(state),
+  //   userLoading: selectors.auth.authLoadingSelector(state),
+  // };
 };
 
 interface LayoutProps {
   dispatch: AppDispatch;
   user: UserConnected | null;
-  userLoading: boolean;
 }
 
 export default connect(mapStateToProps)(Index);
