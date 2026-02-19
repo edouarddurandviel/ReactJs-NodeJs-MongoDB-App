@@ -8,12 +8,8 @@ import { RVInput, RVLoadingButton } from "../../components";
 import { BthForm, Container, Form, LoginForm, Message } from "../../components/RVLayout/styles";
 import type { User } from "../../stores/user/interfaces";
 import type { UserConnected } from "../../stores/auth/interfaces";
-import { useCallback, useEffect } from "react";
-import { useNavigate } from "react-router";
 
-const Index = ({ dispatch, auth, authSuccess, authLoading }: UserProps) => {
-
-  const navigate = useNavigate()
+const Index = ({ dispatch, authLoading }: UserProps) => {
 
   const form = useForm({
     initialValues: {
@@ -94,15 +90,11 @@ const Index = ({ dispatch, auth, authSuccess, authLoading }: UserProps) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    auth: selectors.auth.authSelector(state),
     authLoading: selectors.auth.authLoadingSelector(state),
-    authSuccess: selectors.auth.authLoadingSelector(state),
   };
 };
 
 interface UserProps {
-  auth: UserConnected;
-  authSuccess: boolean;
   authLoading: boolean;
   dispatch: AppDispatch;
 }
