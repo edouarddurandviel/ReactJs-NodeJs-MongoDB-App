@@ -12,8 +12,8 @@ const Index = ({ user }: RootProps) => {
   return (
     <Routes>
       <Route
-        // key="default"
-        // path="/"
+        key="default"
+        path={"/"}
         element={
           <PrivateRoutes user={user}>
             <Layout user={user} />

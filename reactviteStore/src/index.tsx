@@ -16,9 +16,5 @@ createRoot(document.getElementById("root")!).render(
         <Routes />
       </BrowserRouter>
     </PersistGate>
-
-      {/* <BrowserRouter>
-        <Routes />
-      </BrowserRouter> */}
   </Provider>
 );

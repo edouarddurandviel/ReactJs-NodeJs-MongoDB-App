@@ -5,12 +5,13 @@ import { isRequired } from "@formiz/validations";
 import * as selectors from "../../stores/rootSelectors";
 import * as actions from "../../stores/rootActions";
 import type { Company } from "../../stores/company/interfaces";
+import type { UserConnected } from "../../stores/auth/interfaces";
 import type { AppDispatch, RootState } from "../../stores";
 import { RVButton, RVInput, RVLoadingButton } from "../../components";
 import { BthForm, Container, Form, FormActions, FormActionsLabel, LeftColumn, RightColumn } from "../../components/RVLayout/styles";
 import MainList from "../../components/RVMainlist";
 
-const Index = ({ dispatch, companies, companiesLoading, saveLoading }: HomeProps) => {
+const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: HomeProps) => {
   const [companyList, setCompanyList] = useState<Company[]>([]);
   const [newEntry, setNewEntry] = useState<boolean | null>(null);
 
@@ -103,6 +104,7 @@ const Index = ({ dispatch, companies, companiesLoading, saveLoading }: HomeProps
   return (
     <Container>
       <LeftColumn>
+        {user?.userPermissions.email}
         <FormActions>
           <RVButton
             content={newEntry ? "Close" : "Add new entry"}
@@ -186,6 +188,7 @@ const Index = ({ dispatch, companies, companiesLoading, saveLoading }: HomeProps
 
 const mapStateToProps = (state: RootState) => {
   return {
+    user: selectors.auth.authSelector(state),
     companies: selectors.company.companiesSelector(state),
     companiesLoading: selectors.company.companiesLoadingSelector(state),
     saveLoading: selectors.company.addCompanyLoadingSelector(state),
@@ -194,6 +197,7 @@ const mapStateToProps = (state: RootState) => {
 };
 
 interface HomeProps {
+  user: UserConnected | null;
   companies: Company[] | null;
   companiesLoading: boolean;
   saveLoading: boolean;
