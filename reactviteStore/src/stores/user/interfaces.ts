@@ -1,6 +1,6 @@
 import type { PathParamsObject } from "../../api/interface";
 
-type Profil = {
+export type Profil = {
   firstName: string;
   lastName: string;
   address: string;
@@ -29,6 +29,8 @@ interface State {
   error: string | null;
 }
 
+
+
 export interface UserState extends State {
   users?: User[];
   user?: User;
@@ -39,13 +41,14 @@ export interface ResponseState {
   [key: string]: UserState;
 }
 
-export type Payload = {
-  data: User;
+
+export type Payload<T> = {
+  data: T;
   params: PathParamsObject;
   query: any;
 };
 
 export type Action = {
   type: string;
-  payload: Payload;
+  payload: Payload<any>;
 };

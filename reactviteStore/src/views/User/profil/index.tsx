@@ -20,9 +20,7 @@ const Index = ({}: UserProps) => {
         params: {
           userId: '69943794ffc1d6220bd5e7c1'
         },
-        data: {
-          profil: values
-        }
+        data: values
       }),
     );
   };

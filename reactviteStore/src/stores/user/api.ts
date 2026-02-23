@@ -1,7 +1,7 @@
 import request from "../../api/apiClient";
 import apiRoutes from "../../api/api";
 import type { PathParamsObject } from "../../api/interface";
-import type { Payload } from "./interfaces";
+import type { Payload, Profil, User } from "./interfaces";
 
 export default {
   getAllUsers: () => {
@@ -11,7 +11,7 @@ export default {
       method: userApi.method,
     });
   },
-  getOneUser: (data: Payload) => {
+  getOneUser: (data: Payload<User>) => {
     const userApi = apiRoutes.users.one;
     return request({
       path: userApi.path,
@@ -19,7 +19,7 @@ export default {
       method: userApi.method,
     });
   },
-  getFilteredUsers: (data: Payload) => {
+  getFilteredUsers: (data: Payload<User>) => {
     const userApi = apiRoutes.users.all;
     return request({
       path: userApi.path,
@@ -28,7 +28,7 @@ export default {
       query: data.query,
     });
   },
-  addOneUser: (data: Payload) => {
+  addOneUser: (data: Payload<User>) => {
     const userApi = apiRoutes.users.create;
 
     const formData = new FormData();
@@ -42,20 +42,18 @@ export default {
     });
   },
 
-   addProfil: (data: Payload) => {
+   addProfil: (data: Payload<Profil>) => {
     const userApi = apiRoutes.users.addProfil;
 
     const formData = new FormData();
-    if(data.data.profil){
 
-      console.log(data)
-      formData.append("firstName", data.data.profil.firstName);
-      formData.append("lastName", data.data.profil.lastName);
-      formData.append("address", data.data.profil.address);
-      formData.append("postCode", data.data.profil.postCode);
-      formData.append("city", data.data.profil.city);
-      formData.append("phone", data.data.profil.phone);
-    }
+      formData.append("firstName", data.data.firstName);
+      formData.append("lastName", data.data.lastName);
+      formData.append("address", data.data.address);
+      formData.append("postCode", data.data.postCode);
+      formData.append("city", data.data.city);
+      formData.append("phone", data.data.phone);
+
 
     return request({
       path: userApi.path,
@@ -66,7 +64,7 @@ export default {
   },
 
 
-  updateOneUser: (data: Payload) => {
+  updateOneUser: (data: Payload<User>) => {
     const userApi = apiRoutes.users.update;
 
     const formData = new FormData();
@@ -81,7 +79,7 @@ export default {
       data: formData,
     });
   },
-  deleteOneUser: (data: Payload) => {
+  deleteOneUser: (data: Payload<User>) => {
     const userApi = apiRoutes.users.delete;
     return request({
       path: userApi.path,
