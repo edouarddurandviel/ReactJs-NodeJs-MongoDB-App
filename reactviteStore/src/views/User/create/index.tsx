@@ -8,7 +8,7 @@ import { RVInput, RVLoadingButton } from "../../../components";
 import { BthForm, Container, Form } from "../../../components/RVLayout/styles";
 import type { User } from "../../../stores/user/interfaces";
 
-const Index = ({ dispatch, u, userLoading }: UserProps) => {
+const Index = ({ dispatch, user, userLoading }: UserProps) => {
 
   const form = useForm({
     initialValues: {
@@ -66,12 +66,17 @@ const Index = ({ dispatch, u, userLoading }: UserProps) => {
             ]}
           />
           <BthForm>
-            <RVLoadingButton type="submit" content="Submit" disabled={userLoading} loading={userLoading} />
+            <RVLoadingButton 
+              type="submit" 
+              content="Submit" 
+              disabled={userLoading} 
+              loading={userLoading} 
+            />
           </BthForm>
         </Form>
       </Formiz>
-      {u && (
-        <code>{u.email}</code>
+      {user && (
+        <code>{user.email}</code>
       )}
     </Container>
   );
@@ -79,13 +84,13 @@ const Index = ({ dispatch, u, userLoading }: UserProps) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    u: selectors.user.userSelector(state),
+    user: selectors.user.userSelector(state),
     userLoading: selectors.user.userLoadingSelector(state),
   };
 };
 
 interface UserProps {
-  u: User | null;
+  user: User | null;
   userLoading: boolean;
   dispatch: AppDispatch;
 }

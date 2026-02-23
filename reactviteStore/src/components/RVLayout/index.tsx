@@ -32,11 +32,14 @@ const Index = ({ dispatch, user }: LayoutProps) => {
           <NavLink className="links" to="/">
             Home
           </NavLink>
-          {user && (
+          {user && (<>
             <NavLink className="links" to="/user/add">
               Create user
             </NavLink>
-          )}
+             <NavLink className="links" to="/user/profil">
+              User profil
+            </NavLink>
+          </>)}
         </Menu>
         {user && (
           <>

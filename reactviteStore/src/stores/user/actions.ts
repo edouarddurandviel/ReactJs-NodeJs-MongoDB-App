@@ -1,6 +1,16 @@
-import type { AppDispatch } from "..";
+import type { AppDispatch, RootState } from "..";
+import type { ThunkAction } from "redux-thunk";
+import type { AnyAction } from 'redux';
 import * as actionType from "./types";
 import requests from "./api";
+import type { Payload } from "./interfaces";
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  AnyAction
+>;
 
 
 export const getAllUsers = () => {
@@ -50,6 +60,26 @@ export const reset = (data: string[]) => {
     payload: data,
   };
 };
+
+export const addProfilThunk = (data: any): AppThunk<Promise<void>> => {
+   return async (useAppDispatch) => {
+    try {
+      useAppDispatch({
+        type: "add_profil_loading",
+      });
+      const resp = await requests.addProfil(data);
+      useAppDispatch({
+        type: "add_profil_success",
+        payload: resp.data.data,
+      });
+    } catch (error: unknown) {
+      useAppDispatch({
+        type: "add_profil_failure",
+        payload: error,
+      });
+    }
+  };
+}
 
 // thunk version with eventually side effects
 export const getAllUsersThunk = () => {

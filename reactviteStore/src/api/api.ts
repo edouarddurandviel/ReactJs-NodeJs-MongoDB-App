@@ -38,6 +38,10 @@ export default {
       method: "POST",
       path: "user/create",
     },
+    addProfil: {
+      method: "POST",
+      path: "user/profil/:userId/create",
+    },
     login: {
       method: "GET",
       path: "user/login",

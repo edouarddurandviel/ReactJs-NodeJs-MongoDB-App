@@ -27,6 +27,11 @@ class UserController {
     return user;
   }
 
+   public async createProfil(data: any, userId: string) {
+    const user = await userActions.createProfil(data, userId);
+    return user;
+  }
+
   public async getUserData(userId: string) {
     const user = (await userActions.getUserData(userId)) as unknown as UserData[];
     return user;

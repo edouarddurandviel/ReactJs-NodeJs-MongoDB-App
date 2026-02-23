@@ -99,6 +99,16 @@ export const createOneUser = async (data: CreateUser) => {
   return user;
 };
 
+export const createProfil = async (data: any, userId: string) => {
+  const userCollection = await inCollection("profil");
+
+  const user = await userCollection.insertOne({
+  ...data,
+   _id: new ObjectId(userId)
+  });
+  return user;
+};
+
 export const searchForOneUser = async (email: string) => {
   const userCollection = await inCollection("user");
   const search = `/${email}/`;

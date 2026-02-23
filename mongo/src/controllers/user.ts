@@ -61,7 +61,26 @@ export default (io: Server) => {
     }
   });
 
-  router.get("/all", sessionToken, async (req: ExtendedRequest, res: Response) => {
+   router.post(
+    "/profil/:userId/create", 
+    sessionToken, 
+    async (req: Request, res: Response) => {
+
+    try {
+      const userId = await userSchemas.uidSchema.validateAsync(req.params.userId);
+      await userServices.createProfil(req.body, userId);
+
+      res.status(200).json({ err: false });
+    } catch (error: any) {
+      handleErrors(error);
+    }
+  });
+
+  router.get(
+    "/all", 
+    sessionToken, 
+    async (req: ExtendedRequest, res: Response) => {
+      
     try {
       const result = await userServices.getAllUsers();
 

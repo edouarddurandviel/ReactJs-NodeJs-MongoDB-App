@@ -42,6 +42,29 @@ export default {
     });
   },
 
+   addProfil: (data: Payload) => {
+    const userApi = apiRoutes.users.addProfil;
+
+    const formData = new FormData();
+    if(data.data.profil){
+
+      console.log(data)
+      formData.append("firstName", data.data.profil.firstName);
+      formData.append("lastName", data.data.profil.lastName);
+      formData.append("address", data.data.profil.address);
+      formData.append("postCode", data.data.profil.postCode);
+      formData.append("city", data.data.profil.city);
+      formData.append("phone", data.data.profil.phone);
+    }
+
+    return request({
+      path: userApi.path,
+      params: data.params,
+      method: userApi.method,
+      data: formData,
+    });
+  },
+
 
   updateOneUser: (data: Payload) => {
     const userApi = apiRoutes.users.update;
