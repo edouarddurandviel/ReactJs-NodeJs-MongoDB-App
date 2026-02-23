@@ -44,16 +44,13 @@ export default {
 
    addProfil: (data: Payload<Profil>) => {
     const userApi = apiRoutes.users.addProfil;
-
     const formData = new FormData();
-
-      formData.append("firstName", data.data.firstName);
-      formData.append("lastName", data.data.lastName);
-      formData.append("address", data.data.address);
-      formData.append("postCode", data.data.postCode);
-      formData.append("city", data.data.city);
-      formData.append("phone", data.data.phone);
-
+    formData.append("firstName", data.data.firstName);
+    formData.append("lastName", data.data.lastName);
+    formData.append("address", data.data.address);
+    formData.append("postCode", data.data.postCode);
+    formData.append("city", data.data.city);
+    formData.append("phone", data.data.phone);
 
     return request({
       path: userApi.path,
@@ -66,7 +63,6 @@ export default {
 
   updateOneUser: (data: Payload<User>) => {
     const userApi = apiRoutes.users.update;
-
     const formData = new FormData();
     formData.append("name", data.data.name);
     formData.append("ref", data.data.email);
