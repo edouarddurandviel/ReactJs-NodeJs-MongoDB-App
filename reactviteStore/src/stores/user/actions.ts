@@ -61,6 +61,8 @@ export const reset = (data: string[]) => {
   };
 };
 
+
+
 export const addProfilThunk = (data: any): AppThunk<Promise<void>> => {
    return async (useAppDispatch) => {
     try {
@@ -82,19 +84,19 @@ export const addProfilThunk = (data: any): AppThunk<Promise<void>> => {
 }
 
 // thunk version with eventually side effects
-export const getAllUsersThunk = () => {
-  return async (dispatch: AppDispatch) => {
+export const getAllUsersThunk = (): AppThunk<Promise<void>> => {
+  return async (useAppDispatch) => {
     try {
-      dispatch({
+      useAppDispatch({
         type: actionType.GET_ALL_USERS_LOADING,
       });
       const resp = await requests.getAllUsers();
-      dispatch({
+      useAppDispatch({
         type: actionType.GET_ALL_USERS_SUCCESS,
         payload: resp.data.data,
       });
     } catch (error: unknown) {
-      dispatch({
+      useAppDispatch({
         type: actionType.GET_ALL_USERS_FAILURE,
         payload: error,
       });
@@ -103,9 +105,9 @@ export const getAllUsersThunk = () => {
 };
 
 // thunk version with eventually side effects
-export const resetThunk = (data: string[]) => {
-  return async (dispatch: AppDispatch) => {
-    dispatch({
+export const resetThunk = (data: string[]): AppThunk<Promise<void>> => {
+  return async (useAppDispatch) => {
+    useAppDispatch({
       type: actionType.RESET,
       payload: data,
     });
