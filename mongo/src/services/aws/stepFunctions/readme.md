@@ -1,38 +1,28 @@
 ## Step functions
+- deploy or not state machines.
+- test state machines befores
+- check workflow
 
-### passing data: between states with variables
+==> build topologie of state machine craft
 
-```json
-{
-  "Comment": "Set initial values, multiply, then format currency",
-  "StartAt": "SetInitialValues",
-  "States": {
-    "SetInitialValues": {
-      "Type": "Pass",
-      "Result": {
-        "inputValue": 2000,
-        "multiplier": 10
-      },
-      "ResultPath": "$.initial",
-      "Next": "MultiplyValue" // lambda
-    },
-    "MultiplyValue": {
-      "Type": "Task",
-      "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:MultiplyValue",
-      "InputPath": "$.initial",
-      "ResultPath": "$.multiplied",
-      "Next": "FormatCurrency" // lambda
-    },
-    "FormatCurrency": {
-      "Type": "Task",
-      "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:FormatCurrency",
-      "InputPath": "$.multiplied",
-      "ResultPath": "$.formatted",
-      "End": true
-    }
-  }
-}
-```
+==> use ui and define each state using forms
+
+UI workflow definition => right button test (user permissions defined in IAM)
+state input textarea for body (data). 
+=> level inspection selector.
+take each results and provide data to each test sequencies.
+==> then save button
+
+
+Wait for callback: usefull to wait for external data before execution. for example validation ...
+provided with token 
+
+==> Definition (read-only)
+
+
+# lambda up to 10 concurrently
+tmp, glogal variables cache.
+- add tenant defined id for customers
 
 ### Lambda: MultiplyValue
 
@@ -66,20 +56,24 @@ exports.handler = async event => {
 
 JSONata: using JSONPath
 
-Intrinsic functions (States.MathAdd), WorkflowStatesState, MachinesState, QueryLanguage, input/output configuration
+- Intrinsic functions (States.MathAdd), 
+- WorkflowStatesState, 
+- MachinesState, 
+- QueryLanguage, 
+- input/output configuration
 
 ## Service integration
 
-any aws services
+- any aws services
 
 ## Service integration type
 
-AWS SDK
-Optimized with state
+- AWS SDK
+- Optimized with state
 
 ## Service integration patterns
 
-- Express workflow: Request a response: default http response
+- Express workflow: Request a response: default http response. Cannot exceed 5 minutes
 - Standard workflow: Run a job (.sync) step functions and jobs
 - Standard workflow: callbacks with associated tasks tokens (.waitForTaskToken)
 

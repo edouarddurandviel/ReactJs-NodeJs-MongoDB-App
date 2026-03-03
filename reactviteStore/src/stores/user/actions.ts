@@ -1,9 +1,8 @@
-import type { AppDispatch, RootState } from "..";
+import type { RootState } from "..";
 import type { ThunkAction } from "redux-thunk";
 import type { AnyAction } from 'redux';
 import * as actionType from "./types";
 import requests from "./api";
-import type { Payload } from "./interfaces";
 
 export type AppThunk<ReturnType = void> = ThunkAction<
   ReturnType,
@@ -67,16 +66,16 @@ export const addProfilThunk = (data: any): AppThunk<Promise<void>> => {
    return async (useAppDispatch) => {
     try {
       useAppDispatch({
-        type: "add_profil_loading",
+        type: actionType.PROFIL_REQUEST,
       });
       const resp = await requests.addProfil(data);
       useAppDispatch({
-        type: "add_profil_success",
-        payload: resp.data.data,
+        type: actionType.PROFIL_SUCCESS,
+        payload: resp,
       });
     } catch (error: unknown) {
       useAppDispatch({
-        type: "add_profil_failure",
+        type: actionType.PROFIL_FAILURE,
         payload: error,
       });
     }

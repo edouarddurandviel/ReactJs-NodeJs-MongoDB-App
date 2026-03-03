@@ -1,0 +1,29 @@
+{
+  "Comment": "Set initial values, multiply, then format currency",
+  "StartAt": "SetInitialValues",
+  "States": {
+    "SetInitialValues": {
+      "Type": "Pass",
+      "Result": {
+        "inputValue": 2000,
+        "multiplier": 10
+      },
+      "ResultPath": "$.initial",
+      "Next": "MultiplyValue"
+    },
+    "MultiplyValue": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:MultiplyValue",
+      "InputPath": "$.initial",
+      "ResultPath": "$.multiplied",
+      "Next": "FormatCurrency"
+    },
+    "FormatCurrency": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:REGION:ACCOUNT_ID:function:FormatCurrency",
+      "InputPath": "$.multiplied",
+      "ResultPath": "$.formatted",
+      "End": true
+    }
+  }
+}

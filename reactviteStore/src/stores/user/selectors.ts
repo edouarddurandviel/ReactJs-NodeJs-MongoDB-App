@@ -5,12 +5,14 @@ const userSelector = (state: RootState) => state.user.user;
 const addUserSelector = (state: RootState) => state.user.addUser;
 const filteredUsersSelector = (state: RootState) => state.user.filteredUsers;
 const updateUserSelector = (state: RootState) => state.user.updateUser;
+const profilSelector = (state: RootState) => state.user.profil;
 
 const usersLoadingSelector = (state: RootState) => state.user.usersLoading;
 const userLoadingSelector = (state: RootState) => state.user.userLoading;
 const addUserLoadingSelector = (state: RootState) => state.user.addUserLoading;
 const filteredUsersLoadingSelector = (state: RootState) => state.user.filteredUsersLoading;
 const updateUserLoadingSelector = (state: RootState) => state.user.updateUserLoading;
+const profilLoadingSelector = (state: RootState) => state.user.profilLoading;
 
 const addUserSuccessSelector = (state: RootState) => state.user.addUserSuccess;
 
@@ -33,4 +35,6 @@ export default {
   updateUserErrorSelector,
   userLoadingSelector,
   userSelector,
+  profilSelector,
+  profilLoadingSelector,
 };

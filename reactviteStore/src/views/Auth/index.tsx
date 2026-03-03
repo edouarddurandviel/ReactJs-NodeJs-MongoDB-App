@@ -77,8 +77,8 @@ const Index = ({ dispatch, authLoading }: UserProps) => {
               <RVLoadingButton 
                 type="submit" 
                 content="Submit" 
-                disabled={authLoading} 
-                loading={authLoading} 
+                // disabled={authLoading} 
+                // loading={authLoading} 
               />
             </BthForm>
           </Form>

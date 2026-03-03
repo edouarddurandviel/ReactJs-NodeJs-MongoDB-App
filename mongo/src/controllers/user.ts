@@ -68,9 +68,9 @@ export default (io: Server) => {
 
     try {
       const userId = await userSchemas.uidSchema.validateAsync(req.params.userId);
-      await userServices.createProfil(req.body, userId);
+      const result = await userServices.createProfil(req.body, userId);
 
-      res.status(200).json({ err: false });
+      res.status(200).json({ err: false, data: result});
     } catch (error: any) {
       handleErrors(error);
     }

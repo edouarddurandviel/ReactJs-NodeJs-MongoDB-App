@@ -1,5 +1,5 @@
 import type { WritableDraft } from "immer";
-import type { User } from "./interfaces";
+import type { Profil, User } from "./interfaces";
 
 // Initial state
 export const initialState = {
@@ -10,6 +10,7 @@ export const initialState = {
   deleteUser: {} as User,
   filteredUsers: [] as User[],
   updateUser: {} as User,
+  profil: null as unknown as Profil,
   // Success
   usersSuccess: false,
   userSuccess: false,
@@ -17,6 +18,7 @@ export const initialState = {
   deleteUserSuccess: false,
   filteredUsersSuccess: false,
   updateUserSuccess: false,
+  profilSuccess: false,
   // Loading
   userLoading: false,
   usersLoading: false,
@@ -24,6 +26,7 @@ export const initialState = {
   deleteUserLoading: false,
   filteredUsersLoading: false,
   updateUserLoading: false,
+  profilLoading: false,
   // Error
   userErrors: false,
   usersErrors: false,
@@ -31,6 +34,7 @@ export const initialState = {
   deleteUserErrors: false,
   filteredUsersErrors: false,
   updateUserError: false,
+  profilError: false,
 
   reset: [],
 };

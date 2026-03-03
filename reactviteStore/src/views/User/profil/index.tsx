@@ -1,18 +1,21 @@
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
  import { Formik } from 'formik';
 import * as selectors from "../../../stores/rootSelectors";
 import * as actions from "../../../stores/rootActions";
 import type { AppDispatch, RootState } from "../../../stores";
-import { RVLoadingButton } from "../../../components";
+import { RVAlerts, RVLoadingButton } from "../../../components";
 import { BthForm, Container, Form, Message } from "../../../components/RVLayout/styles";
 import { Input } from "../../../components/Formik";
 import type { ThunkDispatch } from "redux-thunk";
 import type { AnyAction } from "redux";
+import { useCallback, useEffect, useState } from "react";
 
 
-const Index = ({}: UserProps) => {
+
+const Index = ({profil, dispatch}: UserProps) => {
   
   const appDispatch = useDispatch<ThunkDispatch<RootState, undefined, AnyAction>>();
+  const [open, setOpen] = useState<boolean>(false)
 
   const submitProfil = (values: any) => {
     appDispatch(
@@ -25,8 +28,23 @@ const Index = ({}: UserProps) => {
     );
   };
 
+  const closeModal = useCallback(() => {
+    dispatch(
+      actions.user.reset(["profil"]),
+    );
+  }, [profil])
+
+
+  useEffect(() => {
+    (profil && profil.data) ? setOpen(true) : setOpen(false) 
+  }, [profil])
+
+
+
   return (
     <Container>
+      {profil && <RVAlerts data={profil} open={open} closeModal={closeModal} />}
+
       <Message>Add information about each user</Message>
       <Message>Cookies available for one hour. At expiry delete user token from token mongo table</Message>
 
@@ -40,7 +58,7 @@ const Index = ({}: UserProps) => {
         phone: '54654656546'
       }}
        validate={(values) => {
-        console.log(values)
+       
        }}
        onSubmit={(values) => {
         submitProfil(values)
@@ -130,12 +148,14 @@ const Index = ({}: UserProps) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    userLoading: selectors.user.userLoadingSelector(state),
+    profil: selectors.user.profilSelector(state),
+    profilLoading: selectors.user.profilLoadingSelector(state),
   };
 };
 
 interface UserProps {
-  userLoading: boolean;
+  profil: any;
+  uprofilLoading: boolean;
   dispatch: AppDispatch;
 }
 

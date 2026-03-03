@@ -1,12 +1,26 @@
 import { produce, type WritableDraft } from "immer";
 import * as actionType from "./types";
 import { initialState, type State, type Action } from "./initialState";
-import type { User } from "./interfaces";
+import type { Profil, User } from "./interfaces";
 
 export default (state: State = initialState, action: Action): State => {
   // use produce from Immer to allow "mutating" logic
   return produce(state, (draft: WritableDraft<State>) => {
     switch (action.type) {
+
+      case actionType.PROFIL_LOADING:
+        draft.profilLoading = true;
+        break;
+      case actionType.PROFIL_SUCCESS:
+        draft.profilSuccess = true;
+        draft.profil = action.payload as unknown as Profil;
+        draft.profilLoading = false;
+        break;
+      case actionType.PROFIL_FAILURE:
+        draft.profilLoading = false;
+        draft.profilError = true;
+        break;
+
       case actionType.GET_ALL_USERS_LOADING:
         draft.usersLoading = true;
         break;
