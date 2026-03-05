@@ -1,6 +1,6 @@
 ## ReactJs-NodeJs-MongoDB-App
 
-auth argon2Async uniquement disponible à partir de la version node: v24.7.0 - 
+auth argon2Async uniquement disponible à partir de la version node: v24.7.0 
 
 Frontend: "React.js"
 Backend: "node.js", "express.js", connecté à une base de données NoSQL, "MongoDB"
