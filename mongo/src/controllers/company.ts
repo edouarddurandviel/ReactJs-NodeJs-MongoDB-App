@@ -3,14 +3,12 @@ import CompanyController from "@services/company";
 import * as companySchemas from "@schemas/company";
 import * as generalSchemas from "@schemas/general";
 import { handleErrors } from "@libs/server";
-import { sessionToken } from "@middleware/sessionToken";
-import { remotePostAccess } from "@middleware/remoteAccess";
 import { ExtendedRequest } from "../_interfaces/requests";
 import { Server } from "socket.io";
 
 export default (io: Server) => {
-  const router = express.Router();
 
+  const router = express.Router();
   const companyServices = new CompanyController(io);
 
   // Write

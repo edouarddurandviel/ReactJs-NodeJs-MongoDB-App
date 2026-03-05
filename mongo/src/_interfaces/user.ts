@@ -7,6 +7,7 @@ export const collections: {
 export type CreateUser = {
   email: string;
   password: string;
+  salt: string;
   name?: string;
 };
 

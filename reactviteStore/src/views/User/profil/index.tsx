@@ -18,6 +18,7 @@ const Index = ({profil, dispatch}: UserProps) => {
   const [open, setOpen] = useState<boolean>(false)
 
   const submitProfil = (values: any) => {
+    // userId from incoming user list
     appDispatch(
       actions.user.addProfilThunk({
         params: {
