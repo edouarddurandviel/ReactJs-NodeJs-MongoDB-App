@@ -35,11 +35,12 @@ const Index = ({ dispatch, authLoading }: UserProps) => {
   return (
     <Container>
       <LoginForm>
+         <Message>Nodejs v24.7.0 - argon2Async salt + env secret</Message>
         <Message>
-          <strong>user:</strong> test1@test1.com, <strong>password:</strong> password
+          <strong>user:</strong> hash3@mail.com, <strong>password:</strong> password3
         </Message>
         <Message>Cookies are valid for one hour. Upon expiration, 
-          the user token is removed from the MongoDB token table</Message>
+          the user token is removed from the MongoDB token table.</Message>
         <Formiz connect={form}>
           <Form
             onSubmit={(e) => {

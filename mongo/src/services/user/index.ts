@@ -21,6 +21,7 @@ class UserController {
   public async createOneUser(data: CreateUser) {
 
     const salt = randomBytes(16);
+    const secret = process.env.ENV_SECRET
 
     const derivedKey = argon2Sync('argon2id', {
       message: data.password,
@@ -28,7 +29,8 @@ class UserController {
       parallelism: 4,
       tagLength: 32,
       memory: 65536,
-      passes: 3
+      passes: 3,
+      secret: secret,
     }).toString("hex")
 
     const dataHash = {
@@ -66,13 +68,13 @@ class UserController {
         parallelism: 4,
         tagLength: 32,
         memory: 65536,
+        secret: process.env.ENV_SECRET,
         passes: 3
      });
 
 
 
     if(hash.toString("hex") === user.password){
-    //if (await argon2.verify(user.password, password)) {
 
       // create jwt token
       const payload = { userId: user._id };
