@@ -2,7 +2,7 @@ import { Unauthorized } from "http-json-errors";
 import { AuthUser, CreateUser, UserData } from "../../_interfaces/user";
 import * as userActions from "./actions";
 import * as argon2 from "argon2";
-import { argon2Sync, randomBytes, argon2 as argon } from "node:crypto";
+import { argon2Sync, randomBytes } from "node:crypto";
 import * as jwt from "jsonwebtoken";
 import { UserToken } from "../../_interfaces/models";
 
@@ -22,25 +22,20 @@ class UserController {
 
     const salt = randomBytes(16);
 
-    // const derivedKey = argon2Sync('argon2id', {
-    //   message: data.password,
-    //   nonce: salt,
-    //   parallelism: 4,
-    //   tagLength: 32,
-    //   memory: 65536,
-    //   passes: 3
-    // }).toString("hex")
-
-
-    // simpler for demo
-    const derivedKey = await argon2.hash(data.password);
+    const derivedKey = argon2Sync('argon2id', {
+      message: data.password,
+      nonce: salt,
+      parallelism: 4,
+      tagLength: 32,
+      memory: 65536,
+      passes: 3
+    }).toString("hex")
 
     const dataHash = {
       email: data.email,
       password: derivedKey,
       salt: salt.toString("hex")
     };
-
     const user = await userActions.createOneUser(dataHash);
 
     return user;
@@ -63,21 +58,21 @@ class UserController {
 
   public async login(email: string, password: string) {
     const user = await userActions.getOneUserWithEmail(email);
-    // const salt = Buffer.from(user.salt, "hex");
+    const salt = Buffer.from(user.salt, "hex");
 
-    // const hash = argon2Sync("argon2id", {
-    //     message: password,
-    //     nonce: salt,
-    //     parallelism: 4,
-    //     tagLength: 32,
-    //     memory: 65536,
-    //     passes: 3
-    //   });
+     const hash = argon2Sync("argon2id", {
+        message: password,
+        nonce: salt,
+        parallelism: 4,
+        tagLength: 32,
+        memory: 65536,
+        passes: 3
+     });
 
-    // hash.toString("hex") === user.password;
 
-    // if(hash.toString("hex") === user.password){
-    if (await argon2.verify(user.password, password)) {
+
+    if(hash.toString("hex") === user.password){
+    //if (await argon2.verify(user.password, password)) {
 
       // create jwt token
       const payload = { userId: user._id };
