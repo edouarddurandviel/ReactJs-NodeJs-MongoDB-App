@@ -1,7 +1,7 @@
 import express from "express";
-import UsersController from "./user";
-import CompanyController from "./company";
-import RemoteController from "./remote";
+import UsersRoutes from "./user/user";
+import CompanyRoutes from "./company/company";
+import RemoteRoutes from "./remote/remote";
 import { Server } from "socket.io";
 import { sessionToken } from "@middleware/sessionToken";
 
@@ -12,9 +12,9 @@ export default (io: Server) => {
     strict: true
   });
 
-  app.use("/company", sessionToken, CompanyController(io));
-  app.use("/user", UsersController(io));
-  app.use("/remote", RemoteController(io));
+  app.use("/company", sessionToken, CompanyRoutes(io));
+  app.use("/user", UsersRoutes(io));
+  app.use("/remote", RemoteRoutes(io));
 
   return app;
 };

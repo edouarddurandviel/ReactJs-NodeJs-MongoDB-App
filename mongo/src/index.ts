@@ -3,7 +3,7 @@ import http from "http";
 import app from "./_config/app";
 import socketIo from "@libs/socketio";
 import { onError, normalizePort } from "@libs/server";
-import v1Routes from "./_routes/v1";
+import v1Routes from "./_api/v1";
 
 // Get port from environment and store in Express.
 const port = normalizePort(process.env.PORT || "3000");

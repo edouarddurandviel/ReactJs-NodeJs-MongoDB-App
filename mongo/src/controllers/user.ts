@@ -1,119 +1,103 @@
-import express, { Request, Response } from "express";
-import { ExtendedRequest } from "../_interfaces/requests";
-import * as userSchemas from "../_joiSchemas/users";
-import { handleErrors } from "@libs/server";
-import { sessionToken } from "@middleware/sessionToken";
-import UserController from "@services/user";
-import { Server } from "socket.io";
-import { Storage } from "@google-cloud/storage";
-import config from "../_config/google";
+import { Unauthorized } from "http-json-errors";
+import { AuthUser, CreateUser, UserData } from "../_interfaces/user";
+import * as userActions from "../services/user/actions";
+import * as argon2 from "argon2";
+import { argon2Sync, randomBytes } from "node:crypto";
+import * as jwt from "jsonwebtoken";
+import { UserToken } from "../_interfaces/models";
 
-export default (io: Server) => {
-  const router = express.Router({
-    mergeParams: false,
-    caseSensitive: true,
-    strict: true
-  });
+class UserController {
+  private _io;
 
-  const userServices = new UserController(io);
+  constructor(io: any) {
+    this._io = io;
+  }
 
-  /* users pages. */
-  router.post("/create", async (req: ExtendedRequest, res: Response) => {
-    try {
-      const data = await userSchemas.user.validateAsync(req.body);
-      const result = await userServices.createOneUser(data);
+  public async getAllUsers() {
+    const user = await userActions.getAllUsers();
+    return user;
+  }
 
-      res.status(200).json({ err: false, data: result });
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
+  public async createOneUser(data: CreateUser) {
 
-  router.get("/login", async (req: Request, res: Response) => {
-    try {
-      const email = await userSchemas.textSchema.validateAsync(req.query.email);
-      const password = await userSchemas.textSchema.validateAsync(req.query.password);
-      const result = await userServices.login(email, password);
+    const salt = randomBytes(16);
+    const secret = process.env.ENV_SECRET
 
-      res.cookie("jwt", result.token, {
-        expires: new Date(Date.now() + 1 * 3600000),
-        httpOnly: true,
-        secure: false,
-        sameSite: "lax",
-        path: "/"
-      });
+    const derivedKey = argon2Sync('argon2id', {
+      message: data.password,
+      nonce: salt,
+      parallelism: 4,
+      tagLength: 32,
+      memory: 65536,
+      passes: 3,
+      secret: secret,
+    }).toString("hex")
 
-      res.status(200).json({ err: false, data: result });
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
+    const dataHash = {
+      email: data.email,
+      password: derivedKey,
+      salt: salt.toString("hex")
+    };
+    const user = await userActions.createOneUser(dataHash);
 
-  router.post("/logout/:userId", async (req: Request, res: Response) => {
-    try {
-      const data = await userSchemas.uidSchema.validateAsync(req.params.userId);
-      await userServices.logout(data);
+    return user;
+  }
 
-      res.clearCookie("jwt");
-      res.status(200).json({ err: false });
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
+   public async createProfil(data: any, userId: string) {
+    const user = await userActions.createProfil(data, userId);
+    return user;
+  }
 
-   router.post(
-    "/profil/:userId/create", 
-    sessionToken, 
-    async (req: Request, res: Response) => {
+  public async getUserData(userId: string) {
+    const user = (await userActions.getUserData(userId)) as unknown as UserData[];
+    return user;
+  }
 
-    try {
-      const userId = await userSchemas.uidSchema.validateAsync(req.params.userId);
-      const result = await userServices.createProfil(req.body, userId);
+  public async getOneUserWithEmail(email: string) {
+    const user = await userActions.getOneUserWithEmail(email);
+    return user;
+  }
 
-      res.status(200).json({ err: false, data: result});
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
+  public async login(email: string, password: string) {
+    const user = await userActions.getOneUserWithEmail(email);
+    const salt = Buffer.from(user.salt, "hex");
 
-  router.get(
-    "/all", 
-    sessionToken, 
-    async (req: ExtendedRequest, res: Response) => {
-      
-    try {
-      const result = await userServices.getAllUsers();
+     const hash = argon2Sync("argon2id", {
+        message: password,
+        nonce: salt,
+        parallelism: 4,
+        tagLength: 32,
+        memory: 65536,
+        secret: process.env.ENV_SECRET,
+        passes: 3
+     });
 
-      res.status(200).json({ err: false, data: result });
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
+    if(hash.toString("hex") === user.password){
 
-  router.get("/:userId", sessionToken, async (req: ExtendedRequest, res: Response) => {
-    try {
-      const userId = await userSchemas.userId.validateAsync(req.params.userId);
-      const result = await userServices.getUserData(userId);
+      // create jwt token
+      const payload = { userId: user._id };
+      const secret = password;
+      const token = jwt.sign(payload, secret, { expiresIn: "1h" });
+      await userActions.storeUserToken(token, user._id);
 
-      res.status(200).json({ err: false, data: result });
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
+      //const roles = await userActions.getUserData(user._id.toString());
 
-  router.get("/gcloud/picture", async (req: ExtendedRequest, res: Response) => {
-    try {
-      const options = {
-        projectId: "progresswebapp-cf1d7",
-        keyFilename: config.buckets.google || "default"
+      const userPermissions = {
+        id: user._id,
+        email: user.email
       };
-      const storage = new Storage(options);
-      const [buckets] = await storage.getBuckets();
-      res.status(200).json({ err: false, data: buckets });
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
 
-  return router;
-};
+      return { userPermissions, token };
+    } else {
+      throw new Unauthorized("Invalid email or password");
+    }
+  }
+
+  public async logout(userId: string) {
+    const data = (await userActions.getUserTokenWithId(userId)) as unknown as UserToken;
+    const result = await userActions.deleteUserToken(data.userId);
+    return result;
+  }
+}
+
+export default UserController;

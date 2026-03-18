@@ -1,99 +1,90 @@
-import express, { Request, Response } from "express";
-import CompanyController from "@services/company";
-import * as companySchemas from "@schemas/company";
-import * as generalSchemas from "@schemas/general";
-import { handleErrors } from "@libs/server";
-import { ExtendedRequest } from "../_interfaces/requests";
 import { Server } from "socket.io";
+import fs from "fs";
+import * as mongo from "mongodb";
+import { CreateCompany } from "../_interfaces/company";
+import * as companyActions from "../services/company/actions";
+import * as companySockets from "../services/company/sockets/clients";
+import CompanyAdminSocket from "../services/company/sockets/admin";
+import { getObject } from "../services/aws/s3/getObject";
+import path from "path";
+import { open } from "fs/promises";
+//import { redisClient } from "@libs/redis";
+//import { RedisArgument } from "redis";
 
-export default (io: Server) => {
+class CompanyController {
+  private _io;
+  private admin;
 
-  const router = express.Router();
-  const companyServices = new CompanyController(io);
+  constructor(io: Server) {
+    this._io = io;
+    this.admin = new CompanyAdminSocket();
+  }
 
-  // Write
-  router.post("/create", async (req: ExtendedRequest, res: Response) => {
-    try {
-      const data = await companySchemas.fullCompany.validateAsync(req.body);
-      const result = await companyServices.createOneCompany(data);
+  public async getDocuments() {
+    const documents = await getObject("test", "document.jpg");
+    return documents;
+  }
 
-      res.status(200).json({ err: false, data: result });
-    } catch (error: any) {
-      handleErrors(error);
+  public async getOneCompany(companyId: string) {
+    const result = await companyActions.findOne(companyId);
+
+    return result;
+  }
+
+  public async getCompanies() {
+    const companies = await companyActions.getAll();
+    return companies;
+  }
+
+  public async createOneCompany(company: CreateCompany) {
+    // define price using company name length
+    const newPrice = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" });
+    const len = company.ref.length;
+
+    company.publicPrice = newPrice.format(len);
+    company.price = mongo.Decimal128.fromString(len.toFixed(2));
+
+    await companyActions.createOne(company);
+    companySockets.reloadCompanies();
+  }
+
+  public async updateOneCompany(companyId: string, data: CreateCompany) {
+    await companyActions.updateOne(companyId, data);
+
+    companySockets.reloadCompanies();
+  }
+
+  public async updateManyCompanies(companyId: string, data: CreateCompany) {
+    await companyActions.updateMany(companyId, data);
+
+    companySockets.reloadCompany(1, {
+      params: {
+        userId: 1
+      }
+    });
+  }
+
+  public async replaceOneCompany(companyId: string, data: CreateCompany) {
+    await companyActions.replaceOne(companyId, data);
+
+    companySockets.reloadCompanies();
+  }
+
+  public async deleteOneCompany(companyId: string) {
+    await companyActions.deleteOne(companyId);
+
+    companySockets.reloadCompanies();
+  }
+
+  public async getCompanyLogs() {
+    const docPath = path.resolve("isolate-000001A595F92050-14492-v8.log");
+    const doc = await open(docPath);
+    for await (const line of doc.readLines()) {
+      console.log(line);
     }
-  });
 
-  router.patch("/replace/:companyId", async (req: ExtendedRequest, res: Response) => {
-    try {
-      const data = await companySchemas.fullCompany.validateAsync(req.body);
-      const companyId = await generalSchemas.textSchema.validateAsync(req.params.companyId);
+    return doc;
+  }
+}
 
-      await companyServices.replaceOneCompany(companyId, data);
-
-      res.status(200).json({ err: false });
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
-
-  router.patch("/update/many", async (req: ExtendedRequest, res: Response) => {
-    try {
-      const data = await companySchemas.fullCompany.validateAsync(req.body);
-      const companyId = await generalSchemas.textSchema.validateAsync(req.params.companyId);
-
-      const result = await companyServices.updateManyCompanies(companyId, data);
-
-      res.status(200).json({ err: false, data: result });
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
-
-  router.patch("/update/:companyId", async (req: ExtendedRequest, res: Response) => {
-    try {
-      const data = await companySchemas.company.validateAsync(req.body);
-      const companyId = await generalSchemas.textSchema.validateAsync(req.params.companyId);
-
-      const result = await companyServices.updateOneCompany(companyId, data);
-
-      res.status(200).json({ err: false, data: result });
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
-
-  router.delete("/delete/:companyId", async (req: Request, res: Response) => {
-    try {
-      const companyId = await generalSchemas.textSchema.validateAsync(req.params.companyId);
-
-      const result = await companyServices.deleteOneCompany(companyId);
-
-      res.status(200).json({ err: false, data: result });
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
-
-  router.get("/all", async (req: ExtendedRequest, res: Response) => {
-    try {
-      const result = await companyServices.getCompanies();
-
-      res.status(200).json({ err: false, data: result });
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
-
-  router.get("/one/:companyId", async (req: ExtendedRequest, res: Response) => {
-    try {
-      const companyId = await generalSchemas.textSchema.validateAsync(req.params.companyId);
-      const result = await companyServices.getOneCompany(companyId);
-
-      res.status(200).json({ err: false, data: result });
-    } catch (error: any) {
-      handleErrors(error);
-    }
-  });
-
-  return router;
-};
+export default CompanyController;
