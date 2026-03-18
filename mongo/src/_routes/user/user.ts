@@ -31,7 +31,7 @@ export default (io: Server) => {
 
   router.get("/login", async (req: Request, res: Response) => {
     try {
-      console.log(req.query)
+
       const email = await userSchemas.textSchema.validateAsync(req.query.email);
       const password = await userSchemas.textSchema.validateAsync(req.query.password);
       const result = await userServices.login(email, password);
