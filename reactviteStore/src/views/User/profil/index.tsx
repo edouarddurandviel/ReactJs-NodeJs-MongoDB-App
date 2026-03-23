@@ -1,4 +1,4 @@
-import { connect, useDispatch, useSelector } from "react-redux";
+import { connect, useDispatch } from "react-redux";
  import { Formik } from 'formik';
 import * as selectors from "../../../stores/rootSelectors";
 import * as actions from "../../../stores/rootActions";
@@ -58,7 +58,7 @@ const Index = ({profil, dispatch}: UserProps) => {
         city: 'Antibes',
         phone: '54654656546'
       }}
-       validate={(values) => {
+       validate={() => {
        
        }}
        onSubmit={(values) => {
@@ -72,13 +72,7 @@ const Index = ({profil, dispatch}: UserProps) => {
          handleChange,
          handleBlur,
          handleSubmit,
-         isSubmitting,
-         setFieldValue,
-         setFieldError,
-         setFieldTouched,
-         setErrors,
-         setValues,
-         setTouched
+         isSubmitting
        }) => (
         <Form onSubmit={handleSubmit}>
           <Input
@@ -156,7 +150,7 @@ const mapStateToProps = (state: RootState) => {
 
 interface UserProps {
   profil: any;
-  uprofilLoading: boolean;
+  profilLoading: boolean;
   dispatch: AppDispatch;
 }
 

@@ -13,7 +13,7 @@ class builder {
     params.forEach((e) => Object.assign(paramsM, { [e]: "" }));
     Object.keys(paramsM).forEach((e) => {
       if (Object.keys(receivedMap).includes(e)) {
-        paramsM[e] = receivedMap[e];
+        paramsM[e] = receivedMap[e]!;
       }
     });
     return paramsM;

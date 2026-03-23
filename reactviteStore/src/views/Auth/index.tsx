@@ -8,7 +8,7 @@ import { RVInput, RVLoadingButton } from "../../components";
 import { BthForm, Container, Form, LoginForm, Message } from "../../components/RVLayout/styles";
 import type { User } from "../../stores/user/interfaces";
 
-const Index = ({ dispatch, authLoading }: UserProps) => {
+const Index = ({ dispatch }: UserProps) => {
 
   const form = useForm({
     initialValues: {

@@ -8,8 +8,8 @@ export default {
     return request({
       path: userApi.path,
       query: {
-        email: data.query.email,
-        password: data.query.password,
+        email: data.query.email!,
+        password: data.query.password!,
       },
       method: userApi.method,
     });
