@@ -7,6 +7,12 @@ import babel from 'vite-plugin-babel';
 // ensuring that only the minimal parts of components and hooks will re-render when state changes. 
 // The compiler also validates that components and hooks follow the Rules of React.
 export default defineConfig({
+  server: {
+    port: 5173,
+  },
+  preview: {
+    port: 5173,
+  },
   plugins: [
     react({
       babel: {
