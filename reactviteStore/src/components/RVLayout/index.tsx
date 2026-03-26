@@ -1,13 +1,16 @@
-import { NavLink, Outlet } from "react-router";
-import { Footer, Header, Main, Menu, PLaceHolder } from "./styles";
+import { Outlet } from "react-router";
+import { Footer, Header, Main, PLaceHolder } from "./styles";
 import type { AppDispatch } from "../../stores";
 import * as actions from "../../stores/rootActions";
 import { connect } from "react-redux";
 import { useCallback } from "react";
 import RVLoadingButton from "../RVLoadingButton";
 import type { UserConnected } from "../../stores/auth/interfaces";
+import { UserContext } from "../../contexts/UserContext";
+import RVMenu from "../RVMenu";
 
 const Index = ({ dispatch, user }: LayoutProps) => {
+
 
   const handleLogout = useCallback(() => {
     if (user) {
@@ -24,40 +27,31 @@ const Index = ({ dispatch, user }: LayoutProps) => {
     }
   }, [user]);
 
-
   return (
-    <PLaceHolder>
-      <Header>
-        <Menu>
-          <NavLink className="links" to="/">
-            Home
-          </NavLink>
-          {user && (<>
-            <NavLink className="links" to="/user/add">
-              Create user
-            </NavLink>
-             <NavLink className="links" to="/user/profil">
-              User profil
-            </NavLink>
-          </>)}
-        </Menu>
-        {user && (
-          <>
-            <RVLoadingButton
-              content="Logout"
-              onClick={() => {
-                handleLogout();
-              }}
-            />
-            <div>{user.userPermissions.email}</div>
-          </>
-        )}
-      </Header>
-      <Main>
-        <Outlet />
-      </Main>
-      <Footer>Footer</Footer>
-    </PLaceHolder>
+    <UserContext value={user}>
+      <PLaceHolder>
+        <Header>
+          <RVMenu />
+           
+      
+          {user && (
+            <>
+              <RVLoadingButton
+                content="Logout"
+                onClick={() => {
+                  handleLogout();
+                }}
+              />
+              <div>{user.userPermissions.email}</div>
+            </>
+          )}
+        </Header>
+        <Main>
+          <Outlet />
+        </Main>
+        <Footer>Footer</Footer>
+      </PLaceHolder>
+    </UserContext>
   );
 };
 
