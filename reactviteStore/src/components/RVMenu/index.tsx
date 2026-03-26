@@ -3,10 +3,10 @@ import { Menu } from "../RVLayout/styles";
 
 import { connect } from "react-redux";
 import {useContext, useMemo } from "react";
-import { userContext } from "../../contexts/UserContext";
+import { UserContext } from "../../contexts/UserContext";
 
 const Index = () => {
-  const currentUser = useContext(userContext);
+  const currentUser = useContext(UserContext);
   const contextValue = useMemo(() => ({
     currentUser,
   }), [currentUser]);
