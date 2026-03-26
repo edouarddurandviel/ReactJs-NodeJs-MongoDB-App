@@ -29,4 +29,4 @@ const Index = () => {
 };
 
 
-export default connect()(Index);
+export default Index;
