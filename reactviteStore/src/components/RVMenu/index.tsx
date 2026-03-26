@@ -1,7 +1,5 @@
 import { NavLink } from "react-router";
 import { Menu } from "../RVLayout/styles";
-
-import { connect } from "react-redux";
 import {useContext, useMemo } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
