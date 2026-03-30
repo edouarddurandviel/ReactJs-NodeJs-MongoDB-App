@@ -10,6 +10,7 @@ import type { AppDispatch, RootState } from "../../stores";
 import { RVButton, RVInput, RVLoadingButton } from "../../components";
 import { BthForm, Container, Form, FormActions, FormActionsLabel, LeftColumn, RightColumn } from "../../components/RVLayout/styles";
 import MainList from "../../components/RVMainlist";
+import RVMeta from "../../components/RVMeta";
 
 const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: HomeProps) => {
   const [companyList, setCompanyList] = useState<Company[]>([]);
@@ -39,6 +40,12 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
       );
     }
   }, [companies]);
+
+  const meta = {
+    title: "Dashboard",
+    description: "dashboard page",
+    url: "/dashbord"
+  }
 
   const form = useForm({
     initialValues: {
@@ -101,7 +108,10 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
     form.reset();
   };
 
-  return (
+
+  return (<>
+    <RVMeta metaData={meta} />
+     
     <Container>
       <LeftColumn>
         {user?.userPermissions.email}
@@ -183,7 +193,7 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
       </LeftColumn>
       <RightColumn>{(companiesLoading && <div>Is loading...</div>) || (companyList && companyList.map((c) => <MainList key={c._id} data={c} handleEditModal={handleEditModal} handleDeleteItem={handleDeleteItem} />))}</RightColumn>
     </Container>
-  );
+  </>);
 };
 
 const mapStateToProps = (state: RootState) => {

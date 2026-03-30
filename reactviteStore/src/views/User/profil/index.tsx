@@ -9,6 +9,7 @@ import { Input } from "../../../components/Formik";
 import type { ThunkDispatch } from "redux-thunk";
 import type { AnyAction } from "redux";
 import { useCallback, useEffect, useState } from "react";
+import RVMeta from "../../../components/RVMeta";
 
 
 
@@ -40,9 +41,17 @@ const Index = ({profil, dispatch}: UserProps) => {
     (profil && profil.data) ? setOpen(true) : setOpen(false) 
   }, [profil])
 
+  const meta = {
+    title: "Profil",
+    description: "Profil page description",
+    url: "/profil"
+  }
+
 
 
   return (
+    <>
+    <RVMeta metaData={meta} />
     <Container>
       {profil && <RVAlerts data={profil} open={open} closeModal={closeModal} />}
 
@@ -138,7 +147,7 @@ const Index = ({profil, dispatch}: UserProps) => {
       )}
       </Formik>
     </Container>
-  );
+  </>);
 };
 
 const mapStateToProps = (state: RootState) => {

@@ -22,6 +22,6 @@ export default defineConfig({
     checker({
       typescript: true
     }),
-    babel()
+    ///babel()
   ],
 });

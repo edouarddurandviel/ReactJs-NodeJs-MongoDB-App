@@ -6,6 +6,7 @@ import * as actions from "../../stores/rootActions";
 import type { Company } from "../../stores/company/interfaces";
 import type { AppDispatch, RootState } from "../../stores";
 import { Container } from "../../components/RVLayout/styles";
+import { Helmet } from "react-helmet";
 
 const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
   const [companyDetail, setCompanyDetail] = useState<Company | null>(null);
@@ -39,6 +40,12 @@ const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
   }, [company]);
 
   return (
+    <>
+    <Helmet>
+      <meta charSet="utf-8" />
+      <title>Company details {companyId}</title>
+      <link rel="canonical" href={`http://mysite.com/detail/${companyId}`} />
+    </Helmet>
     <Container>
       Company detail
       {companyLoading && <p>Loading...</p>}
@@ -49,7 +56,7 @@ const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
         </>
       )}
     </Container>
-  );
+  </>);
 };
 
 const mapStateToProps = (state: RootState) => {
