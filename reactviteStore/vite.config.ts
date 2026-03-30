@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import checker from 'vite-plugin-checker';
-import babel from 'vite-plugin-babel';
+//import babel from 'vite-plugin-babel';
 
 // React Compiler is a compiler that optimizes React applications, 
 // ensuring that only the minimal parts of components and hooks will re-render when state changes. 
