@@ -4,7 +4,7 @@ import CreateUser from "../views/User/create";
 import UserProfil from '../views/User/profil';
 import { lazy } from "react";
 
-const ApiRouteSettings = [
+const RouteSettings = [
   {
     path: "/",
     name: "home",
@@ -33,4 +33,4 @@ const ApiRouteSettings = [
   },
 ];
 
-export default ApiRouteSettings;
+export default RouteSettings;

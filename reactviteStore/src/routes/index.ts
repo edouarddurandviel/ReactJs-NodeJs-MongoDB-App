@@ -1,3 +1,3 @@
-import ApiRouteSettings from "./ApiRouteSettings";
+import RouteSettings from "./routeSettings";
 
-export default [...ApiRouteSettings];
+export default [...RouteSettings];
