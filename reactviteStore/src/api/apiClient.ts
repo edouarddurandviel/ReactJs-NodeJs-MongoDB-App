@@ -1,6 +1,6 @@
 import axios from "axios";
 import urlBuilder from "./urlBuilder";
-import type { PathParamsObject, QueryObject } from "./interface";
+import type { PathParamsObject, QueryObject } from "./interfaces";
 
 export default (props: { path: string; method: string; params?: PathParamsObject; data?: any; query?: QueryObject }) => {
   const helper = new urlBuilder();

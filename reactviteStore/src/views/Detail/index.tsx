@@ -7,6 +7,7 @@ import type { Company } from "../../stores/company/interfaces";
 import type { AppDispatch, RootState } from "../../stores";
 import { Container } from "../../components/RVLayout/styles";
 import { Helmet } from "react-helmet";
+import { RVMeta } from "../../components";
 
 const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
   const [companyDetail, setCompanyDetail] = useState<Company | null>(null);
@@ -39,13 +40,16 @@ const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
     }
   }, [company]);
 
+  const meta = {
+    title: "Company details",
+    description: "Company details page",
+    url: `/detail/${companyId}`
+  }
+
+
   return (
     <>
-    <Helmet>
-      <meta charSet="utf-8" />
-      <title>Company details {companyId}</title>
-      <link rel="canonical" href={`http://mysite.com/detail/${companyId}`} />
-    </Helmet>
+    <RVMeta metaData={meta} />
     <Container>
       Company detail
       {companyLoading && <p>Loading...</p>}

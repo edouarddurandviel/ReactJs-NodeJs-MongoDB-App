@@ -1,4 +1,4 @@
-import type { PathParamsObject, QueryObject } from "./interface";
+import type { PathParamsObject, QueryObject } from "./interfaces";
 
 // Class Method definitions
 class builder {

@@ -4,7 +4,7 @@ import { isRequired } from "@formiz/validations";
 import * as selectors from "../../stores/rootSelectors";
 import * as actions from "../../stores/rootActions";
 import type { AppDispatch, RootState } from "../../stores";
-import { RVInput, RVLoadingButton } from "../../components";
+import { RVInput, RVLoadingButton, RVMeta } from "../../components";
 import { BthForm, Container, Form, LoginForm, Message } from "../../components/RVLayout/styles";
 import type { User } from "../../stores/user/interfaces";
 
@@ -32,7 +32,15 @@ const Index = ({ dispatch, authLoading }: UserProps) => {
     );
   };
 
+  const meta = {
+    title: "Login",
+    description: "Login page",
+    url: `/login`
+  }
+
   return (
+    <>
+    <RVMeta metaData={meta} />
     <Container>
       <LoginForm>
          <Message>Nodejs v24.7.0 - argon2Async salt + env secret</Message>
@@ -86,7 +94,7 @@ const Index = ({ dispatch, authLoading }: UserProps) => {
         </Formiz>
       </LoginForm>
     </Container>
-  );
+  </>);
 };
 
 const mapStateToProps = (state: RootState) => {

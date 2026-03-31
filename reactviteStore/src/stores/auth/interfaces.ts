@@ -1,4 +1,4 @@
-import type { PathParamsObject, QueryObject } from "../../api/interface";
+import type { PathParamsObject, QueryObject } from "../../api/interfaces";
 
 export type UserConnected = {
   userPermissions: {

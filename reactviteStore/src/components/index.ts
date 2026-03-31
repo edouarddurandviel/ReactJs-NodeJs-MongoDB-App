@@ -5,3 +5,5 @@ export { default as RVInput } from "./RVInput";
 export { default as RVLayout } from "./RVLayout";
 export { default as RVButton } from "./RVButton";
 export { default as RVAlerts } from "./RVAlerts";
+export { default as RVMeta } from "./RVMeta";
+export { default as RVMainlist } from "./RVMainlist";

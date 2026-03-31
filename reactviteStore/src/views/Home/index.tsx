@@ -7,10 +7,9 @@ import * as actions from "../../stores/rootActions";
 import type { Company } from "../../stores/company/interfaces";
 import type { UserConnected } from "../../stores/auth/interfaces";
 import type { AppDispatch, RootState } from "../../stores";
-import { RVButton, RVInput, RVLoadingButton } from "../../components";
+import { RVButton, RVInput, RVLoadingButton, RVMeta, RVMainlist } from "../../components";
 import { BthForm, Container, Form, FormActions, FormActionsLabel, LeftColumn, RightColumn } from "../../components/RVLayout/styles";
-import MainList from "../../components/RVMainlist";
-import RVMeta from "../../components/RVMeta";
+
 
 const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: HomeProps) => {
   const [companyList, setCompanyList] = useState<Company[]>([]);
@@ -191,7 +190,7 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
           </Form>
         </Formiz>
       </LeftColumn>
-      <RightColumn>{(companiesLoading && <div>Is loading...</div>) || (companyList && companyList.map((c) => <MainList key={c._id} data={c} handleEditModal={handleEditModal} handleDeleteItem={handleDeleteItem} />))}</RightColumn>
+      <RightColumn>{(companiesLoading && <div>Is loading...</div>) || (companyList && companyList.map((c) => <RVMainlist key={c._id} data={c} handleEditModal={handleEditModal} handleDeleteItem={handleDeleteItem} />))}</RightColumn>
     </Container>
   </>);
 };

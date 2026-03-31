@@ -1,4 +1,4 @@
-import type { PathParamsObject } from "../../api/interface";
+import type { PathParamsObject } from "../../api/interfaces";
 
 export type Profil = {
   firstName: string;

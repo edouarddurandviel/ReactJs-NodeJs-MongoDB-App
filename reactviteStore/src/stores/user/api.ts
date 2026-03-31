@@ -1,6 +1,6 @@
 import request from "../../api/apiClient";
 import apiRoutes from "../../api/apiRoutes";
-import type { PathParamsObject } from "../../api/interface";
+import type { PathParamsObject } from "../../api/interfaces";
 import type { Payload, Profil, User } from "./interfaces";
 
 export default {
