@@ -1,5 +1,5 @@
 import request from "../../api/apiClient";
-import apiRoutes from "../../api/api";
+import apiRoutes from "../../api/apiRoutes";
 import type { Payload } from "./interfaces";
 
 export default {

@@ -8,7 +8,7 @@ import { RVInput, RVLoadingButton } from "../../components";
 import { BthForm, Container, Form, LoginForm, Message } from "../../components/RVLayout/styles";
 import type { User } from "../../stores/user/interfaces";
 
-const Index = ({ dispatch }: UserProps) => {
+const Index = ({ dispatch, authLoading }: UserProps) => {
 
   const form = useForm({
     initialValues: {
@@ -78,8 +78,8 @@ const Index = ({ dispatch }: UserProps) => {
               <RVLoadingButton 
                 type="submit" 
                 content="Submit" 
-                // disabled={authLoading} 
-                // loading={authLoading} 
+                disabled={authLoading} 
+                loading={authLoading} 
               />
             </BthForm>
           </Form>
