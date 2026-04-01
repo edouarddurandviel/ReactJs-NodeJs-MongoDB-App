@@ -4,7 +4,7 @@ import { initialState, type State, type Action } from "./initialState";
 import type { Profil, User } from "./interfaces";
 
 export default (state: State = initialState, action: Action): State => {
-  // use produce from Immer to allow "mutating" logic
+
   return produce(state, (draft: WritableDraft<State>) => {
     switch (action.type) {
 
