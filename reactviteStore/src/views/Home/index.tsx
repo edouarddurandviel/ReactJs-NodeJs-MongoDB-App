@@ -20,7 +20,7 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
     dispatch(actions.company.getAllCompanies());
 
     return () => {
-      //dispatch(actions.company.reset(["companies"]));
+      dispatch(actions.company.reset(["companies"]));
       dispatch(actions.socket.unsubscribeAllCompanies());
     };
   }, [dispatch]);
