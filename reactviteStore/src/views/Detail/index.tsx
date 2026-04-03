@@ -27,7 +27,6 @@ const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
 
     return () => {
       if (companyId) {
-        dispatch(actions.company.reset(["company"]));
         dispatch(actions.socket.unsubscribeOneCompany(companyId));
       }
     };
