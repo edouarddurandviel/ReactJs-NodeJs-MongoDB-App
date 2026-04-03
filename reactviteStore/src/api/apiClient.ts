@@ -1,7 +1,7 @@
 import axios from "axios";
 import urlBuilder from "./urlBuilder";
 import type { PathParamsObject, QueryObject } from "./interfaces";
-import { cachedRequest, manageResponse } from "./cacheManagment";
+import apiCache from "./apiCache";
 
 const cache = new Map()
 
@@ -20,7 +20,7 @@ export default async (props: { path: string; method: string; params?: PathParams
 
   apiClient.interceptors.request.use((config) => {
     const key = config.url
-    const auth = cachedRequest(cache, key, config)
+    const auth = apiCache.cacheRequest(cache, key, config)
 
     return auth ? Promise.reject({
       __fromCache: true,
@@ -30,7 +30,7 @@ export default async (props: { path: string; method: string; params?: PathParams
   });
 
   apiClient.interceptors.response.use((response) => {
-    const resp = manageResponse(response, cache)
+    const resp = apiCache.manageResponse(response, cache)
     return resp;
   });
 
