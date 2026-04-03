@@ -9,8 +9,11 @@ export default {
         }
     },
     manageResponse: (response: any, cache: any) => {
-        if(response.config.method !== "patch"){
+        if(response.config.method !== "patch" || response.config.method !== "post"){
         if (cache.has("update")) {
+            cache.delete("update");
+        }
+        if (cache.has("post")) {
             cache.delete("update");
         }
         cache.set(response.config.url, response.data);
