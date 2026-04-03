@@ -1,15 +1,15 @@
 import { Alert } from "./styles";
 
-const Index = (props: AlertProps) => {
+const Index = ({data, open, closeModal}: AlertProps) => {
   return (
-    props.open && (
+    open && (
       <Alert
-        color={(props.data.status === 200 && "green") || "red"}
+        color={(data.status === 200 && "green") || "red"}
         onClick={() => {
-          props.closeModal();
+          closeModal();
         }}
       >
-        {props.data.status === 200 ? "Success" : "Error"}
+        {data.status === 200 ? "Success" : "Error"}
       </Alert>
     )
   );

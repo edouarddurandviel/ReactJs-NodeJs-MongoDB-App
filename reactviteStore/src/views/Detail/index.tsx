@@ -6,8 +6,7 @@ import * as actions from "../../stores/rootActions";
 import type { Company } from "../../stores/company/interfaces";
 import type { AppDispatch, RootState } from "../../stores";
 import { Container } from "../../components/RVLayout/styles";
-import { Helmet } from "react-helmet";
-import { RVMeta } from "../../components";
+import { RVButton, RVMeta } from "../../components";
 
 const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
   const [companyDetail, setCompanyDetail] = useState<Company | null>(null);
@@ -50,6 +49,11 @@ const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
     <>
       <RVMeta metaData={meta} />
       <Container>
+        <RVButton 
+          content="Back"
+          onClick={() => {
+            history.back()
+          }}/>
         Company detail
         {companyLoading && <p>Loading...</p>}
         {companyDetail && (

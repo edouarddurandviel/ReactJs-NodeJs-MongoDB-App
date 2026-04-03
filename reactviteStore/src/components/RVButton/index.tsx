@@ -1,7 +1,7 @@
 import { Button } from "./style";
 
-const Index = (props: ButtonLinkProps) => {
-  return <Button onClick={() => props.onClick()}>{props.content}</Button>;
+const Index = ({content, onClick}: ButtonLinkProps) => {
+  return <Button onClick={() => onClick()}>{content}</Button>;
 };
 
 type ButtonLinkProps = {
