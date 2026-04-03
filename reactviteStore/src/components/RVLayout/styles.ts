@@ -128,3 +128,8 @@ export const Message = styled.div`
   clear: both;
   padding: 10px;
 `;
+
+export const InlineWrapper = styled.div`
+  display: flex;
+  margin: 13px 20px;
+`

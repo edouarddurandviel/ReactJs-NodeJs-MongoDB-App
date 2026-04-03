@@ -5,7 +5,7 @@ import * as selectors from "../../stores/rootSelectors";
 import * as actions from "../../stores/rootActions";
 import type { Company } from "../../stores/company/interfaces";
 import type { AppDispatch, RootState } from "../../stores";
-import { Container } from "../../components/RVLayout/styles";
+import { Container, InlineWrapper } from "../../components/RVLayout/styles";
 import { RVButton, RVMeta } from "../../components";
 
 const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
@@ -53,13 +53,15 @@ const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
           onClick={() => {
             history.back()
           }}/>
-        Company detail
+        <h2>Company detail</h2>
+        
         {companyLoading && <p>Loading...</p>}
         {companyDetail && (
-          <>
-            <p>{companyDetail.name}</p>
+        <InlineWrapper>
+           <p>{companyDetail.name}</p>
             <p>{companyDetail.isoCode}</p>
-          </>
+        </InlineWrapper>
+        
         )}
       </Container>
     </>
