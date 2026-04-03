@@ -1,7 +1,7 @@
 import AppLegacy from "../views/Home";
 import Auth from "../views/Auth";
 import CreateUser from "../views/User/create";
-import UserProfil from '../views/User/profil';
+import UserProfil from "../views/User/profil";
 import { lazy } from "react";
 
 const RouteSettings = [
@@ -26,7 +26,7 @@ const RouteSettings = [
     name: "login",
     component: Auth,
   },
-   {
+  {
     path: "/user/profil",
     name: "profil",
     component: UserProfil,

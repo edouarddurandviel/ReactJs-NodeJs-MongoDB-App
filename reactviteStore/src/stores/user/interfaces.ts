@@ -7,7 +7,7 @@ export type Profil = {
   postCode: string;
   city: string;
   phone: string;
-}
+};
 
 export type User = {
   name: string;
@@ -29,8 +29,6 @@ interface State {
   error: string | null;
 }
 
-
-
 export interface UserState extends State {
   users?: User[];
   user?: User;
@@ -40,7 +38,6 @@ export interface UserState extends State {
 export interface ResponseState {
   [key: string]: UserState;
 }
-
 
 export type Payload<T> = {
   data: T;

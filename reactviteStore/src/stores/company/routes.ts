@@ -10,8 +10,6 @@ type Action = {
   socket?: boolean;
 };
 
- 
-
 export const companyMiddleware: Middleware = (api) => (next) => async (action: unknown) => {
   const typedAction = action as Action;
   const { dispatch } = api;
@@ -23,7 +21,7 @@ export const companyMiddleware: Middleware = (api) => (next) => async (action: u
           dispatch({
             type: actionTypes.GET_ALL_COMPANIES_LOADING,
           });
-        
+
           const resp = await requests.getAllCompanies();
           dispatch({
             type: actionTypes.GET_ALL_COMPANIES_SUCCESS,

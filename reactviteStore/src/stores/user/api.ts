@@ -42,7 +42,7 @@ export default {
     });
   },
 
-   addProfil: (data: Payload<Profil>) => {
+  addProfil: (data: Payload<Profil>) => {
     const userApi = apiRoutes.users.addProfil;
     const formData = new FormData();
     formData.append("firstName", data.data.firstName);
@@ -59,7 +59,6 @@ export default {
       data: formData,
     });
   },
-
 
   updateOneUser: (data: Payload<User>) => {
     const userApi = apiRoutes.users.update;

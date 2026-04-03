@@ -6,19 +6,10 @@ const Index = (props: ButtonProps) => {
 
   return (
     <ButtonWrapper>
-    {loading && icon && <Icon loading={loading} />}
-    <Button 
-      content={content} 
-      type={type} 
-      disabled={disabled} 
-      className={className} 
-      inline-style={{width: fluid ? "100%" : "auto" }} 
-      onClick={onClick}
-    >
-      {content ?? <Text 
-      lineHeight={lineHeight}
-      >{loading ? "Loading..." : content}</Text>}
-    </Button>
+      {loading && icon && <Icon loading={loading} />}
+      <Button content={content} type={type} disabled={disabled} className={className} inline-style={{ width: fluid ? "100%" : "auto" }} onClick={onClick}>
+        {content ?? <Text lineHeight={lineHeight}>{loading ? "Loading..." : content}</Text>}
+      </Button>
     </ButtonWrapper>
   );
 };

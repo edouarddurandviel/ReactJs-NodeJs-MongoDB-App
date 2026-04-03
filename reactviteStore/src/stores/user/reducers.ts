@@ -4,10 +4,8 @@ import { initialState, type State, type Action } from "./initialState";
 import type { Profil, User } from "./interfaces";
 
 export default (state: State = initialState, action: Action): State => {
-
   return produce(state, (draft: WritableDraft<State>) => {
     switch (action.type) {
-
       case actionType.PROFIL_LOADING:
         draft.profilLoading = true;
         break;
@@ -100,7 +98,6 @@ export default (state: State = initialState, action: Action): State => {
       case actionType.FILTER_USERS_FAILURE:
         draft.filteredUsersErrors = true;
         break;
-
 
       case actionType.RESET:
         if (action.payload) {

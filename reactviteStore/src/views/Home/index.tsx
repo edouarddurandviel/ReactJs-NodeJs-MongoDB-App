@@ -10,7 +10,6 @@ import type { AppDispatch, RootState } from "../../stores";
 import { RVButton, RVInput, RVLoadingButton, RVMeta, RVMainlist } from "../../components";
 import { BthForm, Container, Form, FormActions, FormActionsLabel, LeftColumn, RightColumn } from "../../components/RVLayout/styles";
 
-
 const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: HomeProps) => {
   const [companyList, setCompanyList] = useState<Company[]>([]);
   const [newEntry, setNewEntry] = useState<boolean | null>(null);
@@ -42,8 +41,8 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
   const meta = {
     title: "Dashboard",
     description: "dashboard page",
-    url: "/dashbord"
-  }
+    url: "/dashbord",
+  };
 
   const form = useForm({
     initialValues: {
@@ -106,92 +105,93 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
     form.reset();
   };
 
+  return (
+    <>
+      <RVMeta metaData={meta} />
 
-  return (<>
-    <RVMeta metaData={meta} />
-     
-    <Container>
-      <LeftColumn>
-        {user?.userPermissions.email}
-        <FormActions>
-          <RVButton
-            content={newEntry ? "Close" : "Add new entry"}
-            onClick={() => {
-              handleNewModal();
-              setNewEntry(!newEntry);
-            }}
-          />
+      <Container>
+        <LeftColumn>
+          {user?.userPermissions.email}
+          <FormActions>
+            <RVButton
+              content={newEntry ? "Close" : "Add new entry"}
+              onClick={() => {
+                handleNewModal();
+                setNewEntry(!newEntry);
+              }}
+            />
 
-          <FormActionsLabel>{newEntry ? "Add new entry" : "Edit document"}</FormActionsLabel>
-        </FormActions>
+            <FormActionsLabel>{newEntry ? "Add new entry" : "Edit document"}</FormActionsLabel>
+          </FormActions>
 
-        <Formiz connect={form}>
-          <Form
-            onSubmit={(e) => {
-              e.preventDefault();
-              form.submit();
-            }}
-          >
-            <RVInput
-              name="_id"
-              type="hidden"
-              id="01"
-              required="Email is required"
-              validations={[
-                {
-                  handler: isRequired(),
-                  message: "id is required",
-                },
-              ]}
-            />
-            <RVInput
-              name="name"
-              type="text"
-              id="1"
-              label="Company name"
-              required="Company name is required"
-              validations={[
-                {
-                  handler: isRequired(),
-                  message: "Company name is required",
-                },
-              ]}
-            />
-            <RVInput
-              name="ref"
-              type="text"
-              id="2"
-              label="Company ref"
-              required="Ref is required"
-              validations={[
-                {
-                  handler: isRequired(),
-                  message: "Ref is required",
-                },
-              ]}
-            />
-            <RVInput
-              name="isoCode"
-              type="text"
-              id="3"
-              label="Company isoCode"
-              required="isoCode is required"
-              validations={[
-                {
-                  handler: isRequired(),
-                  message: "isoCode is required",
-                },
-              ]}
-            />
-            <BthForm>
-              <RVLoadingButton type="submit" content="Submit" disabled={saveLoading} loading={saveLoading} />
-            </BthForm>
-          </Form>
-        </Formiz>
-      </LeftColumn>
-      <RightColumn>{(companiesLoading && <div>Is loading...</div>) || (companyList && companyList.map((c) => <RVMainlist key={c._id} data={c} handleEditModal={handleEditModal} handleDeleteItem={handleDeleteItem} />))}</RightColumn>
-    </Container>
-  </>);
+          <Formiz connect={form}>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                form.submit();
+              }}
+            >
+              <RVInput
+                name="_id"
+                type="hidden"
+                id="01"
+                required="Email is required"
+                validations={[
+                  {
+                    handler: isRequired(),
+                    message: "id is required",
+                  },
+                ]}
+              />
+              <RVInput
+                name="name"
+                type="text"
+                id="1"
+                label="Company name"
+                required="Company name is required"
+                validations={[
+                  {
+                    handler: isRequired(),
+                    message: "Company name is required",
+                  },
+                ]}
+              />
+              <RVInput
+                name="ref"
+                type="text"
+                id="2"
+                label="Company ref"
+                required="Ref is required"
+                validations={[
+                  {
+                    handler: isRequired(),
+                    message: "Ref is required",
+                  },
+                ]}
+              />
+              <RVInput
+                name="isoCode"
+                type="text"
+                id="3"
+                label="Company isoCode"
+                required="isoCode is required"
+                validations={[
+                  {
+                    handler: isRequired(),
+                    message: "isoCode is required",
+                  },
+                ]}
+              />
+              <BthForm>
+                <RVLoadingButton type="submit" content="Submit" disabled={saveLoading} loading={saveLoading} />
+              </BthForm>
+            </Form>
+          </Formiz>
+        </LeftColumn>
+        <RightColumn>{(companiesLoading && <div>Is loading...</div>) || (companyList && companyList.map((c) => <RVMainlist key={c._id} data={c} handleEditModal={handleEditModal} handleDeleteItem={handleDeleteItem} />))}</RightColumn>
+      </Container>
+    </>
+  );
 };
 
 const mapStateToProps = (state: RootState) => {

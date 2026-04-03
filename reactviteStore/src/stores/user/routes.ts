@@ -16,7 +16,6 @@ export const userMiddleware: Middleware = (api) => (next) => async (action: unkn
 
   if (!typedAction.socket) {
     switch (typedAction.type) {
-     
       case actionTypes.GET_ALL_USERS_REQUEST:
         try {
           dispatch({

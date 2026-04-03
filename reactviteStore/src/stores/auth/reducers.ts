@@ -7,7 +7,6 @@ export default (state: State = initialState, action: Action): State => {
   // use produce from Immer to allow "mutating" logic
   return produce(state, (draft: WritableDraft<State>) => {
     switch (action.type) {
-     
       case actionType.USER_LOGIN_LOADING:
         draft.userLoading = true;
         break;

@@ -1,16 +1,10 @@
 import type { RootState } from "..";
 import type { ThunkAction } from "redux-thunk";
-import type { AnyAction } from 'redux';
+import type { AnyAction } from "redux";
 import * as actionType from "./types";
 import requests from "./api";
 
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  AnyAction
->;
-
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, RootState, unknown, AnyAction>;
 
 export const getAllUsers = () => {
   return {
@@ -60,10 +54,8 @@ export const reset = (data: string[]) => {
   };
 };
 
-
-
 export const addProfilThunk = (data: any): AppThunk<Promise<void>> => {
-   return async (useAppDispatch) => {
+  return async (useAppDispatch) => {
     try {
       useAppDispatch({
         type: actionType.PROFIL_REQUEST,
@@ -80,7 +72,7 @@ export const addProfilThunk = (data: any): AppThunk<Promise<void>> => {
       });
     }
   };
-}
+};
 
 // thunk version with eventually side effects
 export const getAllUsersThunk = (): AppThunk<Promise<void>> => {

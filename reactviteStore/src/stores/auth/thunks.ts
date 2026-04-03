@@ -43,7 +43,6 @@ export const authActions = (action: Action) => {
         }
         break;
 
-
       case actionTypes.RESET:
         dispatch({
           type: actionTypes.RESET,

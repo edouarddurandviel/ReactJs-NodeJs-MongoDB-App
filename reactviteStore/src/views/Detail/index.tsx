@@ -43,24 +43,24 @@ const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
   const meta = {
     title: "Company details",
     description: "Company details page",
-    url: `/detail/${companyId}`
-  }
-
+    url: `/detail/${companyId}`,
+  };
 
   return (
     <>
-    <RVMeta metaData={meta} />
-    <Container>
-      Company detail
-      {companyLoading && <p>Loading...</p>}
-      {companyDetail && (
-        <>
-          <p>{companyDetail.name}</p>
-          <p>{companyDetail.isoCode}</p>
-        </>
-      )}
-    </Container>
-  </>);
+      <RVMeta metaData={meta} />
+      <Container>
+        Company detail
+        {companyLoading && <p>Loading...</p>}
+        {companyDetail && (
+          <>
+            <p>{companyDetail.name}</p>
+            <p>{companyDetail.isoCode}</p>
+          </>
+        )}
+      </Container>
+    </>
+  );
 };
 
 const mapStateToProps = (state: RootState) => {

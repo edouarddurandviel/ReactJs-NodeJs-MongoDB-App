@@ -8,6 +8,6 @@ export type InputProps = {
   placeholder?: string;
   label?: string;
   autoFocus?: boolean;
- onChange: (event: ChangeEvent<any>) => void;
- onBlur: (event: ChangeEvent<any>) => void;
+  onChange: (event: ChangeEvent<any>) => void;
+  onBlur: (event: ChangeEvent<any>) => void;
 };

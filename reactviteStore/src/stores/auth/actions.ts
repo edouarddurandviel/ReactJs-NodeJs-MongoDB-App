@@ -20,5 +20,3 @@ export const reset = (data: string[]) => {
     payload: data,
   };
 };
-
-

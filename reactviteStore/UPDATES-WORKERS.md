@@ -11,10 +11,9 @@ When you build your React app (e.g. with Create React App or Vite):
 1. Files are **hashed** (e.g. `main.abc123.js`)
 2. Service Worker caches them
 3. On a new deployment:
-
-   * New files → new hashes
-   * Service Worker detects change
-   * New version waits in **“waiting” state**
+   - New files → new hashes
+   - Service Worker detects change
+   - New version waits in **“waiting” state**
 
 👉 Problem: users still see old version unless you handle it.
 
@@ -24,9 +23,9 @@ When you build your React app (e.g. with Create React App or Vite):
 
 Force the app to:
 
-* Detect update
-* Activate new service worker
-* Reload app automatically (or prompt user)
+- Detect update
+- Activate new service worker
+- Reload app automatically (or prompt user)
 
 ---
 
@@ -38,12 +37,12 @@ If using CRA:
 
 ```js
 // index.js
-import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
 
 serviceWorkerRegistration.register({
   onUpdate: (registration) => {
     console.log("New version available!");
-  }
+  },
 });
 ```
 
@@ -56,23 +55,19 @@ You can show a UI prompt:
 ```js
 // serviceWorkerRegistration.js
 export function register(config) {
-  navigator.serviceWorker.register('/service-worker.js')
-    .then((registration) => {
-      registration.onupdatefound = () => {
-        const installingWorker = registration.installing;
+  navigator.serviceWorker.register("/service-worker.js").then((registration) => {
+    registration.onupdatefound = () => {
+      const installingWorker = registration.installing;
 
-        installingWorker.onstatechange = () => {
-          if (
-            installingWorker.state === 'installed' &&
-            navigator.serviceWorker.controller
-          ) {
-            if (config?.onUpdate) {
-              config.onUpdate(registration);
-            }
+      installingWorker.onstatechange = () => {
+        if (installingWorker.state === "installed" && navigator.serviceWorker.controller) {
+          if (config?.onUpdate) {
+            config.onUpdate(registration);
           }
-        };
+        }
       };
-    });
+    };
+  });
 }
 ```
 
@@ -147,9 +142,9 @@ self.addEventListener("message", (event) => {
 
 # ⚠️ Common Pitfalls
 
-* ❌ Forgetting `controllerchange` → app never reloads
-* ❌ Caching API responses aggressively → stale data
-* ❌ Not versioning assets → SW doesn’t detect change
+- ❌ Forgetting `controllerchange` → app never reloads
+- ❌ Caching API responses aggressively → stale data
+- ❌ Not versioning assets → SW doesn’t detect change
 
 ---
 
@@ -157,13 +152,13 @@ self.addEventListener("message", (event) => {
 
 For production apps:
 
-* Enable SW only in production
-* Use:
+- Enable SW only in production
+- Use:
+  - `skipWaiting()`
+  - `clients.claim()`
+  - `controllerchange → reload`
 
-  * `skipWaiting()`
-  * `clients.claim()`
-  * `controllerchange → reload`
-* Add fallback UI prompt
+- Add fallback UI prompt
 
 ---
 
@@ -171,15 +166,14 @@ For production apps:
 
 If you're using Next.js:
 
-* Use `next-pwa` plugin
-* Combine with ISR (Incremental Static Regeneration)
+- Use `next-pwa` plugin
+- Combine with ISR (Incremental Static Regeneration)
 
 ---
 
 If you want, I can give you a **drop-in ready setup for Vite or Next.js** (they differ quite a bit from CRA).
 
 Content-Security-Policy: script-src 'self'
-
 
 Oui — **c’est permis**, mais pas sans conditions. En France et dans l’UE, tout dépend **du type de données** et de **la façon dont tu les utilises**.
 
@@ -201,14 +195,14 @@ La référence principale est le Règlement général sur la protection des donn
 
 Exemples typiques :
 
-* authentification utilisateur (ID, token)
-* panier e-commerce
-* préférences temporaires
+- authentification utilisateur (ID, token)
+- panier e-commerce
+- préférences temporaires
 
 👉 Cela relève souvent de la base légale :
 
-* **exécution d’un contrat**
-* ou **intérêt légitime**
+- **exécution d’un contrat**
+- ou **intérêt légitime**
 
 ---
 
@@ -216,19 +210,19 @@ Exemples typiques :
 
 Une “variable de session” peut contenir :
 
-* email
-* identifiant utilisateur
-* IP
-* données sensibles
+- email
+- identifiant utilisateur
+- IP
+- données sensibles
 
 ➡️ Dans ce cas, tu dois respecter le RGPD :
 
 ### 🔒 Obligations principales
 
-* **Minimisation** → ne stocker que le nécessaire
-* **Durée limitée** → session courte (ex: expiration)
-* **Sécurité** → protection contre accès non autorisé
-* **Transparence** → mention dans politique de confidentialité
+- **Minimisation** → ne stocker que le nécessaire
+- **Durée limitée** → session courte (ex: expiration)
+- **Sécurité** → protection contre accès non autorisé
+- **Transparence** → mention dans politique de confidentialité
 
 ---
 
@@ -238,13 +232,13 @@ Si la session utilise des cookies (souvent le cas) :
 
 ### ✅ Pas de consentement requis SI :
 
-* cookie strictement nécessaire (login, panier)
+- cookie strictement nécessaire (login, panier)
 
 ### ❌ Consentement requis SI :
 
-* tracking
-* analytics non anonymes
-* publicité
+- tracking
+- analytics non anonymes
+- publicité
 
 👉 En France, c’est encadré aussi par la CNIL
 
@@ -252,23 +246,23 @@ Si la session utilise des cookies (souvent le cas) :
 
 # ⚠️ 4. Cas sensibles (à éviter ou encadrer)
 
-* données de santé
-* données bancaires
-* données “sensibles” (origine, religion, etc.)
+- données de santé
+- données bancaires
+- données “sensibles” (origine, religion, etc.)
 
 👉 Là, il faut :
 
-* base légale forte
-* mesures de sécurité renforcées
+- base légale forte
+- mesures de sécurité renforcées
 
 ---
 
 # 🧩 5. Bonnes pratiques techniques
 
-* utiliser `HttpOnly` cookies pour session
-* activer `Secure` (HTTPS obligatoire)
-* rotation de session ID après login
-* ne jamais exposer données sensibles côté frontend
+- utiliser `HttpOnly` cookies pour session
+- activer `Secure` (HTTPS obligatoire)
+- rotation de session ID après login
+- ne jamais exposer données sensibles côté frontend
 
 ---
 
@@ -276,15 +270,14 @@ Si la session utilise des cookies (souvent le cas) :
 
 👉 Oui, **transférer des données en variable de session vers la page utilisateur est légal** si :
 
-* c’est nécessaire au service
-* les données sont protégées
-* tu respectes le RGPD
-* tu informes l’utilisateur
+- c’est nécessaire au service
+- les données sont protégées
+- tu respectes le RGPD
+- tu informes l’utilisateur
 
 ---
 
 💬 Si tu veux, décris-moi **quelles données exactes tu mets en session** (ex: JWT, email, rôle…), et je peux te dire **si c’est conforme ou risqué dans ton cas précis**.
-
 
 Parfait — si tu veux gérer **les mises à jour en temps réel de ton bundle React en production** tout en utilisant **Workbox** pour ton Service Worker, on peut combiner le cache PWA et les notifications d’update. Voici le guide détaillé.
 
@@ -298,8 +291,8 @@ Si tu utilises **Vite ou CRA**, tu peux installer Workbox via npm :
 npm install workbox-cli workbox-window --save-dev
 ```
 
-* `workbox-window` → API JS pour contrôler le SW depuis le frontend
-* `workbox-cli` → génère le SW avec stratégies de cache
+- `workbox-window` → API JS pour contrôler le SW depuis le frontend
+- `workbox-cli` → génère le SW avec stratégies de cache
 
 ---
 
@@ -308,31 +301,25 @@ npm install workbox-cli workbox-window --save-dev
 Exemple `service-worker.js` :
 
 ```js id="sw1"
-import { precacheAndRoute } from 'workbox-precaching';
-import { registerRoute } from 'workbox-routing';
-import { NetworkFirst, StaleWhileRevalidate } from 'workbox-strategies';
+import { precacheAndRoute } from "workbox-precaching";
+import { registerRoute } from "workbox-routing";
+import { NetworkFirst, StaleWhileRevalidate } from "workbox-strategies";
 
 // Précache tous les fichiers générés par le build
 precacheAndRoute(self.__WB_MANIFEST);
 
 // API / données dynamiques
-registerRoute(
-  ({ url }) => url.pathname.startsWith('/api/'),
-  new NetworkFirst()
-);
+registerRoute(({ url }) => url.pathname.startsWith("/api/"), new NetworkFirst());
 
 // Assets statiques (JS/CSS)
-registerRoute(
-  ({ request }) => request.destination === 'script' || request.destination === 'style',
-  new StaleWhileRevalidate()
-);
+registerRoute(({ request }) => request.destination === "script" || request.destination === "style", new StaleWhileRevalidate());
 
 // Activation immédiate pour nouvelle version
-self.addEventListener('install', (event) => {
+self.addEventListener("install", (event) => {
   self.skipWaiting();
 });
 
-self.addEventListener('activate', (event) => {
+self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 ```
@@ -346,18 +333,18 @@ self.addEventListener('activate', (event) => {
 Dans ton `index.js` ou `App.js` :
 
 ```js id="sw2"
-import { Workbox } from 'workbox-window';
+import { Workbox } from "workbox-window";
 
-if ('serviceWorker' in navigator) {
-  const wb = new Workbox('/service-worker.js');
+if ("serviceWorker" in navigator) {
+  const wb = new Workbox("/service-worker.js");
 
-  wb.addEventListener('waiting', () => {
+  wb.addEventListener("waiting", () => {
     // Nouvelle version prête
     if (confirm("Une nouvelle version est disponible. Recharger maintenant ?")) {
-      wb.addEventListener('controlling', () => {
+      wb.addEventListener("controlling", () => {
         window.location.reload();
       });
-      wb.messageSW({ type: 'SKIP_WAITING' });
+      wb.messageSW({ type: "SKIP_WAITING" });
     }
   });
 
@@ -367,9 +354,9 @@ if ('serviceWorker' in navigator) {
 
 ✅ Explication :
 
-* `waiting` → une nouvelle version est installée mais pas encore activée
-* `SKIP_WAITING` → active immédiatement le SW
-* `controlling` → le SW prend le contrôle, puis on recharge
+- `waiting` → une nouvelle version est installée mais pas encore activée
+- `SKIP_WAITING` → active immédiatement le SW
+- `controlling` → le SW prend le contrôle, puis on recharge
 
 ---
 
@@ -390,7 +377,7 @@ Tu peux checker la version du bundle côté frontend (optionnel) :
 
 ```js id="sw3"
 setInterval(async () => {
-  const res = await fetch('/meta.json'); // contient version
+  const res = await fetch("/meta.json"); // contient version
   const meta = await res.json();
   if (meta.version !== window.APP_VERSION) {
     console.log("Nouvelle version détectée !");
@@ -403,9 +390,9 @@ setInterval(async () => {
 
 Avec cette configuration :
 
-* Ton React bundle est **préchargé et mis en cache** pour PWA
-* Les utilisateurs obtiennent automatiquement la **dernière version dès qu’elle est disponible**
-* Pas besoin de re-déployer manuellement chaque fois côté client
+- Ton React bundle est **préchargé et mis en cache** pour PWA
+- Les utilisateurs obtiennent automatiquement la **dernière version dès qu’elle est disponible**
+- Pas besoin de re-déployer manuellement chaque fois côté client
 
 ---
 
@@ -414,7 +401,6 @@ Si tu veux, je peux te fournir un **exemple complet prêt à l’emploi pour Vit
 1. Précache des fichiers
 2. API dynamiques en NetworkFirst
 3. Notification utilisateur pour nouvelle version
-
 
 Pour faire du **load balancing avec Nginx** tout en permettant une **maintenance du backend sans downtime**, l’idée est simple :
 
@@ -452,7 +438,7 @@ server {
 
 👉 Résultat :
 
-* Nginx répartit les requêtes entre plusieurs instances backend
+- Nginx répartit les requêtes entre plusieurs instances backend
 
 ---
 
@@ -582,9 +568,9 @@ Ton flow devient :
 
 # ⚠️ Erreurs fréquentes
 
-* ❌ une seule instance → pas de vrai load balancing
-* ❌ pas de health check → erreurs visibles utilisateur
-* ❌ reload brutal PM2 sans cluster → downtime
+- ❌ une seule instance → pas de vrai load balancing
+- ❌ pas de health check → erreurs visibles utilisateur
+- ❌ reload brutal PM2 sans cluster → downtime
 
 ---
 
@@ -592,19 +578,18 @@ Ton flow devient :
 
 Avec Nginx + PM2 :
 
-* Load balancing ✔️
-* Maintenance sans coupure ✔️
-* Rolling updates ✔️
-* Haute dispo ✔️
+- Load balancing ✔️
+- Maintenance sans coupure ✔️
+- Rolling updates ✔️
+- Haute dispo ✔️
 
 ---
 
 💬 Si tu veux, je peux te donner une config **ultra pro** avec :
 
-* HTTPS (Let's Encrypt)
-* sticky sessions (si login)
-* cache reverse proxy
-*
+- HTTPS (Let's Encrypt)
+- sticky sessions (si login)
+- cache reverse proxy
+-
 
 Tu veux cette version avancée ?
-

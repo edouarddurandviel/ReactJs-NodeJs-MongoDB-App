@@ -1,10 +1,10 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import checker from 'vite-plugin-checker';
+import checker from "vite-plugin-checker";
 //import babel from 'vite-plugin-babel';
 
-// React Compiler is a compiler that optimizes React applications, 
-// ensuring that only the minimal parts of components and hooks will re-render when state changes. 
+// React Compiler is a compiler that optimizes React applications,
+// ensuring that only the minimal parts of components and hooks will re-render when state changes.
 // The compiler also validates that components and hooks follow the Rules of React.
 export default defineConfig({
   server: {
@@ -20,7 +20,7 @@ export default defineConfig({
       },
     }),
     checker({
-      typescript: true
+      typescript: true,
     }),
     ///babel()
   ],

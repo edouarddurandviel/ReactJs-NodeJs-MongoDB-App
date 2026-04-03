@@ -10,8 +10,6 @@ import { UserContext } from "../../contexts/UserContext";
 import RVMenu from "../RVMenu";
 
 const Index = ({ dispatch, user }: LayoutProps) => {
-
-
   const handleLogout = useCallback(() => {
     if (user) {
       dispatch(
@@ -32,8 +30,7 @@ const Index = ({ dispatch, user }: LayoutProps) => {
       <PLaceHolder>
         <Header>
           <RVMenu />
-           
-      
+
           {user && (
             <>
               <RVLoadingButton

@@ -9,7 +9,6 @@ import { BthForm, Container, Form, LoginForm, Message } from "../../components/R
 import type { User } from "../../stores/user/interfaces";
 
 const Index = ({ dispatch, authLoading }: UserProps) => {
-
   const form = useForm({
     initialValues: {
       email: "",
@@ -35,66 +34,66 @@ const Index = ({ dispatch, authLoading }: UserProps) => {
   const meta = {
     title: "Login",
     description: "Login page",
-    url: `/login`
-  }
+    url: `/login`,
+  };
 
   return (
     <>
-    <RVMeta metaData={meta} />
-    <Container>
-      <LoginForm>
-         <Message>Nodejs v24.7.0 - argon2Async salt + env secret</Message>
-        <Message>
-          <strong>user:</strong> hash3@mail.com, <strong>password:</strong> password3
-        </Message>
-        <Message>Cookies are valid for one hour. Upon expiration, 
-          the user token is removed from the MongoDB token table.</Message>
-        <Formiz connect={form}>
-          <Form
-            onSubmit={(e) => {
-              e.preventDefault();
-              form.submit();
-            }}
-          >
-            <RVInput
-              name="email"
-              type="text"
-              id="1"
-              label="Email"
-              required="Email is required"
-              validations={[
-                {
-                  handler: isRequired(),
-                  message: "Email is required",
-                },
-              ]}
-            />
-            <RVInput
-              name="password"
-              type="text"
-              id="2"
-              label="Password"
-              required="Password is required"
-              validations={[
-                {
-                  handler: isRequired(),
-                  message: "Password is required",
-                },
-              ]}
-            />
-            <BthForm>
-              <RVLoadingButton 
-                type="submit" 
-                content="Submit" 
-                // disabled={authLoading} 
-                // loading={authLoading} 
+      <RVMeta metaData={meta} />
+      <Container>
+        <LoginForm>
+          <Message>Nodejs v24.7.0 - argon2Async salt + env secret</Message>
+          <Message>
+            <strong>user:</strong> hash3@mail.com, <strong>password:</strong> password3
+          </Message>
+          <Message>Cookies are valid for one hour. Upon expiration, the user token is removed from the MongoDB token table.</Message>
+          <Formiz connect={form}>
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                form.submit();
+              }}
+            >
+              <RVInput
+                name="email"
+                type="text"
+                id="1"
+                label="Email"
+                required="Email is required"
+                validations={[
+                  {
+                    handler: isRequired(),
+                    message: "Email is required",
+                  },
+                ]}
               />
-            </BthForm>
-          </Form>
-        </Formiz>
-      </LoginForm>
-    </Container>
-  </>);
+              <RVInput
+                name="password"
+                type="text"
+                id="2"
+                label="Password"
+                required="Password is required"
+                validations={[
+                  {
+                    handler: isRequired(),
+                    message: "Password is required",
+                  },
+                ]}
+              />
+              <BthForm>
+                <RVLoadingButton
+                  type="submit"
+                  content="Submit"
+                  // disabled={authLoading}
+                  // loading={authLoading}
+                />
+              </BthForm>
+            </Form>
+          </Formiz>
+        </LoginForm>
+      </Container>
+    </>
+  );
 };
 
 const mapStateToProps = (state: RootState) => {

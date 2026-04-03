@@ -9,7 +9,6 @@ import { BthForm, Container, Form } from "../../../components/RVLayout/styles";
 import type { User } from "../../../stores/user/interfaces";
 
 const Index = ({ dispatch, user, userLoading }: UserProps) => {
-
   const form = useForm({
     initialValues: {
       email: "",
@@ -66,18 +65,11 @@ const Index = ({ dispatch, user, userLoading }: UserProps) => {
             ]}
           />
           <BthForm>
-            <RVLoadingButton 
-              type="submit" 
-              content="Submit" 
-              disabled={userLoading} 
-              loading={userLoading} 
-            />
+            <RVLoadingButton type="submit" content="Submit" disabled={userLoading} loading={userLoading} />
           </BthForm>
         </Form>
       </Formiz>
-      {user && (
-        <code>{user.email}</code>
-      )}
+      {user && <code>{user.email}</code>}
     </Container>
   );
 };

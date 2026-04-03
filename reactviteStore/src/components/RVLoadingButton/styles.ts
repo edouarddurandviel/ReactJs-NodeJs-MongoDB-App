@@ -9,7 +9,7 @@ export const ButtonWrapper = styled.div`
   text-align: center;
   border: none;
   background-color: ${primary};
-   &:hover {
+  &:hover {
     background-color: ${secondary};
   }
   &:active,
@@ -17,7 +17,7 @@ export const ButtonWrapper = styled.div`
     border: none;
     outline: none;
   }
-`
+`;
 
 export const Button = styled.button`
   width: auto;
@@ -43,7 +43,7 @@ export const Icon = styled.i<IconProps>`
   height: 21px;
   margin: 5px;
   border-radius: 10.5px;
-  background:${({ loading }) => (loading ? "green" : "transparent")};
+  background: ${({ loading }) => (loading ? "green" : "transparent")};
 `;
 
 interface TextProps {

@@ -6,8 +6,8 @@ Here’s a **complete modern setup for React + Vite with Node 24, TypeScript, an
 
 Install:
 
-* Node.js **v24+**
-* npm / pnpm / yarn
+- Node.js **v24+**
+- npm / pnpm / yarn
 
 Check:
 
@@ -63,11 +63,7 @@ babel.config.json
 
 ```json
 {
-  "presets": [
-    ["@babel/preset-env", { "targets": "defaults" }],
-    ["@babel/preset-react", { "runtime": "automatic" }],
-    "@babel/preset-typescript"
-  ]
+  "presets": [["@babel/preset-env", { "targets": "defaults" }], ["@babel/preset-react", { "runtime": "automatic" }], "@babel/preset-typescript"]
 }
 ```
 
@@ -84,24 +80,20 @@ npm install -D vite-plugin-babel
 Update `vite.config.ts`:
 
 ```ts
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import babel from 'vite-plugin-babel'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import babel from "vite-plugin-babel";
 
 export default defineConfig({
   plugins: [
     react(),
     babel({
       babelConfig: {
-        presets: [
-          "@babel/preset-env",
-          "@babel/preset-react",
-          "@babel/preset-typescript"
-        ]
-      }
-    })
-  ]
-})
+        presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"],
+      },
+    }),
+  ],
+});
 ```
 
 ---
@@ -187,19 +179,18 @@ npm run preview
 
 # ⚡ 11. Why This Setup?
 
-* React → UI
-* TypeScript → type safety
-* Babel → advanced transforms
-* Vite → blazing fast dev/build
+- React → UI
+- TypeScript → type safety
+- Babel → advanced transforms
+- Vite → blazing fast dev/build
 
 👉 Important insight:
 
-* **Vite + esbuild is already enough for 95% of apps**
-* Babel is only needed for:
-
-  * decorators
-  * experimental JS features
-  * custom transforms
+- **Vite + esbuild is already enough for 95% of apps**
+- Babel is only needed for:
+  - decorators
+  - experimental JS features
+  - custom transforms
 
 ---
 
@@ -207,16 +198,16 @@ npm run preview
 
 You now have:
 
-* Node 24 runtime
-* React + TypeScript
-* Optional Babel pipeline
-* Fast Vite dev/build
+- Node 24 runtime
+- React + TypeScript
+- Optional Babel pipeline
+- Fast Vite dev/build
 
 ---
 
 If you want, I can next:
 
-* add **ESLint + Prettier (pro setup)**
-* configure **absolute imports + aliases**
-* set up **testing (Vitest + React Testing Library)**
-* or build a **real production architecture (auth, API, etc.)**
+- add **ESLint + Prettier (pro setup)**
+- configure **absolute imports + aliases**
+- set up **testing (Vitest + React Testing Library)**
+- or build a **real production architecture (auth, API, etc.)**

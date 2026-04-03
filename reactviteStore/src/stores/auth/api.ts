@@ -21,5 +21,5 @@ export default {
       params: data.params,
       method: userApi.method,
     });
-  }
+  },
 };
