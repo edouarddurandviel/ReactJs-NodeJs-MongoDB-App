@@ -9,7 +9,6 @@ export default {
     }
   },
   manageResponse: (response: any, cache: any) => {
-    console.log(response)
     if (response && response.config.method === "get") {
       if (cache.has("operation")) {
         cache.delete("operation");
