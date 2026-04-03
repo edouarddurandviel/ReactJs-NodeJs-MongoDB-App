@@ -3,13 +3,14 @@ export default {
     if (cache.has(key) && !cache.has("operation")) {
       // cancel
       return true;
-    } else if (config.method !== "get") {
+    } else if (config.method === "patch") {
       cache.set("operation", true);
       return false;
     }
   },
   manageResponse: (response: any, cache: any) => {
-    if (response.config.method === "get") {
+    console.log(response)
+    if (response && response.config.method === "get") {
       if (cache.has("operation")) {
         cache.delete("operation");
       }
@@ -18,6 +19,7 @@ export default {
       return response;
     } else {
       cache.set("operation", true);
+     
       return response;
     }
   },

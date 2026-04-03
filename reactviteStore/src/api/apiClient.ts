@@ -17,15 +17,20 @@ export default async (props: { path: string; method: string; params?: PathParams
   });
 
   apiClient.interceptors.request.use((config) => {
+    
     const key = config.url;
     const auth = apiCache.cacheRequest(cache, key, config);
 
-    return auth
-      ? Promise.reject({
+    if(auth){
+      const data = cache.get(key)
+      return Promise.reject({
           __fromCache: true,
-          data: cache.get(key),
+          data: data,
         })
-      : config;
+    }else{
+      return config
+    }
+     
   });
 
   apiClient.interceptors.response.use((response) => {
@@ -45,7 +50,7 @@ export default async (props: { path: string; method: string; params?: PathParams
     return resp;
   } catch (err: any) {
     if (err.__fromCache) {
-      return err.data;
+      return err;
     }
   }
 };
