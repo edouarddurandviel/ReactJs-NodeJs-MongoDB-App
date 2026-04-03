@@ -5,6 +5,7 @@ import companyReducers from "./company/reducers";
 import userReducers from "./user/reducers";
 import authReducers from "./auth/reducers";
 
+
 const rootReducer = combineReducers({
   company: companyReducers,
   user: userReducers,
