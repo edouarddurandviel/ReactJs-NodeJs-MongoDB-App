@@ -1,7 +1,7 @@
 import axios from "axios";
 import urlBuilder from "./urlBuilder";
 import type { PathParamsObject, QueryObject } from "./interfaces";
-import { cachedRequest, cachedResponse } from "./cacheManagment";
+import { cachedRequest, manageResponse } from "./cacheManagment";
 
 const cache = new Map()
 
@@ -30,7 +30,7 @@ export default async (props: { path: string; method: string; params?: PathParams
   });
 
   apiClient.interceptors.response.use((response) => {
-    const resp = cachedResponse(response, cache)
+    const resp = manageResponse(response, cache)
     return resp;
   });
 

@@ -8,7 +8,7 @@ export const cachedRequest = (cache: any, key: any, config: any) => {
     }
 }
 
-export const cachedResponse = (response: any, cache: any) => {
+export const manageResponse = (response: any, cache: any) => {
      if(response.config.method !== "patch"){
       if (cache.has("update")) {
           cache.delete("update");
