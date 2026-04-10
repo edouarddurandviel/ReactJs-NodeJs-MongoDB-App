@@ -1,6 +1,6 @@
 import { Alert } from "./styles";
 
-const Index = ({data, open, closeModal}: AlertProps) => {
+const Index = ({ data, open, closeModal }: AlertProps) => {
   return (
     open && (
       <Alert

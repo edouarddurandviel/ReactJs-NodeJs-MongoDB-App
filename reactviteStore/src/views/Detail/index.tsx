@@ -48,20 +48,20 @@ const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
     <>
       <RVMeta metaData={meta} />
       <Container>
-        <RVButton 
+        <RVButton
           content="Back"
           onClick={() => {
-            history.back()
-          }}/>
+            history.back();
+          }}
+        />
         <h2>Company detail</h2>
-        
+
         {companyLoading && <p>Loading...</p>}
         {companyDetail && (
-        <InlineWrapper>
-           <p>{companyDetail.name}</p>
+          <InlineWrapper>
+            <p>{companyDetail.name}</p>
             <p>{companyDetail.isoCode}</p>
-        </InlineWrapper>
-        
+          </InlineWrapper>
         )}
       </Container>
     </>

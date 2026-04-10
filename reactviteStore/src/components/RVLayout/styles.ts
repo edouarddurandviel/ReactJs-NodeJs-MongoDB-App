@@ -132,4 +132,4 @@ export const Message = styled.div`
 export const InlineWrapper = styled.div`
   display: flex;
   margin: 13px 20px;
-`
+`;

@@ -1,6 +1,6 @@
 import { Button } from "./style";
 
-const Index = ({content, onClick}: ButtonLinkProps) => {
+const Index = ({ content, onClick }: ButtonLinkProps) => {
   return <Button onClick={() => onClick()}>{content}</Button>;
 };
 

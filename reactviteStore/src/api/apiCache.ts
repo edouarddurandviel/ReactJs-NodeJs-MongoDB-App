@@ -18,7 +18,7 @@ export default {
       return response;
     } else {
       cache.set("operation", true);
-     
+
       return response;
     }
   },
