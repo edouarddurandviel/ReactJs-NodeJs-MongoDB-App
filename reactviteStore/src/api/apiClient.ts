@@ -6,7 +6,6 @@ import { urlBuilder } from "./buildUrl";
 const cache = new Map();
 
 export default async (props: { path: string; method: string; params?: PathParamsObject; data?: any; query?: QueryObject }) => {
-
   const apiClient = await axios.create({
     baseURL: "http://localhost:3000/api/v1",
     withCredentials: true,
@@ -16,20 +15,18 @@ export default async (props: { path: string; method: string; params?: PathParams
   });
 
   apiClient.interceptors.request.use((config) => {
-    
     const key = config.url;
     const auth = apiCache.cacheRequest(cache, key, config);
 
-    if(auth){
-      const data = cache.get(key)
+    if (auth) {
+      const data = cache.get(key);
       return Promise.reject({
-          __fromCache: true,
-          data: data,
-        })
-    }else{
-      return config
+        __fromCache: true,
+        data: data,
+      });
+    } else {
+      return config;
     }
-     
   });
 
   apiClient.interceptors.response.use((response) => {
