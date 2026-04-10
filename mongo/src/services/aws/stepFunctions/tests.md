@@ -1,4 +1,4 @@
-tests managed service behaviors, cloud configuration, security policies, and the integration with your code. 
+tests managed service behaviors, cloud configuration, security policies, and the integration with your code.
 Behavior testing, also known as black box testing, verifies a system works as expected without knowing all the internals.
 
 - Run unit tests to check business logic inside Lambda functions.
@@ -6,7 +6,6 @@ Behavior testing, also known as black box testing, verifies a system works as ex
 - Verify integrated services are actually invoked, and input parameters are correct.
 
 - Check that an event goes through all expected services end-to-end in a workflow.
-
 
 #### Execution
 

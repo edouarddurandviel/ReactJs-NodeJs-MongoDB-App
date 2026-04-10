@@ -1,13 +1,12 @@
 import type { PathParamsObject, QueryObject } from "./interfaces";
 
-// Class Method definitions
-class UrlBuilderUtil {
-  #getParam(path: string) {
+
+  const getParam = (path: string) => {
     const el = path.split("/");
     return el.filter((e) => e.startsWith(":")).map((e) => e.substring(1));
   }
 
-  #verifyParams(params: Array<string>, receivedParams: PathParamsObject) {
+  const verifyParams = (params: Array<string>, receivedParams: PathParamsObject) => {
     const receivedMap = receivedParams;
     const paramsM: PathParamsObject = {};
     params.forEach((e) => Object.assign(paramsM, { [e]: "" }));
@@ -19,7 +18,7 @@ class UrlBuilderUtil {
     return paramsM;
   }
 
-  #createUrl(path: string, buildParams: PathParamsObject) {
+  const createUrl = (path: string, buildParams: PathParamsObject) => {
     let newPath = "";
     for (const [key, value] of Object.entries(buildParams)) {
       if (key) {
@@ -30,7 +29,7 @@ class UrlBuilderUtil {
     return newPath;
   }
 
-  #serialize(query: QueryObject) {
+  const serialize = (query: QueryObject) => {
     let serialized: string = "?";
     for (let key in query) {
       if (query.hasOwnProperty(key)) {
@@ -43,27 +42,25 @@ class UrlBuilderUtil {
     return serialized;
   }
 
-  BuildUrl(path: string, params?: PathParamsObject, query?: QueryObject) {
-    const Params = this.#getParam(path);
+  export const urlBuilder = (path: string, params?: PathParamsObject, query?: QueryObject) => {
+    const Params = getParam(path);
     let serialized: string | null = null;
 
     if (params) {
-      const verifiedParamObject = this.#verifyParams(Params, params);
+      const verifiedParamObject = verifyParams(Params, params);
 
       if (query) {
-        serialized = this.#serialize(query);
+        serialized = serialize(query);
       }
 
-      const url = verifiedParamObject ? this.#createUrl(path, verifiedParamObject) : `${(serialized && path + serialized) || path}`;
+      const url = verifiedParamObject ? createUrl(path, verifiedParamObject) : `${(serialized && path + serialized) || path}`;
 
       return url;
     } else {
       if (query) {
-        serialized = this.#serialize(query);
+        serialized = serialize(query);
       }
       return `${(serialized && path + serialized) || path}`;
     }
   }
-}
 
-export default UrlBuilderUtil;

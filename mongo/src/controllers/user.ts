@@ -1,7 +1,6 @@
 import { Unauthorized } from "http-json-errors";
-import { AuthUser, CreateUser, UserData } from "../_interfaces/user";
+import { CreateUser, UserData } from "../_interfaces/user";
 import * as userActions from "../services/user/actions";
-import * as argon2 from "argon2";
 import { argon2Sync, randomBytes } from "node:crypto";
 import * as jwt from "jsonwebtoken";
 import { UserToken } from "../_interfaces/models";
@@ -19,19 +18,18 @@ class UserController {
   }
 
   public async createOneUser(data: CreateUser) {
-
     const salt = randomBytes(16);
-    const secret = process.env.ENV_SECRET
+    const secret = process.env.ENV_SECRET;
 
-    const derivedKey = argon2Sync('argon2id', {
+    const derivedKey = argon2Sync("argon2id", {
       message: data.password,
       nonce: salt,
       parallelism: 4,
       tagLength: 32,
       memory: 65536,
       passes: 3,
-      secret: secret,
-    }).toString("hex")
+      secret: secret
+    }).toString("hex");
 
     const dataHash = {
       email: data.email,
@@ -43,7 +41,7 @@ class UserController {
     return user;
   }
 
-   public async createProfil(data: any, userId: string) {
+  public async createProfil(data: any, userId: string) {
     const user = await userActions.createProfil(data, userId);
     return user;
   }
@@ -62,18 +60,17 @@ class UserController {
     const user = await userActions.getOneUserWithEmail(email);
     const salt = Buffer.from(user.salt, "hex");
 
-     const hash = argon2Sync("argon2id", {
-        message: password,
-        nonce: salt,
-        parallelism: 4,
-        tagLength: 32,
-        memory: 65536,
-        secret: process.env.ENV_SECRET,
-        passes: 3
-     });
+    const hash = argon2Sync("argon2id", {
+      message: password,
+      nonce: salt,
+      parallelism: 4,
+      tagLength: 32,
+      memory: 65536,
+      secret: process.env.ENV_SECRET,
+      passes: 3
+    });
 
-    if(hash.toString("hex") === user.password){
-
+    if (hash.toString("hex") === user.password) {
       // create jwt token
       const payload = { userId: user._id };
       const secret = password;

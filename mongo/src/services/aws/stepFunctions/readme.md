@@ -1,4 +1,5 @@
 ## Step functions
+
 - deploy or not state machines.
 - test state machines befores
 - check workflow
@@ -8,20 +9,20 @@
 ==> use ui and define each state using forms
 
 UI workflow definition => right button test (user permissions defined in IAM)
-state input textarea for body (data). 
+state input textarea for body (data).
 => level inspection selector.
 take each results and provide data to each test sequencies.
 ==> then save button
 
-
 Wait for callback: usefull to wait for external data before execution. for example validation ...
-provided with token 
+provided with token
 
 ==> Definition (read-only)
 
-
 # lambda up to 10 concurrently
+
 tmp, glogal variables cache.
+
 - add tenant defined id for customers
 
 ### Lambda: MultiplyValue
@@ -56,10 +57,10 @@ exports.handler = async event => {
 
 JSONata: using JSONPath
 
-- Intrinsic functions (States.MathAdd), 
-- WorkflowStatesState, 
-- MachinesState, 
-- QueryLanguage, 
+- Intrinsic functions (States.MathAdd),
+- WorkflowStatesState,
+- MachinesState,
+- QueryLanguage,
 - input/output configuration
 
 ## Service integration

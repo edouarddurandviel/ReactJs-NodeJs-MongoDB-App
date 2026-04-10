@@ -103,8 +103,8 @@ export const createProfil = async (data: any, userId: string) => {
   const userCollection = await inCollection("profil");
 
   const user = await userCollection.insertOne({
-  ...data,
-   _id: new ObjectId(userId)
+    ...data,
+    _id: new ObjectId(userId)
   });
   return user;
 };
@@ -118,6 +118,12 @@ export const searchForOneUser = async (email: string) => {
   return searchedUser;
 };
 
+/**
+ *
+ * @param token
+ * @param userId
+ * @returns user object
+ */
 export const storeUserToken = async (token: string, userId: ObjectId) => {
   const userCollection = await inCollection("token");
   const user = await userCollection.insertOne({

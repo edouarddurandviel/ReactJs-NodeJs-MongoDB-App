@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import CompanyController from "@services/company";
+import CompanyController from "./company";
 import { handleErrors } from "@libs/server";
 import { remotePostAccess } from "@middleware/remoteAccess";
 import { ExtendedRequest } from "../_interfaces/requests";

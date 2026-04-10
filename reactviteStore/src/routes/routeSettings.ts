@@ -3,6 +3,7 @@ import Auth from "../views/Auth";
 import CreateUser from "../views/User/create";
 import UserProfil from "../views/User/profil";
 import { lazy } from "react";
+import DesignPatterns from "../views/DesignPatterns";
 
 const RouteSettings = [
   {
@@ -30,6 +31,11 @@ const RouteSettings = [
     path: "/user/profil",
     name: "profil",
     component: UserProfil,
+  },
+  {
+    path: "/design-patterns",
+    name: "patterns",
+    component: DesignPatterns,
   },
 ];
 

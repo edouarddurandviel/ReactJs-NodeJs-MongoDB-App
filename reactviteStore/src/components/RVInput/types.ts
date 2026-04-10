@@ -10,4 +10,5 @@ export type SimpleInputProps = {
     handler: (value: unknown) => boolean;
     message: string;
   }>;
+  ref?: any
 };

@@ -58,7 +58,7 @@
     "@types/jest": "^30.0.0",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^24.3.1",
+    "@types/node": "^25.5.2",
     "@types/passport-local": "^1.0.38",
     "chai": "npm:@esm-bundle/chai@4.3.4-fix.0",
     "esbuild": "^0.25.9",

@@ -31,11 +31,9 @@ export default (io: Server) => {
 
   router.get("/login", async (req: Request, res: Response) => {
     try {
-
       const email = await userSchemas.textSchema.validateAsync(req.query.email);
       const password = await userSchemas.textSchema.validateAsync(req.query.password);
       const result = await userServices.login(email, password);
-
 
       res.cookie("jwt", result.token, {
         expires: new Date(Date.now() + 1 * 3600000),
@@ -63,26 +61,18 @@ export default (io: Server) => {
     }
   });
 
-   router.post(
-    "/profil/:userId/create", 
-    sessionToken, 
-    async (req: Request, res: Response) => {
-
+  router.post("/profil/:userId/create", sessionToken, async (req: Request, res: Response) => {
     try {
       const userId = await userSchemas.uidSchema.validateAsync(req.params.userId);
       const result = await userServices.createProfil(req.body, userId);
 
-      res.status(200).json({ err: false, data: result});
+      res.status(200).json({ err: false, data: result });
     } catch (error: any) {
       handleErrors(error);
     }
   });
 
-  router.get(
-    "/all", 
-    sessionToken, 
-    async (req: ExtendedRequest, res: Response) => {
-      
+  router.get("/all", sessionToken, async (req: ExtendedRequest, res: Response) => {
     try {
       const result = await userServices.getAllUsers();
 

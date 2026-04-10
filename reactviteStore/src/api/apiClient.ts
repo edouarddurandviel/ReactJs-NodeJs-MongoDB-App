@@ -1,12 +1,11 @@
 import axios from "axios";
-import UrlBuilderUtil from "./urlBuilderUtil";
 import type { PathParamsObject, QueryObject } from "./interfaces";
 import apiCache from "./apiCache";
+import { urlBuilder } from "./buildUrl";
 
 const cache = new Map();
 
 export default async (props: { path: string; method: string; params?: PathParamsObject; data?: any; query?: QueryObject }) => {
-  const helper = new UrlBuilderUtil();
 
   const apiClient = await axios.create({
     baseURL: "http://localhost:3000/api/v1",
@@ -40,7 +39,7 @@ export default async (props: { path: string; method: string; params?: PathParams
 
   try {
     const resp = await apiClient.request({
-      url: helper.BuildUrl(props.path, props.params, props.query),
+      url: await urlBuilder(props.path, props.params, props.query),
       method: props.method,
       ...(props.data && { data: props.data }),
       validateStatus(status) {

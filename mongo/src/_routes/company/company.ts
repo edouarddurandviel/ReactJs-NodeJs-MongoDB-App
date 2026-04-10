@@ -7,7 +7,6 @@ import { ExtendedRequest } from "../../_interfaces/requests";
 import { Server } from "socket.io";
 
 export default (io: Server) => {
-
   const router = express.Router();
   const companyServices = new CompanyController(io);
 
