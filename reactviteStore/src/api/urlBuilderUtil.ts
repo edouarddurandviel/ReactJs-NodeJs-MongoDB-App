@@ -1,7 +1,7 @@
 import type { PathParamsObject, QueryObject } from "./interfaces";
 
 // Class Method definitions
-class builder {
+class UrlBuilderUtil {
   #getParam(path: string) {
     const el = path.split("/");
     return el.filter((e) => e.startsWith(":")).map((e) => e.substring(1));
@@ -43,7 +43,7 @@ class builder {
     return serialized;
   }
 
-  UrlBuilder(path: string, params?: PathParamsObject, query?: QueryObject) {
+  BuildUrl(path: string, params?: PathParamsObject, query?: QueryObject) {
     const Params = this.#getParam(path);
     let serialized: string | null = null;
 
@@ -66,4 +66,4 @@ class builder {
   }
 }
 
-export default builder;
+export default UrlBuilderUtil;
