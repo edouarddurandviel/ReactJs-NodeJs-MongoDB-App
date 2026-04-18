@@ -24,16 +24,12 @@ const getParam = (path: string): string[] => {
 };
 
 // optimized
-const verifyParams = (
-  params: string[],
-  receivedParams: PathParamsObject
-): PathParamsObject => {
+const verifyParams = (params: string[], receivedParams: PathParamsObject): PathParamsObject => {
   const result: PathParamsObject = {};
 
   for (let i = 0; i < params.length; i++) {
     const key = params[i];
-    if(key)
-      result[key] = key in receivedParams ? receivedParams[key]! : "";
+    if (key) result[key] = key in receivedParams ? receivedParams[key]! : "";
   }
 
   return result;
@@ -68,9 +64,7 @@ export const urlBuilder = (path: string, params?: PathParamsObject, query?: Quer
     const verifiedParamObject = verifyParams(Params, params);
 
     return !serialized ? createUrl(path, verifiedParamObject) : `${path}${serialized}`;
-
   } else {
-   
     return !serialized ? path : `${path}${serialized}`;
   }
 };

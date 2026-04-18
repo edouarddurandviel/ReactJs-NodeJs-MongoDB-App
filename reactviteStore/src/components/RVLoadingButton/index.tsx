@@ -1,9 +1,6 @@
-import type { ButtonProps } from "./types";
 import { Button, ButtonWrapper, Icon, Text } from "./styles";
 
-const Index = (props: ButtonProps) => {
-  const { className, disabled, fluid, icon, content, loading, type, lineHeight, onClick } = props;
-
+const Index = ({ className, disabled, fluid, icon, content, loading, type, lineHeight, onClick }: StrictButtonProps) => {
   return (
     <ButtonWrapper>
       {loading && icon && <Icon loading={loading} />}
@@ -13,5 +10,32 @@ const Index = (props: ButtonProps) => {
     </ButtonWrapper>
   );
 };
+
+interface StrictButtonProps {
+  as?: string;
+  active?: boolean;
+  children?: React.ReactNode;
+  className?: string;
+  content?: string;
+  disabled?: boolean;
+  fluid?: boolean;
+  icon?: boolean | React.ReactNode;
+  label?: React.ReactNode;
+  loading?: boolean;
+  /**
+   * Called after user's click.
+   * @param {SyntheticEvent} event - React's original SyntheticEvent.
+   * @param {object} data - All props.
+   */
+  onClick?: (
+    event: React.MouseEvent<HTMLButtonElement>,
+    //data: ButtonProps,
+  ) => void;
+  role?: string;
+  tabIndex?: number | string;
+  toggle?: boolean;
+  type?: "submit" | "reset" | "button";
+  lineHeight?: number;
+}
 
 export default Index;

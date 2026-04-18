@@ -33,10 +33,10 @@ const Index = ({ data, handleEditModal, handleDeleteItem }: MainListProps) => {
   );
 };
 
-type MainListProps = {
+interface MainListProps {
   data: any;
   handleEditModal: (data: Company) => void;
   handleDeleteItem: (item: string) => void;
-};
+}
 
 export default Index;

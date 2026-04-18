@@ -4,9 +4,9 @@ const Index = ({ content, onClick }: ButtonLinkProps) => {
   return <Button onClick={() => onClick()}>{content}</Button>;
 };
 
-type ButtonLinkProps = {
+interface ButtonLinkProps {
   content: string;
   onClick: () => void;
-};
+}
 
 export default Index;

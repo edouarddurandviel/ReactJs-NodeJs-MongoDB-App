@@ -111,8 +111,9 @@ export const deleteOne = async (companyId: string) => {
 };
 
 // status: completed / processing / pending
-export const multiStageProcessing_Status = async (status: string) => {
+export const multiStageProcessing_Item = async (status: string) => {
   const companyCollection = await inCollection("company");
+  // aggregation pipeline
   const document = await companyCollection.aggregate([
     { $group: { _id: "$_id", total: { $sum: "$price" } } },
     { $match: { status: status } },
@@ -121,6 +122,26 @@ export const multiStageProcessing_Status = async (status: string) => {
       $project: {
         _id: 1,
         name: 1
+      }
+    }
+  ]);
+  return document;
+};
+
+// same with nested values
+export const multiStageProcessing_Item_nested_arrays_inventory_status = async (status: string) => {
+  const companyCollection = await inCollection("company");
+  // aggregation pipeline
+  const document = await companyCollection.aggregate([
+    { $group: { _id: "$_id", total: { $sum: "$price" } } },
+    { $match: { status: status } },
+    {
+      // retreive columns activated columns
+      // create output with taken nested values
+      $project: {
+        _id: 1,
+        name: 1,
+        inventoryStatus: "$status.inventory" // take nested inventory values from status array
       }
     }
   ]);

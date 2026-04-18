@@ -1,12 +1,31 @@
 import { useField } from "@formiz/core";
-import type { SimpleInputProps } from "./types";
 import { FieldSet, InputField, Label } from "./styles";
 
 type Value = string | number | readonly string[] | undefined;
 
-const Input = (props: SimpleInputProps) => {
-  const { value, isValid, errorMessage, setValue, isSubmitted } = useField(props);
-  const { label, id, placeholder, type, autoFocus = false } = props;
+const Input = ({
+  name,
+  id,
+  type,
+  required,
+  placeholder,
+  label,
+  autoFocus,
+  validations,
+  ref
+}: SimpleInputProps) => {
+  const { value, isValid, errorMessage, setValue, isSubmitted } = useField({
+    name,
+    id,
+    type,
+    required,
+    placeholder,
+    label,
+    autoFocus,
+    validations,
+    ref
+  });
+
 
   const showError = !isValid && isSubmitted;
 
@@ -26,6 +45,20 @@ const Input = (props: SimpleInputProps) => {
       {showError && errorMessage}
     </FieldSet>
   );
+};
+ interface SimpleInputProps {
+  name: string;
+  id: string;
+  type: string;
+  required?: string;
+  placeholder?: string;
+  label?: string;
+  autoFocus?: boolean;
+  validations?: Array<{
+    handler: (value: unknown) => boolean;
+    message: string;
+  }>;
+  ref?: any;
 };
 
 export default Input;

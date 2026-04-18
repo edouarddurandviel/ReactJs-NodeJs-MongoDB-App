@@ -9,9 +9,9 @@ const Index = ({ path, text }: ButtonLinkProps) => {
   );
 };
 
-type ButtonLinkProps = {
+interface ButtonLinkProps {
   path: string;
   text: string;
-};
+}
 
 export default Index;
