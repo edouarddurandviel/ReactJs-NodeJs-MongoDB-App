@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import type { TextProps } from "./types";
+
 import { fontSize, primary, radius, secondary } from "../../theme/variables";
+import type { TextProps } from "./interfaces";
 
 export const PLaceHolder = styled.div`
   display: flex;
@@ -113,6 +114,7 @@ export const RightColumn = styled.div`
 export const Footer = styled.div<TextProps>`
   display: flex;
   flex-direction: column;
+  ${(props) => (`line-height: ${props.lineHeight};`)}
   width: 100%;
   min-height: 100px;
   background-color: #0e4491;
