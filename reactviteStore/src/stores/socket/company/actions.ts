@@ -16,14 +16,14 @@ export const unsubscribeAllCompanies = () => {
   };
 };
 
-export const subscribeOneCompany = (companyId: string) => {
+export const subscribeOneCompany = (companyId?: string) => {
   return {
     socket: true,
     message: `company:${companyId}`,
     type: companyType.GET_ONE_COMPANY_REQUEST,
   };
 };
-export const unsubscribeOneCompany = (companyId: string) => {
+export const unsubscribeOneCompany = (companyId?: string) => {
   return {
     socket: true,
     message: `company:${companyId}`,

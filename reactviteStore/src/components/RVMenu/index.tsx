@@ -25,9 +25,6 @@ const Index = () => {
           <NavLink className="links" to="/user/profil">
             User profil
           </NavLink>
-          <NavLink className="links" to="/design-patterns">
-            Design patterns
-          </NavLink>
         </>
       )}
     </Menu>
