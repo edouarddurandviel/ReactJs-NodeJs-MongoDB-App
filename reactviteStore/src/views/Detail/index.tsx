@@ -13,22 +13,18 @@ const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
   const { companyId } = useParams();
 
   useEffect(() => {
-    if (companyId) {
-      dispatch(
-        actions.company.getOneCompany({
-          params: {
-            companyId: companyId,
-          },
-        }),
-      );
+    dispatch(
+      actions.company.getOneCompany({
+        params: {
+          companyId: companyId,
+        },
+      }),
+    );
 
-      dispatch(actions.socket.subscribeOneCompany(companyId));
-    }
-
+    dispatch(actions.socket.subscribeOneCompany(companyId));
+  
     return () => {
-      if (companyId) {
-        dispatch(actions.socket.unsubscribeOneCompany(companyId));
-      }
+      dispatch(actions.socket.unsubscribeOneCompany(companyId));
     };
   }, [dispatch, companyId]);
 
