@@ -29,11 +29,9 @@ const Index = ({ dispatch, user }: LayoutProps) => {
     <UserContext value={user}>
       <PLaceHolder>
         <Header>
-       
-
           {user && (
             <>
-            <RVMenu />
+              <RVMenu />
               <RVLoadingButton
                 content="Logout"
                 onClick={() => {

@@ -1,17 +1,16 @@
-import { Navigate, useLocation, useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import type { UserConnected } from "../../../stores/auth/interfaces";
 import { useEffect } from "react";
 
 const Index = ({ user, children }: PrivateRouteProps) => {
   const location = useLocation();
 
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(user)
     if (!user) {
       navigate("/login", { replace: true });
-    }else if(user && location.pathname === "/login" ){
+    } else if (user && location.pathname === "/login") {
       navigate("/", { replace: true });
     }
   }, [user, navigate]);
