@@ -12,8 +12,8 @@ const Index = ({ user, children }: PrivateRouteProps) => {
     navigate("/", { replace: true });
   }
     
-  })
-  
+  }, [user])
+
   return children;
   
 };
