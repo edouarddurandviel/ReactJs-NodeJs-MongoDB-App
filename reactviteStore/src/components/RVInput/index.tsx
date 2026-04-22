@@ -3,18 +3,8 @@ import { FieldSet, InputField, Label } from "./styles";
 
 type Value = string | number | readonly string[] | undefined;
 
-const Input = ({
-  name,
-  id,
-  type,
-  required,
-  placeholder,
-  label,
-  autoFocus,
-  validations,
-  ref
-}: SimpleInputProps) => {
-  const { value, isValid, errorMessage, setValue, isSubmitted } = useField({
+const Input = ({ name, id, type, required, placeholder, label, autoFocus, validations, ref }: SimpleInputProps) => {
+  const { value, isValid, errorMessage, setValue, isPristine } = useField({
     name,
     id,
     type,
@@ -23,11 +13,10 @@ const Input = ({
     label,
     autoFocus,
     validations,
-    ref
+    ref,
   });
 
-
-  const showError = !isValid && isSubmitted;
+  const showError = !isValid && !isPristine;
 
   return (
     <FieldSet>
@@ -46,7 +35,7 @@ const Input = ({
     </FieldSet>
   );
 };
- interface SimpleInputProps {
+interface SimpleInputProps {
   name: string;
   id: string;
   type: string;
@@ -59,6 +48,6 @@ const Input = ({
     message: string;
   }>;
   ref?: any;
-};
+}
 
 export default Input;
