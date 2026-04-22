@@ -1,13 +1,13 @@
-import { Navigate, useLocation } from "react-router";
+import { useNavigate } from "react-router";
 import type { UserConnected } from "../../../stores/auth/interfaces";
 
 const Index = ({ user, children }: PrivateRouteProps) => {
-  const location = useLocation();
+  const navigate = useNavigate()
 
   if (!user && location.pathname !== "/login") {
-    return <Navigate to="/login" replace />;
+    navigate("/login");
   } else if (user && location.pathname === "/login") {
-    return <Navigate to="/" replace />;
+    navigate("/");
   } else {
     return children;
   }
