@@ -3,19 +3,17 @@ import type { UserConnected } from "../../../stores/auth/interfaces";
 import { useEffect } from "react";
 
 const Index = ({ user, children }: PrivateRouteProps) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-     if (!user && location.pathname !== "/login") {
-    navigate("/login", { replace: true });
-  } else if (user && location.pathname === "/login") {
-    navigate("/", { replace: true });
-  }
-    
-  }, [user])
+    if (!user) {
+      navigate("/login", { replace: true });
+    }else{
+      navigate("/", { replace: true });
+    }
+  }, [user, navigate]);
 
   return children;
-  
 };
 
 interface PrivateRouteProps extends React.PropsWithChildren {
