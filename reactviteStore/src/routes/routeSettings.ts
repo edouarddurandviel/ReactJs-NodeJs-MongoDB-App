@@ -30,7 +30,7 @@ const RouteSettings = [
     path: "/user/profil",
     name: "profil",
     component: UserProfil,
-  }
+  },
 ];
 
 export default RouteSettings;
