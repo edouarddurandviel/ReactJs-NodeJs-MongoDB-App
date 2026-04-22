@@ -29,10 +29,10 @@ const Index = ({ dispatch, user }: LayoutProps) => {
     <UserContext value={user}>
       <PLaceHolder>
         <Header>
+          <RVMenu />
 
           {user && (
             <>
-             <RVMenu />
               <RVLoadingButton
                 content="Logout"
                 onClick={() => {
