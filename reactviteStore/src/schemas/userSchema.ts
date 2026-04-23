@@ -22,3 +22,12 @@ export const schemaUser = Yup.object({
   firstName: Yup.string().required("Firstname is required"),
   email: Yup.string().email("Value must be an email").required("Email is required"),
 }).required();
+
+export const formizUser = Yup.object({
+  firstName: Yup.string().required("Firstname is required"),
+  lastName: Yup.string().required("Last name is required"),
+  address: Yup.string().required("Addresse is required"),
+  postCode: Yup.number().max(5).required("Postcode is required"),
+  city: Yup.string().required("City is required"),
+  phone: Yup.number().required("Phone is required"),
+}).required();

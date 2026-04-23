@@ -19,7 +19,6 @@ const Index = ({ dispatch, authLoading }: UserProps) => {
       form.reset();
     },
   });
-  
 
   const handleSubmitLogin = (values: User) => {
     dispatch(
@@ -82,11 +81,7 @@ const Index = ({ dispatch, authLoading }: UserProps) => {
                 ]}
               />
               <BthForm>
-                <RVLoadingButton
-                  type="submit"
-                  content="Submit"
-                  loading={form.isValidating}
-                />
+                <RVLoadingButton type="submit" content="Submit" loading={form.isValidating} />
               </BthForm>
             </Form>
           </Formiz>

@@ -1,21 +1,18 @@
 import { connect, useDispatch } from "react-redux";
-import { Formik } from "formik";
+import { ErrorMessage, Formik } from "formik";
 import * as selectors from "../../../stores/rootSelectors";
 import * as actions from "../../../stores/rootActions";
 import type { AppDispatch, RootState } from "../../../stores";
 import type { ThunkDispatch } from "redux-thunk";
 import { RVAlerts, RVLoadingButton, RVMeta } from "../../../components/index";
-import { BthForm, Container, Form, Message } from "../../../components/RVLayout/styles";
+import { BthForm, Column, Container, Form, H2, Message, PLaceHolder } from "../../../components/RVLayout/styles";
 import { Input } from "../../../components/Formik";
 import { useCallback, useEffect, useState } from "react";
 import { type SubmitHandler } from "react-hook-form";
-import { schemaUser } from "../../../schemas/userSchema";
+import { formizUser, schemaUser } from "../../../schemas/userSchema";
 import type { AnyAction } from "redux";
 import { RHFform } from "../../../components/RHF/Form/styles";
 import { ReactHookForm, RHFInputField } from "../../../components/RHF";
-
-
-
 
 const Index = ({ profil, dispatch }: UserProps) => {
   const appDispatch = useDispatch<ThunkDispatch<RootState, undefined, AnyAction>>();
@@ -53,46 +50,38 @@ const Index = ({ profil, dispatch }: UserProps) => {
 
   return (
     <>
-      <RVMeta metaData={meta} />
-      <Container>
+      <Column>
+        <RVMeta metaData={meta} />
+
         {profil && <RVAlerts data={profil} open={open} closeModal={closeModal} />}
 
-        <Message>Add information about each user</Message>
-        <Message>Cookies available for one hour. At expiry delete user token from token mongo table</Message>
+        <H2>Add information about each users</H2>
+        <Message>
+          Built with <strong>Formik</strong> forms library, prefilled initialValues
+        </Message>
 
         <Formik
           initialValues={{
-            firstName: "Edouard",
-            lastName: "Durand",
-            address: "44 chemin du petit four",
-            postCode: "06600",
-            city: "Antibes",
-            phone: "54654656546",
+            firstName: "",
+            lastName: "",
+            address: "",
+            postCode: "",
+            city: "",
+            phone: "",
           }}
-          validate={() => {}}
+          validationSchema={formizUser}
           onSubmit={(values) => {
             submitProfil(values);
           }}
         >
           {({ values, errors, touched, setFieldValue, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
             <Form onSubmit={handleSubmit}>
-              <Input
-                name="firstName"
-                type="text"
-                id="1"
-                label="First name"
-                onChange={() => {
-                  setFieldValue("firstName", "ok");
-                }}
-                onBlur={handleBlur}
-                value={values.firstName}
-              />
+              <Input name="firstName" type="text" id="1" label="First name" onChange={handleChange} onBlur={handleBlur} value={values.firstName} />
               <Input name="lastName" id="2" label="Last name" type="text" onChange={handleChange} onBlur={handleBlur} value={values.lastName} />
               <Input name="address" id="3" label="Address" type="text" onChange={handleChange} onBlur={handleBlur} value={values.address} />
               <Input name="postCode" id="4" label="Post code" type="text" onChange={handleChange} onBlur={handleBlur} value={values.postCode} />
               <Input name="city" id="5" label="City" type="text" onChange={handleChange} onBlur={handleBlur} value={values.city} />
               <Input name="phone" id="6" label="Phone" type="text" onChange={handleChange} onBlur={handleBlur} value={values.phone} />
-              {errors.firstName && touched.firstName && errors.firstName}
 
               <BthForm>
                 <RVLoadingButton type="submit" content="Submit" disabled={isSubmitting} />
@@ -101,23 +90,33 @@ const Index = ({ profil, dispatch }: UserProps) => {
           )}
         </Formik>
 
+        <H2>Add information about each users with ReactHookForms</H2>
+        <Message>
+          Built with <strong>ReactHookFroms</strong> forms library, prefilled initialValues
+        </Message>
         <ReactHookForm
           defaultValues={{
             firstName: "",
-            email: "",
+            region: "",
+            phone: "",
           }}
           validationSchema={schemaUser}
           onSubmit={onRHFSubmit}
         >
-          {({ control, handleSubmit }) => (
+          {({ control, handleSubmit, reset }) => (
             <RHFform onSubmit={handleSubmit(onRHFSubmit)}>
               <RHFInputField control={control} label="First name" name="firstName" />
               <RHFInputField control={control} label="email" name="email" />
               <input type="submit" />
+              <input
+                  type="button"
+                  onClick={() => reset()}
+                  value="Reset"
+                />
             </RHFform>
           )}
         </ReactHookForm>
-      </Container>
+      </Column>
     </>
   );
 };

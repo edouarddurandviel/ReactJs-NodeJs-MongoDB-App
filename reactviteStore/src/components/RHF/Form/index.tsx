@@ -9,16 +9,19 @@ const Index = ({ defaultValues, validationSchema, children }: FormProps) => {
     resolver: yupResolver(validationSchema),
   });
 
-  const { handleSubmit, control } = methods;
+  const { handleSubmit, reset, control } = methods;
 
-  return children({ control, handleSubmit });
+  return children({ control, reset, handleSubmit });
 };
 
 interface FormProps {
   defaultValues: any;
   validationSchema: any;
   onSubmit: SubmitHandler<any>;
-  children: ({ control, handleSubmit }: { control: any; handleSubmit: any }) => ReactNode;
+  children: (
+    { control, handleSubmit, reset }: 
+    { control: any; handleSubmit: any, reset: any }
+  ) => ReactNode;
 }
 
 export default Index;

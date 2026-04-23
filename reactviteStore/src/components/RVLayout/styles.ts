@@ -12,6 +12,19 @@ export const PLaceHolder = styled.div`
   padding: 0;
 `;
 
+export const Column = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  padding: 20px;
+`;
+
+export const H2 = styled.h2`
+  margin: 20px 10px 10px 10px;
+`;
+
 export const Header = styled.div`
   display: flex;
   color: #ffffff;
