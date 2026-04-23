@@ -9,3 +9,16 @@ export const UserValidation = Yup.object().shape({
     .test("Password cannot start or end with spaces", (value) => value === value.trim())
     .max(10, "Password must be less than 10 characters"),
 });
+
+export const schemaRHF = Yup.object({
+  firstName: Yup.string().required(),
+  iceCreamType: Yup.object({
+    label: Yup.string().required(),
+    value: Yup.string().required(),
+  }),
+}).required();
+
+export const schemaUser = Yup.object({
+  firstName: Yup.string().required("Firstname is required"),
+  email: Yup.string().email("Value must be an email").required("Email is required"),
+}).required();

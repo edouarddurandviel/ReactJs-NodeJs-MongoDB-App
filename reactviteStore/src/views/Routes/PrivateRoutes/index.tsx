@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router";
 import type { UserConnected } from "../../../stores/auth/interfaces";
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 
 const Index = ({ user, children }: PrivateRouteProps) => {
   const location = useLocation();
@@ -28,6 +28,7 @@ const Index = ({ user, children }: PrivateRouteProps) => {
 
 interface PrivateRouteProps extends React.PropsWithChildren {
   user: UserConnected | null;
+  children: ReactNode;
 }
 
 export default Index;

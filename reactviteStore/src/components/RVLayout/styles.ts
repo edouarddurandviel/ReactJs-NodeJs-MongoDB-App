@@ -114,7 +114,7 @@ export const RightColumn = styled.div`
 export const Footer = styled.div<TextProps>`
   display: flex;
   flex-direction: column;
-  ${(props) => (`line-height: ${props.lineHeight};`)}
+  ${(props) => `line-height: ${props.lineHeight};`}
   width: 100%;
   min-height: 100px;
   background-color: #0e4491;
