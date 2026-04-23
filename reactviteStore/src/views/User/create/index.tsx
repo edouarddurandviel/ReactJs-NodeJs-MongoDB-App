@@ -12,8 +12,7 @@ import { useRef, useState } from "react";
 const Index = ({ dispatch, addUserLoading }: UserProps) => {
   const [data, setData] = useState<boolean>(false);
   const formRef = useRef<FormikProps<any>>(null);
-  const ref = formRef.current as any
- 
+  const ref = formRef.current as any;
 
   const handleSubmitCreateUser = (values: any) => {
     dispatch(
@@ -21,53 +20,58 @@ const Index = ({ dispatch, addUserLoading }: UserProps) => {
         data: values,
       }),
     );
-    ref.resetForm()
-    setData(true)
+    ref.resetForm();
+    setData(true);
   };
 
-
-  
   return (
     <PLaceHolder>
       <H2>Create new user</H2>
       <Message>
-        Built with <strong>Formik</strong> forms library. 
+        Built with <strong>Formik</strong> forms library.
       </Message>
       <Formik
-          innerRef={formRef}
-          initialValues={{
-            email: "",
-            password: "",
-          }}
-          validationSchema={schemaUserCreate}
-          onSubmit={handleSubmitCreateUser}
-        >
-          {({ values, resetForm, handleChange, handleBlur, handleSubmit }) => (
-            <Form onSubmit={handleSubmit}>
-              <Input name="email" type="text" id="1" label="Email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
-              <Input name="password" id="2" label="Password" type="text" onChange={handleChange} onBlur={handleBlur} value={values.password} />
-              <BthForm>
-                <RVLoadingButton type="submit" content={addUserLoading ? "Submitting" : "Submit"}/>
-              </BthForm>
-               <BthForm>
-                <RVLoadingButton type="button" content={"Reset"} onClick={() => {
-                  resetForm()
-                  setData(false)
-                }}/>
-              </BthForm>
-            </Form>
-          )}
-        </Formik>
+        innerRef={formRef}
+        initialValues={{
+          email: "",
+          password: "",
+        }}
+        validationSchema={schemaUserCreate}
+        onSubmit={handleSubmitCreateUser}
+      >
+        {({ values, resetForm, handleChange, handleBlur, handleSubmit }) => (
+          <Form onSubmit={handleSubmit}>
+            <Input name="email" type="text" id="1" label="Email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
+            <Input name="password" id="2" label="Password" type="text" onChange={handleChange} onBlur={handleBlur} value={values.password} />
+            <BthForm>
+              <RVLoadingButton type="submit" content={addUserLoading ? "Submitting" : "Submit"} />
+            </BthForm>
+            <BthForm>
+              <RVLoadingButton
+                type="button"
+                content={"Reset"}
+                onClick={() => {
+                  resetForm();
+                  setData(false);
+                }}
+              />
+            </BthForm>
+          </Form>
+        )}
+      </Formik>
 
-         {data && 
-         (<p><strong>Submited</strong> You can now connect with your own <strong>email</strong> and <strong>password</strong></p>)}
+      {data && (
+        <p>
+          <strong>Submited</strong> You can now connect with your own <strong>email</strong> and <strong>password</strong>
+        </p>
+      )}
     </PLaceHolder>
   );
 };
 
 const mapStateToProps = (state: RootState) => {
   return {
-    addUserLoading: selectors.user.addUserLoadingSelector(state)
+    addUserLoading: selectors.user.addUserLoadingSelector(state),
   };
 };
 
