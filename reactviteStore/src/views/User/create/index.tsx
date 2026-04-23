@@ -1,89 +1,77 @@
 import { connect } from "react-redux";
-import { Formiz, useForm } from "@formiz/core";
-import { isRequired } from "@formiz/validations";
 import * as selectors from "../../../stores/rootSelectors";
 import * as actions from "../../../stores/rootActions";
 import type { AppDispatch, RootState } from "../../../stores";
-import { RVInput, RVLoadingButton } from "../../../components";
-import { BthForm, Container, Form } from "../../../components/RVLayout/styles";
-import type { User } from "../../../stores/user/interfaces";
+import { RVLoadingButton } from "../../../components";
+import { BthForm, Form, H2, Message, PLaceHolder } from "../../../components/RVLayout/styles";
+import { Formik, type FormikProps } from "formik";
+import { Input } from "../../../components/Formik";
+import { schemaUserCreate } from "../../../schemas/userSchema";
+import { useRef, useState } from "react";
 
-const Index = ({ dispatch, user, userLoading }: UserProps) => {
-  const form = useForm({
-    initialValues: {
-      email: "",
-      password: "",
-    } as User,
-    onSubmit: (values) => {
-      handleSubmitCreateUser(values);
-      form.reset();
-    },
-  });
+const Index = ({ dispatch, userSuccess }: UserProps) => {
+  const [data, setData] = useState<boolean>(true);
+  const formRef = useRef<FormikProps<any>>(null);
+  const ref = formRef.current as any
+ 
 
-  const handleSubmitCreateUser = (values: User) => {
+  const handleSubmitCreateUser = (values: any) => {
     dispatch(
       actions.user.addOneUser({
         data: values,
       }),
     );
+    ref.resetForm()
+    dispatch(actions.user.reset(["addUser"]));
   };
 
+
   return (
-    <Container>
-      <p>Create new user</p>
-      <Formiz connect={form}>
-        <Form
-          onSubmit={(e) => {
-            e.preventDefault();
-            form.submit();
+    <PLaceHolder>
+      <H2>Create new user</H2>
+      <Message>
+        Built with <strong>Formik</strong> forms library. 
+      </Message>
+      <Formik
+          innerRef={formRef}
+          initialValues={{
+            email: "",
+            password: "",
           }}
+          validationSchema={schemaUserCreate}
+          onSubmit={handleSubmitCreateUser}
         >
-          <RVInput
-            name="email"
-            type="text"
-            id="1"
-            label="Email"
-            required="Email is required"
-            validations={[
-              {
-                handler: isRequired(),
-                message: "Email is required",
-              },
-            ]}
-          />
-          <RVInput
-            name="password"
-            type="text"
-            id="2"
-            label="Password"
-            required="Password is required"
-            validations={[
-              {
-                handler: isRequired(),
-                message: "Password is required",
-              },
-            ]}
-          />
-          <BthForm>
-            <RVLoadingButton type="submit" content="Submit" disabled={userLoading} loading={userLoading} />
-          </BthForm>
-        </Form>
-      </Formiz>
-      {user && <code>{user.email}</code>}
-    </Container>
+          {({ values, resetForm, handleChange, handleBlur, handleSubmit }) => (
+            <Form onSubmit={handleSubmit}>
+              <Input name="email" type="text" id="1" label="Email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
+              <Input name="password" id="2" label="Password" type="text" onChange={handleChange} onBlur={handleBlur} value={values.password} />
+              <BthForm>
+                <RVLoadingButton type="submit" content={(userSuccess && data) ? "Submitted" : "Submit"}/>
+              </BthForm>
+               <BthForm>
+                <RVLoadingButton type="button" content={"Reset"} onClick={() => {
+                  resetForm()
+                  setData(false)
+                }}/>
+              </BthForm>
+            </Form>
+          )}
+        </Formik>
+
+         {(userSuccess && data) && 
+         (<p><strong>Submited</strong> You can now connect with your own <strong>email</strong> and <strong>password</strong></p>)}
+    </PLaceHolder>
   );
 };
 
 const mapStateToProps = (state: RootState) => {
   return {
-    user: selectors.user.userSelector(state),
-    userLoading: selectors.user.userLoadingSelector(state),
+    userSuccess: selectors.user.addUserSuccessSelector(state),
   };
 };
 
 interface UserProps {
-  user: User | null;
-  userLoading: boolean;
+  userSuccess: boolean;
   dispatch: AppDispatch;
 }
 

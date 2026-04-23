@@ -108,11 +108,7 @@ const Index = ({ profil, dispatch }: UserProps) => {
               <RHFInputField control={control} label="First name" name="firstName" />
               <RHFInputField control={control} label="email" name="email" />
               <input type="submit" />
-              <input
-                  type="button"
-                  onClick={() => reset()}
-                  value="Reset"
-                />
+              <input type="button" onClick={() => reset()} value="Reset" />
             </RHFform>
           )}
         </ReactHookForm>
