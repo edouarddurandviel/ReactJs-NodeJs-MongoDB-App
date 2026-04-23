@@ -1,11 +1,11 @@
 import { connect, useDispatch } from "react-redux";
-import { ErrorMessage, Formik } from "formik";
+import { Formik } from "formik";
 import * as selectors from "../../../stores/rootSelectors";
 import * as actions from "../../../stores/rootActions";
 import type { AppDispatch, RootState } from "../../../stores";
 import type { ThunkDispatch } from "redux-thunk";
 import { RVAlerts, RVLoadingButton, RVMeta } from "../../../components/index";
-import { BthForm, Column, Container, Form, H2, Message, PLaceHolder } from "../../../components/RVLayout/styles";
+import { BthForm, Column, Form, H2, Message } from "../../../components/RVLayout/styles";
 import { Input } from "../../../components/Formik";
 import { useCallback, useEffect, useState } from "react";
 import { type SubmitHandler } from "react-hook-form";
@@ -74,7 +74,7 @@ const Index = ({ profil, dispatch }: UserProps) => {
             submitProfil(values);
           }}
         >
-          {({ values, errors, touched, setFieldValue, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+          {({ values, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
             <Form onSubmit={handleSubmit}>
               <Input name="firstName" type="text" id="1" label="First name" onChange={handleChange} onBlur={handleBlur} value={values.firstName} />
               <Input name="lastName" id="2" label="Last name" type="text" onChange={handleChange} onBlur={handleBlur} value={values.lastName} />
