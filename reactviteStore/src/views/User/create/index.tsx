@@ -23,7 +23,6 @@ const Index = ({ dispatch, addUserLoading }: UserProps) => {
     );
     ref.resetForm()
     setData(true)
-    dispatch(actions.user.reset(["addUser"]));
   };
 
 
