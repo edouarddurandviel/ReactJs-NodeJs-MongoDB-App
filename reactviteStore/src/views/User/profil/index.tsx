@@ -3,12 +3,19 @@ import { Formik } from "formik";
 import * as selectors from "../../../stores/rootSelectors";
 import * as actions from "../../../stores/rootActions";
 import type { AppDispatch, RootState } from "../../../stores";
-import { RVAlerts, RVLoadingButton, RVMeta } from "../../../components";
+import type { ThunkDispatch } from "redux-thunk";
+import { RVAlerts, RVLoadingButton, RVMeta } from "../../../components/index";
 import { BthForm, Container, Form, Message } from "../../../components/RVLayout/styles";
 import { Input } from "../../../components/Formik";
-import type { ThunkDispatch } from "redux-thunk";
-import type { AnyAction } from "redux";
 import { useCallback, useEffect, useState } from "react";
+import { type SubmitHandler } from "react-hook-form";
+import { schemaUser } from "../../../schemas/userSchema";
+import type { AnyAction } from "redux";
+import { RHFform } from "../../../components/RHF/Form/styles";
+import { ReactHookForm, RHFInputField } from "../../../components/RHF";
+
+
+
 
 const Index = ({ profil, dispatch }: UserProps) => {
   const appDispatch = useDispatch<ThunkDispatch<RootState, undefined, AnyAction>>();
@@ -40,6 +47,10 @@ const Index = ({ profil, dispatch }: UserProps) => {
     url: "/profil",
   };
 
+  const onRHFSubmit: SubmitHandler<any> = (data) => {
+    console.log(data);
+  };
+
   return (
     <>
       <RVMeta metaData={meta} />
@@ -63,9 +74,19 @@ const Index = ({ profil, dispatch }: UserProps) => {
             submitProfil(values);
           }}
         >
-          {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
+          {({ values, errors, touched, setFieldValue, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
             <Form onSubmit={handleSubmit}>
-              <Input name="firstName" type="text" id="1" label="First name" onChange={handleChange} onBlur={handleBlur} value={values.firstName} />
+              <Input
+                name="firstName"
+                type="text"
+                id="1"
+                label="First name"
+                onChange={() => {
+                  setFieldValue("firstName", "ok");
+                }}
+                onBlur={handleBlur}
+                value={values.firstName}
+              />
               <Input name="lastName" id="2" label="Last name" type="text" onChange={handleChange} onBlur={handleBlur} value={values.lastName} />
               <Input name="address" id="3" label="Address" type="text" onChange={handleChange} onBlur={handleBlur} value={values.address} />
               <Input name="postCode" id="4" label="Post code" type="text" onChange={handleChange} onBlur={handleBlur} value={values.postCode} />
@@ -79,6 +100,23 @@ const Index = ({ profil, dispatch }: UserProps) => {
             </Form>
           )}
         </Formik>
+
+        <ReactHookForm
+          defaultValues={{
+            firstName: "",
+            email: "",
+          }}
+          validationSchema={schemaUser}
+          onSubmit={onRHFSubmit}
+        >
+          {({ control, handleSubmit }) => (
+            <RHFform onSubmit={handleSubmit(onRHFSubmit)}>
+              <RHFInputField control={control} label="First name" name="firstName" />
+              <RHFInputField control={control} label="email" name="email" />
+              <input type="submit" />
+            </RHFform>
+          )}
+        </ReactHookForm>
       </Container>
     </>
   );
