@@ -9,8 +9,8 @@ import { Input } from "../../../components/Formik";
 import { schemaUserCreate } from "../../../schemas/userSchema";
 import { useRef, useState } from "react";
 
-const Index = ({ dispatch, userSuccess }: UserProps) => {
-  const [data, setData] = useState<boolean>(true);
+const Index = ({ dispatch, addUserLoading }: UserProps) => {
+  const [data, setData] = useState<boolean>(false);
   const formRef = useRef<FormikProps<any>>(null);
   const ref = formRef.current as any
  
@@ -22,10 +22,12 @@ const Index = ({ dispatch, userSuccess }: UserProps) => {
       }),
     );
     ref.resetForm()
+    setData(true)
     dispatch(actions.user.reset(["addUser"]));
   };
 
 
+  
   return (
     <PLaceHolder>
       <H2>Create new user</H2>
@@ -46,7 +48,7 @@ const Index = ({ dispatch, userSuccess }: UserProps) => {
               <Input name="email" type="text" id="1" label="Email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
               <Input name="password" id="2" label="Password" type="text" onChange={handleChange} onBlur={handleBlur} value={values.password} />
               <BthForm>
-                <RVLoadingButton type="submit" content={(userSuccess && data) ? "Submitted" : "Submit"}/>
+                <RVLoadingButton type="submit" content={addUserLoading ? "Submitting" : "Submit"}/>
               </BthForm>
                <BthForm>
                 <RVLoadingButton type="button" content={"Reset"} onClick={() => {
@@ -58,7 +60,7 @@ const Index = ({ dispatch, userSuccess }: UserProps) => {
           )}
         </Formik>
 
-         {(userSuccess && data) && 
+         {data && 
          (<p><strong>Submited</strong> You can now connect with your own <strong>email</strong> and <strong>password</strong></p>)}
     </PLaceHolder>
   );
@@ -66,12 +68,12 @@ const Index = ({ dispatch, userSuccess }: UserProps) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    userSuccess: selectors.user.addUserSuccessSelector(state),
+    addUserLoading: selectors.user.addUserLoadingSelector(state)
   };
 };
 
 interface UserProps {
-  userSuccess: boolean;
+  addUserLoading: boolean;
   dispatch: AppDispatch;
 }
 
