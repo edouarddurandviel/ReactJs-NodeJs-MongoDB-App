@@ -74,7 +74,7 @@ class UserController {
       // create jwt token
       const payload = { userId: user._id };
       const secret = password;
-      const token = jwt.sign(payload, secret, { expiresIn: "1h" });
+      const token = jwt.sign(payload, secret, { expiresIn: "1w" });
       await userActions.storeUserToken(token, user._id);
 
       //const roles = await userActions.getUserData(user._id.toString());
