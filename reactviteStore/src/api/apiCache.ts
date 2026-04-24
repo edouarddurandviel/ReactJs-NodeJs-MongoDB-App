@@ -12,7 +12,7 @@ export default class apiCache {
   };
 
   // operation: (undefined/trrue) should or should not refresh data
-  public cacheRequest = (key: any, config: any) => {
+  public manageRequest = (key: any, config: any) => {
     const item = key.split("/")[0];
     const whiteListed = this.cacheConfig.whitelist.filter((e: string) => e === item);
 
@@ -34,7 +34,7 @@ export default class apiCache {
   };
 
   public manageResponse = (response: any) => {
-    // For any read requests consume operation
+    // For any get requests consume operation
     if (response && response.config.method === "get") {
       if (this.cache.has("operation")) {
         this.cache.delete("operation");

@@ -19,7 +19,7 @@ export default async (props: { path: string; method: string; params?: PathParams
 
   apiClient.interceptors.request.use((config) => {
     const key = config.url;
-    const isCacheEnabled = cache.cacheRequest(key, config);
+    const isCacheEnabled = cache.manageRequest(key, config);
     if (isCacheEnabled) {
       const data = cache.getCache(key);
       return Promise.reject({
