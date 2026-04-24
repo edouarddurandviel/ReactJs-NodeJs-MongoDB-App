@@ -25,11 +25,7 @@ export default class apiCache {
       if (this.cache.has(key) && !this.cache.has("operation")) {
         // cancel cache request
         return true;
-      } else if (
-        config.method === "patch" || 
-        config.method === "post" || 
-        config.method === "delete"
-      ) {
+      } else if (config.method !== "get") {
         // for any writing requests  
         this.cache.set("operation", true);
         return false;
