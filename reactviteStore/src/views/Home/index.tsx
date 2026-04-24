@@ -113,7 +113,7 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
         <LeftColumn>
           <h3>{user?.userPermissions.email}</h3>
           <p>
-            <strong>Cache definition</strong> for every viewed company detail pages. It prevents from making any <strong>unnecessary requests</strong> unnecessary requests twice. Content is stored in a Map. It could be sessionStorage
+            <strong>Cache definition</strong> for every viewed company detail pages. It prevents from making any <strong>unnecessary requests</strong> twice. Content is stored in a Map. It could be sessionStorage
           </p>
           <p>
             Home page is using <strong>Formiz</strong> forms. User profil has been built with old <strong>Formik</strong> and extended with another form, held by the latest version of <strong>UseReactForm URF</strong>
@@ -219,5 +219,4 @@ interface HomeProps {
   dispatch: AppDispatch;
 }
 
-// export default App
 export default connect(mapStateToProps)(Index);
