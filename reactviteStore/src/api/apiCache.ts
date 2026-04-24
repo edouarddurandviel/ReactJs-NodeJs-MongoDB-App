@@ -13,9 +13,8 @@ export default class apiCache {
 
   // operation: (undefined/trrue) should or should not refresh data
   public manageRequest = (key: any, config: any) => {
-    const item = key.split("/")[0];
-    const whiteListed = this.cacheConfig.whitelist.filter((e: string) => e === item);
-
+    const item = key.split("/");
+    const whiteListed = this.cacheConfig.whitelist.filter((w: string) => item.includes(w));
     // if route has been registeted in the previous whiteListe
     // do not proceed to any request
     if (whiteListed === undefined) {

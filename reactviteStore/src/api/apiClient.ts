@@ -4,8 +4,10 @@ import apiCache from "./apiCache";
 import { urlBuilder } from "./buildUrl";
 
 // Initialize cache for company
+// should be boostrapped at the beginig of the app 
+// with instance below
 const cache = new apiCache({
-  whitelist: ["company"],
+  whitelist: ["company", "one"],
 });
 
 export default async (props: { path: string; method: string; params?: PathParamsObject; data?: any; query?: QueryObject }) => {
