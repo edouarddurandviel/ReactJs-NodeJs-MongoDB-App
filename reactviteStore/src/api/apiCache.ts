@@ -21,7 +21,11 @@ export default class apiCache {
       if (this.cache.has(key) && !this.cache.has("operation")) {
         // cancel
         return true;
-      } else if (config.method === "patch") {
+      } else if (
+        config.method === "patch" || 
+        config.method === "post" || 
+        config.method === "delete"
+      ) {
         this.cache.set("operation", true);
         return false;
       }
