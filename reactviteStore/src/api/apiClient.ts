@@ -3,7 +3,10 @@ import type { PathParamsObject, QueryObject } from "./interfaces";
 import apiCache from "./apiCache";
 import { urlBuilder } from "./buildUrl";
 
-const cache = new Map();
+// Initialize cache for company
+const cache = new apiCache({
+  whitelist: ["company"],
+});
 
 export default async (props: { path: string; method: string; params?: PathParamsObject; data?: any; query?: QueryObject }) => {
   const apiClient = await axios.create({
@@ -16,10 +19,9 @@ export default async (props: { path: string; method: string; params?: PathParams
 
   apiClient.interceptors.request.use((config) => {
     const key = config.url;
-    const auth = apiCache.cacheRequest(cache, key, config);
-
-    if (auth) {
-      const data = cache.get(key);
+    const isCacheEnabled = cache.cacheRequest(key, config);
+    if (isCacheEnabled) {
+      const data = cache.getCache(key);
       return Promise.reject({
         __fromCache: true,
         data: data,
@@ -30,7 +32,7 @@ export default async (props: { path: string; method: string; params?: PathParams
   });
 
   apiClient.interceptors.response.use((response) => {
-    const resp = apiCache.manageResponse(response, cache);
+    const resp = cache.manageResponse(response);
     return resp;
   });
 
