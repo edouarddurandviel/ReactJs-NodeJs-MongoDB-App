@@ -1,7 +1,7 @@
 import axios from "axios";
 import type { PathParamsObject, QueryObject } from "./interfaces";
 import { urlBuilder } from "./buildUrl";
-import apiCache from "./createApiCache";
+import { default as apiCache } from "./createApiCache";
 
 export default async (props: {
   path: string;
