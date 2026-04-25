@@ -41,8 +41,24 @@ const Index = ({ dispatch, addUserLoading }: UserProps) => {
       >
         {({ values, resetForm, handleChange, handleBlur, handleSubmit }) => (
           <Form onSubmit={handleSubmit}>
-            <Input name="email" type="text" id="1" label="Email" onChange={handleChange} onBlur={handleBlur} value={values.email} />
-            <Input name="password" id="2" label="Password" type="text" onChange={handleChange} onBlur={handleBlur} value={values.password} />
+            <Input
+              name="email"
+              type="text"
+              id="1"
+              label="Email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.email}
+            />
+            <Input
+              name="password"
+              id="2"
+              label="Password"
+              type="text"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={values.password}
+            />
             <BthForm>
               <RVLoadingButton type="submit" content={addUserLoading ? "Submitting" : "Submit"} />
             </BthForm>
@@ -62,7 +78,8 @@ const Index = ({ dispatch, addUserLoading }: UserProps) => {
 
       {data && (
         <p>
-          <strong>Submited</strong> You can now connect with your own <strong>email</strong> and <strong>password</strong>
+          <strong>Submited</strong> You can now connect with your own <strong>email</strong> and{" "}
+          <strong>password</strong>
         </p>
       )}
     </PLaceHolder>
@@ -80,5 +97,4 @@ interface UserProps {
   dispatch: AppDispatch;
 }
 
-// export default App
 export default connect(mapStateToProps)(Index);

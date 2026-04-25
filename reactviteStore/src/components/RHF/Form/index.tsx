@@ -18,7 +18,15 @@ interface FormProps {
   defaultValues: any;
   validationSchema: any;
   onSubmit: SubmitHandler<any>;
-  children: ({ control, handleSubmit, reset }: { control: any; handleSubmit: any; reset: any }) => ReactNode;
+  children: ({
+    control,
+    handleSubmit,
+    reset,
+  }: {
+    control: any;
+    handleSubmit: any;
+    reset: any;
+  }) => ReactNode;
 }
 
 export default Index;

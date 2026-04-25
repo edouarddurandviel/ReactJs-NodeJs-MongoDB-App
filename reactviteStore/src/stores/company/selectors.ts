@@ -9,7 +9,8 @@ const updateCompanySelector = (state: RootState) => state.company.updateCompany;
 const companiesLoadingSelector = (state: RootState) => state.company.companiesLoading;
 const companyLoadingSelector = (state: RootState) => state.company.companyLoading;
 const addCompanyLoadingSelector = (state: RootState) => state.company.addCompanyLoading;
-const filteredCompaniesLoadingSelector = (state: RootState) => state.company.filteredCompaniesLoading;
+const filteredCompaniesLoadingSelector = (state: RootState) =>
+  state.company.filteredCompaniesLoading;
 const updateCompanyLoadingSelector = (state: RootState) => state.company.updateCompanyLoading;
 
 const addCompanySuccessSelector = (state: RootState) => state.company.addCompanySuccess;

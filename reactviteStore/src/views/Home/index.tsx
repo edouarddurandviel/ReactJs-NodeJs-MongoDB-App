@@ -8,7 +8,15 @@ import type { Company } from "../../stores/company/interfaces";
 import type { UserConnected } from "../../stores/auth/interfaces";
 import type { AppDispatch, RootState } from "../../stores";
 import { RVButton, RVInput, RVLoadingButton, RVMeta, RVMainlist } from "../../components";
-import { BthForm, Container, Form, FormActions, FormActionsLabel, LeftColumn, RightColumn } from "../../components/RVLayout/styles";
+import {
+  BthForm,
+  Container,
+  Form,
+  FormActions,
+  FormActionsLabel,
+  LeftColumn,
+  RightColumn,
+} from "../../components/RVLayout/styles";
 
 const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: HomeProps) => {
   const [companyList, setCompanyList] = useState<Company[]>([]);
@@ -113,10 +121,14 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
         <LeftColumn>
           <h3>{user?.userPermissions.email}</h3>
           <p>
-            <strong>Cache definition</strong> for every viewed company detail pages. It prevents from making any <strong>unnecessary requests</strong> twice. Content is stored in a Map. It could be sessionStorage
+            <strong>Cache definition</strong> for every viewed company detail pages. It prevents
+            from making any <strong>unnecessary requests</strong> twice. Content is stored in a Map.
+            It could be sessionStorage
           </p>
           <p>
-            Home page is using <strong>Formiz</strong> forms. User profil has been built with old <strong>Formik</strong> and extended with another form, held by the latest version of <strong>UseReactForm URF</strong>
+            Home page is using <strong>Formiz</strong> forms. User profil has been built with old{" "}
+            <strong>Formik</strong> and extended with another form, held by the latest version of{" "}
+            <strong>UseReactForm URF</strong>
           </p>
           <FormActions>
             <RVButton
@@ -189,12 +201,28 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
                 ]}
               />
               <BthForm>
-                <RVLoadingButton type="submit" content="Submit" disabled={saveLoading} loading={saveLoading} />
+                <RVLoadingButton
+                  type="submit"
+                  content="Submit"
+                  disabled={saveLoading}
+                  loading={saveLoading}
+                />
               </BthForm>
             </Form>
           </Formiz>
         </LeftColumn>
-        <RightColumn>{(companiesLoading && <div>Is loading...</div>) || (companyList && companyList.map((c) => <RVMainlist key={c._id} data={c} handleEditModal={handleEditModal} handleDeleteItem={handleDeleteItem} />))}</RightColumn>
+        <RightColumn>
+          {(companiesLoading && <div>Is loading...</div>) ||
+            (companyList &&
+              companyList.map((c) => (
+                <RVMainlist
+                  key={c._id}
+                  data={c}
+                  handleEditModal={handleEditModal}
+                  handleDeleteItem={handleDeleteItem}
+                />
+              )))}
+        </RightColumn>
       </Container>
     </>
   );

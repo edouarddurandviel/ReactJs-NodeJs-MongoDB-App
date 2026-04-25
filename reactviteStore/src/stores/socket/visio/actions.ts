@@ -1,6 +1,11 @@
 import * as companyType from "../../company/types";
 
-export const subscribeVisioCompany = (data: { companyId: string; iceCandidate: unknown; iceUserName: string; didIOffer: boolean }) => {
+export const subscribeVisioCompany = (data: {
+  companyId: string;
+  iceCandidate: unknown;
+  iceUserName: string;
+  didIOffer: boolean;
+}) => {
   return {
     socket: true,
     emit: true,

@@ -1,16 +1,17 @@
 import axios from "axios";
 import type { PathParamsObject, QueryObject } from "./interfaces";
-import apiCache from "./apiCache";
 import { urlBuilder } from "./buildUrl";
+import apiCache from "./createApiCache";
 
-// Initialize cache for company
-// should be boostrapped at the beginig of the app 
-// with instance below
-const cache = new apiCache({
-  whitelist: ["company", "one"],
-});
+export default async (props: {
+  path: string;
+  method: string;
+  params?: PathParamsObject;
+  data?: any;
+  query?: QueryObject;
+}) => {
+  const cache = await apiCache.getInstance();
 
-export default async (props: { path: string; method: string; params?: PathParamsObject; data?: any; query?: QueryObject }) => {
   const apiClient = await axios.create({
     baseURL: "http://localhost:3000/api/v1",
     withCredentials: true,
@@ -19,9 +20,9 @@ export default async (props: { path: string; method: string; params?: PathParams
     },
   });
 
-  apiClient.interceptors.request.use((config) => {
+  apiClient.interceptors.request.use(async (config) => {
     const key = config.url;
-    const isCacheEnabled = cache.manageRequest(key, config);
+    const isCacheEnabled = await cache.manageRequest(key, config);
     if (isCacheEnabled) {
       const data = cache.getCache(key);
       return Promise.reject({
@@ -33,8 +34,8 @@ export default async (props: { path: string; method: string; params?: PathParams
     }
   });
 
-  apiClient.interceptors.response.use((response) => {
-    const resp = cache.manageResponse(response);
+  apiClient.interceptors.response.use(async (response) => {
+    const resp = await cache.manageResponse(response);
     return resp;
   });
 

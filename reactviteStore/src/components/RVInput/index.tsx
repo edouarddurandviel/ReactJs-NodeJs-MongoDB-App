@@ -3,7 +3,17 @@ import { FieldSet, InputField, Label } from "./styles";
 
 type Value = string | number | readonly string[] | undefined;
 
-const Input = ({ name, id, type, required, placeholder, label, autoFocus, validations, ref }: SimpleInputProps) => {
+const Input = ({
+  name,
+  id,
+  type,
+  required,
+  placeholder,
+  label,
+  autoFocus,
+  validations,
+  ref,
+}: SimpleInputProps) => {
   const { value, isValid, errorMessage, setValue, isPristine } = useField({
     name,
     id,

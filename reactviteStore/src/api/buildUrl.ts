@@ -53,7 +53,11 @@ const serialize = (query: QueryObject): string => {
   return queryString ? `?${queryString}` : "";
 };
 
-export const urlBuilder = (path: string, params?: PathParamsObject, query?: QueryObject): string => {
+export const urlBuilder = (
+  path: string,
+  params?: PathParamsObject,
+  query?: QueryObject,
+): string => {
   const Params = getParam(path);
   let serialized: string | null = null;
   if (query) {

@@ -1,5 +1,5 @@
 import { io, Socket } from "socket.io-client";
-import config from "../../config";
+import config from "../config";
 let ioClient: Socket;
 
 // Type	ID	Usage
@@ -12,11 +12,12 @@ let ioClient: Socket;
 // BINARY_ACK -	6	- Used to acknowledge an event (the response includes binary data).
 
 export default {
-  init: () => {
-    ioClient = io(config.socket, {
-      path: "/socket",
-      autoConnect: true,
-    });
+  createSocketIo: () => {
+    if (!ioClient)
+      ioClient = io(config.socket, {
+        path: "/socket",
+        autoConnect: true,
+      });
 
     return ioClient;
   },

@@ -8,7 +8,16 @@ const Input = (props: InputProps) => {
   return (
     <FieldSet>
       <Label htmlFor={name}>{label}</Label>
-      <Field name={name} type={type} placeholder={placeholder} id={id} autoFocus={autoFocus} onChange={onChange} onBlur={onBlur} value={value} />
+      <Field
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        id={id}
+        autoFocus={autoFocus}
+        onChange={onChange}
+        onBlur={onBlur}
+        value={value}
+      />
       <ErrorMessage name={name} />
     </FieldSet>
   );

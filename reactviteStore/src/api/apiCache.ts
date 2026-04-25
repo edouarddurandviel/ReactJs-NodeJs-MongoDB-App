@@ -1,51 +1,51 @@
 export default class apiCache {
-  cacheConfig;
+  config;
   cache;
 
-  constructor(cacheConfig: { whitelist: string[] }) {
-    this.cacheConfig = cacheConfig;
+  constructor(config: { whitelist: string[] }) {
+    this.config = config;
     this.cache = new Map();
   }
 
-  public getCache = (key: any) => {
+  getCache = (key: any) => {
     return this.cache.get(key);
   };
 
-  // operation: (undefined/trrue) should or should not refresh data
-  public manageRequest = (key: any, config: any) => {
-    const item = key.split("/");
-    const whiteListed = this.cacheConfig.whitelist.filter((w: string) => item.includes(w));
-    // if route has been registeted in the previous whiteListe
-    // do not proceed to any request
-    if (whiteListed === undefined) {
+  deleteCache = (key: any) => {
+    this.cache.delete(key);
+  };
+
+  hasCache = (key: any) => {
+    this.cache.has(key);
+  };
+
+  manageRequest = async (key: any, config: any) => {
+    const fromUri = key.split("/");
+    const whiteListed = this.config.whitelist.filter((w: string) => fromUri.includes(w));
+
+    if (whiteListed.length === 0) {
       return false;
     } else {
-      // check if there is any current proceeding operations
       if (this.cache.has(key) && !this.cache.has("operation")) {
-        // cancel cache request
         return true;
       } else if (config.method !== "get") {
-        // for any writing requests  
         this.cache.set("operation", true);
         return false;
       }
     }
   };
 
-  public manageResponse = (response: any) => {
-    // For any get requests consume operation
-    if (response && response.config.method === "get") {
+  manageResponse = async (resp: any) => {
+    if (resp && resp.config.method === "get") {
       if (this.cache.has("operation")) {
         this.cache.delete("operation");
       }
-      this.cache.set(response.config.url, response.data);
+      this.cache.set(resp.config.url, resp.data);
 
-      return response;
+      return resp;
     } else {
-      // for any writing running operations add operation to cache
       this.cache.set("operation", true);
-
-      return response;
+      return resp;
     }
   };
 }

@@ -23,10 +23,24 @@ const Index = ({ user }: RootProps) => {
           RouteSettings.map((route) => {
             if (Array.isArray(route)) {
               RouteSettings.map((children) => {
-                return <Route key={children.name} path={children.path} index={children.index} Component={children.component} />;
+                return (
+                  <Route
+                    key={children.name}
+                    path={children.path}
+                    index={children.index}
+                    Component={children.component}
+                  />
+                );
               });
             } else {
-              return <Route key={route.name} path={route.path} index={route.index} Component={route.component} />;
+              return (
+                <Route
+                  key={route.name}
+                  path={route.path}
+                  index={route.index}
+                  Component={route.component}
+                />
+              );
             }
           })}
       </Route>

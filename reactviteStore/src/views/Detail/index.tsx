@@ -22,7 +22,7 @@ const Index = ({ dispatch, company, companyLoading }: DetailsProps) => {
     );
 
     dispatch(actions.socket.subscribeOneCompany(companyId));
-  
+
     return () => {
       dispatch(actions.socket.unsubscribeOneCompany(companyId));
     };
@@ -77,5 +77,4 @@ interface DetailsProps {
   dispatch: AppDispatch;
 }
 
-// export default App
 export default connect(mapStateToProps)(Index);

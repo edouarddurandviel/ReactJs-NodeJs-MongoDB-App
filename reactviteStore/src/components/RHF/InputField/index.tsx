@@ -1,4 +1,10 @@
-import { useController, type Control, type FieldValues, type Path, type RegisterOptions } from "react-hook-form";
+import {
+  useController,
+  type Control,
+  type FieldValues,
+  type Path,
+  type RegisterOptions,
+} from "react-hook-form";
 import { FieldSet, InputField, Label } from "./styles";
 
 const Input = ({ name, control, label, type = "text" }: InputFieldProps<any>) => {

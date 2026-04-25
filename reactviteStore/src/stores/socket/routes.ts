@@ -1,6 +1,7 @@
 import type { Middleware } from "redux";
 import type { PathParamsObject } from "../../api/interfaces";
-import socketIo from "./socketioInstance";
+import socketIo from "../../socketIo/createSocketIo";
+import cache from "../../api/createApiCache";
 
 type SocketAction = {
   type: string;
@@ -34,6 +35,11 @@ export const socketMiddleware: Middleware = (api) => (next) => async (action) =>
         io.off(typedAction.message);
         io.on(`${typedAction.message}`, (err) => {
           if (err) return;
+
+          const cacheMap = cache.getInstance();
+          if (cacheMap.hasCache("operation")) {
+            cacheMap.delete("operation");
+          }
 
           dispatch({
             type: typedAction.type,
