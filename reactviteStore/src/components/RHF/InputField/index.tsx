@@ -1,20 +1,14 @@
-import {
-  useController,
-  type Control,
-  type FieldValues,
-  type Path,
-  type RegisterOptions,
-} from "react-hook-form";
+import { useController, type Control, type FieldValues, type Path } from "react-hook-form";
 import { FieldSet, InputField, Label } from "./styles";
 
-const Input = ({ name, control, label, type = "text" }: InputFieldProps<any>) => {
+const Input = ({ name, control, label, type = "text", hidden }: InputFieldProps<any>) => {
   const {
     field,
     fieldState: { error },
   } = useController<any>({ name, control });
 
   return (
-    <FieldSet>
+    <FieldSet hidden={hidden}>
       <Label>{label}</Label>
       <InputField
         ref={field.ref}
@@ -39,6 +33,7 @@ interface InputFieldProps<T extends FieldValues> {
   control?: Control<T>;
   label?: string;
   type?: string;
+  hidden?: boolean;
 }
 
 export default Input;

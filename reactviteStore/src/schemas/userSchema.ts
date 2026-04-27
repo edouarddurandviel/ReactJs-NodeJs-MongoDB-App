@@ -23,6 +23,13 @@ export const schemaUser = Yup.object({
   email: Yup.string().email("Value must be an email").required("Email is required"),
 }).required();
 
+export const schemaCreateCompany = Yup.object({
+  _id: Yup.string(),
+  name: Yup.string().required("Name is required"),
+  ref: Yup.string().required("Reference is required"),
+  isoCode: Yup.string().max(2).required("Iso code is required"),
+}).required();
+
 export const schemaUserCreate = Yup.object({
   password: Yup.string().required("Password is required"),
   email: Yup.string().email("Value must be an email").required("Email is required"),

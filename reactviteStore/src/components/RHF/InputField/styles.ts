@@ -1,9 +1,9 @@
 import { fontSize, radius } from "../../../theme/variables";
 import styled from "styled-components";
 
-export const FieldSet = styled.div`
+export const FieldSet = styled.div<{ hidden?: boolean }>`
   float: left;
-  display: flex;
+  display: ${({ hidden }) => (hidden ? "none" : "flex")};
   flex-direction: column;
   align-content: flex-start;
   align-items: flex-start;

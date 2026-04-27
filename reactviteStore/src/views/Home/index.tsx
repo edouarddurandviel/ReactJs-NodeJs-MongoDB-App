@@ -1,26 +1,27 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { connect } from "react-redux";
-import { Formiz, useForm } from "@formiz/core";
-import { isRequired } from "@formiz/validations";
 import * as selectors from "../../stores/rootSelectors";
 import * as actions from "../../stores/rootActions";
 import type { Company } from "../../stores/company/interfaces";
 import type { UserConnected } from "../../stores/auth/interfaces";
 import type { AppDispatch, RootState } from "../../stores";
-import { RVButton, RVInput, RVLoadingButton, RVMeta, RVMainlist } from "../../components";
+import { RVButton, RVLoadingButton, RVMeta, RVMainlist } from "../../components";
 import {
-  BthForm,
   Container,
-  Form,
   FormActions,
   FormActionsLabel,
   LeftColumn,
   RightColumn,
 } from "../../components/RVLayout/styles";
+import { ReactHookForm, RHFInputField } from "../../components/RHF";
+import { RHFform_Row, RHFform_Row_Btns } from "../../components/RHF/Form/styles";
+import type { SubmitHandler } from "react-hook-form";
+import { schemaCreateCompany } from "../../schemas/userSchema";
 
-const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: HomeProps) => {
+const Index = ({ dispatch, user, companies, companiesLoading }: HomeProps) => {
   const [companyList, setCompanyList] = useState<Company[]>([]);
   const [newEntry, setNewEntry] = useState<boolean | null>(null);
+  const formRef = useRef("home") as any;
 
   useEffect(() => {
     dispatch(actions.socket.subscribeAllCompanies());
@@ -52,41 +53,23 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
     url: "/dashbord",
   };
 
-  const form = useForm({
-    initialValues: {
-      _id: "",
-      name: "",
-      ref: "",
-      isoCode: "",
-    },
-    onSubmit: (values) => {
-      if (!newEntry) {
-        handleSubmitUpdate(values);
-        form.reset();
-      } else {
-        handleSubmitCreate(values);
-        form.reset();
-      }
-    },
-  });
+  const submit: SubmitHandler<Company> = (values: Company) => {
+    newEntry
+      ? dispatch(
+          actions.company.addOneCompany({
+            data: values,
+          }),
+        )
+      : dispatch(
+          actions.company.updateOneCompany({
+            params: {
+              companyId: values._id,
+            },
+            data: values,
+          }),
+        );
 
-  const handleSubmitUpdate = (values: Company) => {
-    dispatch(
-      actions.company.updateOneCompany({
-        params: {
-          companyId: values._id,
-        },
-        data: values,
-      }),
-    );
-  };
-
-  const handleSubmitCreate = (values: Company) => {
-    dispatch(
-      actions.company.addOneCompany({
-        data: values,
-      }),
-    );
+    formRef.current?.resetForm();
   };
 
   const handleDeleteItem = (item: string) => {
@@ -101,7 +84,7 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
 
   const handleEditModal = (data: Company) => {
     setNewEntry(false);
-    form.setValues({
+    formRef.current?.resetForm({
       _id: data._id,
       name: data.name,
       ref: data.ref,
@@ -110,7 +93,7 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
   };
 
   const handleNewModal = () => {
-    form.reset();
+    formRef.current?.resetForm();
   };
 
   return (
@@ -126,9 +109,8 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
             It could be sessionStorage
           </p>
           <p>
-            Home page is using <strong>Formiz</strong> forms. User profil has been built with old{" "}
-            <strong>Formik</strong> and extended with another form, held by the latest version of{" "}
-            <strong>UseReactForm URF</strong>
+            Home page is using <strong>URF</strong> forms. User profil has been built with UseReactForm.{" "}
+            <strong>Create User</strong> page uses old <strong>Formik</strong> form library.
           </p>
           <FormActions>
             <RVButton
@@ -142,74 +124,31 @@ const Index = ({ dispatch, user, companies, companiesLoading, saveLoading }: Hom
             <FormActionsLabel>{newEntry ? "Add new entry" : "Edit document"}</FormActionsLabel>
           </FormActions>
 
-          <Formiz connect={form}>
-            <Form
-              onSubmit={(e) => {
-                e.preventDefault();
-                form.submit();
-              }}
-            >
-              <RVInput
-                name="_id"
-                type="hidden"
-                id="01"
-                required="Email is required"
-                validations={[
-                  {
-                    handler: isRequired(),
-                    message: "id is required",
-                  },
-                ]}
-              />
-              <RVInput
-                name="name"
-                type="text"
-                id="1"
-                label="Company name"
-                required="Company name is required"
-                validations={[
-                  {
-                    handler: isRequired(),
-                    message: "Company name is required",
-                  },
-                ]}
-              />
-              <RVInput
-                name="ref"
-                type="text"
-                id="2"
-                label="Company ref"
-                required="Ref is required"
-                validations={[
-                  {
-                    handler: isRequired(),
-                    message: "Ref is required",
-                  },
-                ]}
-              />
-              <RVInput
-                name="isoCode"
-                type="text"
-                id="3"
-                label="Company isoCode"
-                required="isoCode is required"
-                validations={[
-                  {
-                    handler: isRequired(),
-                    message: "isoCode is required",
-                  },
-                ]}
-              />
-              <BthForm>
-                <RVLoadingButton
-                  type="submit"
-                  content="Submit"
-                  disabled={saveLoading}
-                  loading={saveLoading}
-                />
-              </BthForm>
-            </Form>
-          </Formiz>
+          <ReactHookForm
+            ref={formRef}
+            defaultValues={{
+              _id: "",
+              name: "",
+              ref: "",
+              isoCode: "",
+            }}
+            validationSchema={schemaCreateCompany}
+          >
+            {({ control, handleSubmit, reset }) => (
+              <RHFform_Row onSubmit={handleSubmit(submit)}>
+                <RHFInputField control={control} label="First name" name="_id" hidden />
+                <RHFInputField control={control} label="Company name" name="name" />
+                <RHFInputField control={control} label="Reference" name="ref" />
+                <RHFInputField control={control} label="isoCode" name="isoCode" />
+
+                <RHFform_Row_Btns> 
+                  <RVLoadingButton type="submit" content="Submit" />
+                  <RVLoadingButton type="button" content="Reset" onClick={() => reset()} />
+                </RHFform_Row_Btns>
+               
+              </RHFform_Row>
+            )}
+          </ReactHookForm>
         </LeftColumn>
         <RightColumn>
           {(companiesLoading && <div>Is loading...</div>) ||

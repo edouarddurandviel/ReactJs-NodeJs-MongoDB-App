@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 export const ButtonWrapper = styled.div`
   width: auto;
+  float: left;
   height: 31px;
   padding: 0;
   border-radius: ${radius};
