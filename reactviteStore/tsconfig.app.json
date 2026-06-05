@@ -9,6 +9,7 @@
     "paths": {
       "@theme/*": ["./src/theme/*"]
     },
+    "types": ["node"],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
